@@ -4,24 +4,18 @@ class FlussPhase {
     #type : MainPhaseType;
     #preType : PrePhaseType;
     #postType : PostPhaseType;
-    #mainFunc : FlussPhaseFunc | null = null;
+    #mainFunc : FlussPhaseFunc;
     #preFunc : FlussPhaseFunc | null = null;
     #postFunc : FlussPhaseFunc | null = null;
 
-    constructor(type: MainPhaseType, mainFunc: null, preFunc: null, postFunc:  null);
-
-    constructor(type: MainPhaseType, mainFunc: FlussPhaseFunc, preFunc: FlussPhaseFunc | null, postFunc: FlussPhaseFunc | null);
-
-    constructor(type: MainPhaseType, mainFunc: FlussPhaseFunc | null, preFunc: FlussPhaseFunc | null, postFunc: FlussPhaseFunc | null) {
+    constructor(type: MainPhaseType, mainFunc: FlussPhaseFunc, preFunc: FlussPhaseFunc | null, postFunc: FlussPhaseFunc | null) {
         this.#type = type;
         this.#preType = getPrePhase(type);
         this.#postType = getPostPhase(type);
 
-        if(mainFunc) {
-            this.#mainFunc = mainFunc;
-            this.#preFunc = preFunc;
-            this.#postFunc = postFunc;
-        }
+        this.#mainFunc = mainFunc;
+        this.#preFunc = preFunc;
+        this.#postFunc = postFunc;
     }
 
     // ------------------------- // -  - // ------------------------- //
@@ -37,14 +31,6 @@ class FlussPhase {
     public get postType(): PostPhaseType {
         return this.#postType;
     }
-
-    // ------------------------- // -  - // ------------------------- //
-
-    protected main?() : void
-
-    protected pre?() : void
-
-    protected post?() : void
 }
 
 export default FlussPhase;
