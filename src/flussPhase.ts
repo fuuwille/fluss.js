@@ -89,4 +89,4 @@ export abstract class FlussBoundPhase extends FlussPhase {
 
 // ------------------------------ // -  - // ------------------------------ //
 
-export type FlussPhaseFunc = () => void;
+export type FlussPhaseFunc = () => void | Promise<void>;
