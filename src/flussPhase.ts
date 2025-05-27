@@ -27,3 +27,7 @@ class FlussPhase {
 }
 
 export default FlussPhase;
+
+// ------------------------------ // -  - // ------------------------------ //
+
+export type FlussPhaseFunc = () => void;
