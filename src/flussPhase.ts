@@ -1,19 +1,19 @@
-import FlussPhaseFunc from "./flussPhaseFunc";
+import FlussAction from "./flussAction";
 import { getPostPhase, getPrePhase, MainPhaseType, PostPhaseType, PrePhaseType } from "./flussPhaseType";
 
 class FlussPhase {
     #type : MainPhaseType;
     #preType : PrePhaseType;
     #postType : PostPhaseType;
-    #mainFunc : FlussPhaseFunc | null = null;
-    #preFunc : FlussPhaseFunc | null = null;
-    #postFunc : FlussPhaseFunc | null = null;
+    #mainFunc : FlussAction | null = null;
+    #preFunc : FlussAction | null = null;
+    #postFunc : FlussAction | null = null;
 
     constructor(type: MainPhaseType);
 
-    constructor(type: MainPhaseType, mainFunc: FlussPhaseFunc, preFunc?: FlussPhaseFunc, postFunc?: FlussPhaseFunc);
+    constructor(type: MainPhaseType, mainFunc: FlussAction, preFunc?: FlussAction, postFunc?: FlussAction);
 
-    constructor(type: MainPhaseType, mainFunc?: FlussPhaseFunc, preFunc?: FlussPhaseFunc, postFunc?: FlussPhaseFunc) {
+    constructor(type: MainPhaseType, mainFunc?: FlussAction, preFunc?: FlussAction, postFunc?: FlussAction) {
         this.#type = type;
         this.#preType = getPrePhase(type);
         this.#postType = getPostPhase(type);
@@ -49,11 +49,11 @@ class FlussPhase {
 
     // ------------------------- // -  - // ------------------------- //
 
-    protected bindMainFunc?(): FlussPhaseFunc;
+    protected bindMainFunc?(): FlussAction;
 
-    protected bindPreFunc?(): FlussPhaseFunc | null;
+    protected bindPreFunc?(): FlussAction | null;
 
-    protected bindPostFunc?(): FlussPhaseFunc | null;
+    protected bindPostFunc?(): FlussAction | null;
 }
 
 export default FlussPhase;
@@ -75,15 +75,15 @@ export abstract class FlussBoundPhase extends FlussPhase {
 
     // ------------------------- // -  - // ------------------------- //
 
-    protected bindMainFunc(): FlussPhaseFunc {
+    protected bindMainFunc(): FlussAction {
         return this.onMain.bind(this);
     }
 
-    protected bindPreFunc(): FlussPhaseFunc | null {
+    protected bindPreFunc(): FlussAction | null {
         return this.onPre?.bind(this) ?? null;
     }
 
-    protected bindPostFunc(): FlussPhaseFunc | null {
+    protected bindPostFunc(): FlussAction | null {
         return this.onPost?.bind(this) ?? null;
     }
 }
