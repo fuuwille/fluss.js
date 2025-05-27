@@ -66,24 +66,24 @@ export abstract class FlussBoundPhase extends FlussPhase {
 
     // ------------------------- // -  - // ------------------------- //
 
-    public abstract main(): void;
+    public abstract onMain(): void;
 
-    public pre?(): void;
+    public onPre?(): void;
 
-    public post?(): void;
+    public onPost?(): void;
 
     // ------------------------- // -  - // ------------------------- //
 
     protected bindMainFunc(): FlussPhaseFunc {
-        return this.main.bind(this);
+        return this.onMain.bind(this);
     }
 
     protected bindPreFunc(): FlussPhaseFunc | null {
-        return this.pre?.bind(this) ?? null;
+        return this.onPre?.bind(this) ?? null;
     }
 
     protected bindPostFunc(): FlussPhaseFunc | null {
-        return this.post?.bind(this) ?? null;
+        return this.onPost?.bind(this) ?? null;
     }
 }
 
