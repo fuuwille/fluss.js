@@ -23,7 +23,8 @@ class FlussPhase {
             this.#postFunc = postFunc ?? null;
         }
         else {
-            if(!this.bindMainFunc) throw new Error(`Main function is not defined for phase type: ${type}`);
+            if(!this.bindMainFunc || !this.bindPreFunc || !this.bindPostFunc) 
+                throw new Error(`FlussPhase: Missing phase functions for type ${type}.`);
 
             this.#mainFunc = this.bindMainFunc();
             this.#preFunc = this.bindPreFunc!();
