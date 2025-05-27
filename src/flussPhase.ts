@@ -21,7 +21,7 @@ export default FlussPhase;
 
 // ------------------------------ // -  - // ------------------------------ //
 
-export type MainPhase = FlussPhase.Idle | FlussPhase.Begin | FlussPhase.Running | FlussPhase.End | FlussPhase.Completed;
+export type BasePhase = FlussPhase.Idle | FlussPhase.Begin | FlussPhase.Running | FlussPhase.End | FlussPhase.Completed;
 
 export type PrePhase = FlussPhase.PreIdle | FlussPhase.PreBegin | FlussPhase.PreRunning | FlussPhase.PreEnd | FlussPhase.PreCompleted;
 
