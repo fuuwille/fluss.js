@@ -54,26 +54,15 @@ export const isPostPhase = (phase: FlussPhase): phase is FlussPostPhase => {
     return (phase & flussPostPhases) !== 0;
 }
 
+// ------------------------------ // -  - // ------------------------------ //
+
 export const getPrePhase = (phase: FlussBasePhase): FlussPrePhase => {
-    switch (phase) {
-        case FlussPhase.Idle: return FlussPhase.PreIdle;
-        case FlussPhase.Begin: return FlussPhase.PreBegin;
-        case FlussPhase.Running: return FlussPhase.PreRunning;
-        case FlussPhase.End: return FlussPhase.PreEnd;
-        case FlussPhase.Completed: return FlussPhase.PreCompleted;
-        case FlussPhase.Cancelled: return FlussPhase.PreCancelled;
-        default: throw new Error(`Invalid phase for pre-phase conversion: ${phase}`);
-    }
-}
+    const baseKey = FlussPhase[phase] as keyof typeof FlussPhase;
+    const preKey = `Pre${baseKey}` as keyof typeof FlussPhase;
+    return FlussPhase[preKey] as FlussPrePhase;}
 
 export const getPostPhase = (phase: FlussBasePhase): FlussPostPhase => {
-    switch (phase) {
-        case FlussPhase.Idle: return FlussPhase.PostIdle;
-        case FlussPhase.Begin: return FlussPhase.PostBegin;
-        case FlussPhase.Running: return FlussPhase.PostRunning;
-        case FlussPhase.End: return FlussPhase.PostEnd;
-        case FlussPhase.Completed: return FlussPhase.PostCompleted;
-        case FlussPhase.Cancelled: return FlussPhase.PostCancelled;
-        default: throw new Error(`Invalid phase for post-phase conversion: ${phase}`);
-    }
+    const baseKey = FlussPhase[phase] as keyof typeof FlussPhase;
+    const postKey = `Post${baseKey}` as keyof typeof FlussPhase;
+    return FlussPhase[postKey] as FlussPostPhase;
 }
