@@ -31,6 +31,20 @@ class FlussPhase {
     public get postType(): PostPhaseType {
         return this.#postType;
     }
+
+    // ------------------------- // -  - // ------------------------- //
+
+    protected getMainFunc?(): FlussPhaseFunc {
+        return this.#mainFunc;
+    }
+
+    protected getPreFunc?(): FlussPhaseFunc | null {
+        return this.#preFunc;
+    }
+
+    protected getPostFunc?(): FlussPhaseFunc | null {
+        return this.#postFunc;
+    }
 }
 
 export default FlussPhase;
