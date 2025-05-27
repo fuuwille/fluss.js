@@ -44,6 +44,10 @@ class FlussPhase {
         this.#preFunc?.();
     }
 
+    protected main?(): void {
+        this.#mainFunc?.();
+    }
+
     protected post?(): void {
         this.#postFunc?.();
     }
