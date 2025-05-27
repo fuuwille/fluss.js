@@ -10,6 +10,9 @@ enum FlussPhase {
     End = 1 << 7,
     PreEnd = 1 << 8 | End,
     PostEnd = 1 << 9 | End,
+    Completed = 1 << 10,
+    PreCompleted = 1 << 11 | Completed,
+    PostCompleted = 1 << 12 | Completed
 }
 
 export default FlussPhase;
