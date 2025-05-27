@@ -43,30 +43,15 @@ export const flussPostPhases = phases.map(p => FlussPhase[`Post${p}`]).reduce((a
 // ------------------------------ // -  - // ------------------------------ //
 
 export const isBasePhase = (phase: FlussPhase): phase is FlussBasePhase => {
-    return (phase & FlussPhase.Idle) === FlussPhase.Idle ||
-           (phase & FlussPhase.Begin) === FlussPhase.Begin ||
-           (phase & FlussPhase.Running) === FlussPhase.Running ||
-           (phase & FlussPhase.End) === FlussPhase.End ||
-           (phase & FlussPhase.Completed) === FlussPhase.Completed ||
-           (phase & FlussPhase.Cancelled) === FlussPhase.Cancelled;
+    return (phase & flussBasePhases) !== 0;
 }
 
 export const isPrePhase = (phase: FlussPhase): phase is FlussPrePhase => {
-    return (phase & FlussPhase.PreIdle) === FlussPhase.PreIdle ||
-           (phase & FlussPhase.PreBegin) === FlussPhase.PreBegin ||
-           (phase & FlussPhase.PreRunning) === FlussPhase.PreRunning ||
-           (phase & FlussPhase.PreEnd) === FlussPhase.PreEnd ||
-           (phase & FlussPhase.PreCompleted) === FlussPhase.PreCompleted ||
-           (phase & FlussPhase.PreCancelled) === FlussPhase.PreCancelled;
+    return (phase & flussPrePhases) !== 0;
 }
 
 export const isPostPhase = (phase: FlussPhase): phase is FlussPostPhase => {
-    return (phase & FlussPhase.PostIdle) === FlussPhase.PostIdle ||
-           (phase & FlussPhase.PostBegin) === FlussPhase.PostBegin ||
-           (phase & FlussPhase.PostRunning) === FlussPhase.PostRunning ||
-           (phase & FlussPhase.PostEnd) === FlussPhase.PostEnd ||
-           (phase & FlussPhase.PostCompleted) === FlussPhase.PostCompleted ||
-           (phase & FlussPhase.PostCancelled) === FlussPhase.PostCancelled;
+    return (phase & flussPostPhases) !== 0;
 }
 
 export const getPrePhase = (phase: FlussBasePhase): FlussPrePhase => {
