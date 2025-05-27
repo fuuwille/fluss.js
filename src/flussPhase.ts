@@ -29,3 +29,29 @@ export type FlussBasePhase = FlussPhase.Idle | FlussPhase.Begin | FlussPhase.Run
 export type FlussPrePhase = FlussPhase.PreIdle | FlussPhase.PreBegin | FlussPhase.PreRunning | FlussPhase.PreEnd | FlussPhase.PreCompleted | FlussPhase.PreCancelled;
 
 export type FlussPostPhase = FlussPhase.PostIdle | FlussPhase.PostBegin | FlussPhase.PostRunning | FlussPhase.PostEnd | FlussPhase.PostCompleted | FlussPhase.PostCancelled;
+
+// ------------------------------ // -  - // ------------------------------ //
+
+export const getPrePhase = (phase: FlussBasePhase): FlussPrePhase => {
+    switch (phase) {
+        case FlussPhase.Idle: return FlussPhase.PreIdle;
+        case FlussPhase.Begin: return FlussPhase.PreBegin;
+        case FlussPhase.Running: return FlussPhase.PreRunning;
+        case FlussPhase.End: return FlussPhase.PreEnd;
+        case FlussPhase.Completed: return FlussPhase.PreCompleted;
+        case FlussPhase.Cancelled: return FlussPhase.PreCancelled;
+        default: throw new Error(`Invalid phase for pre-phase conversion: ${phase}`);
+    }
+}
+
+export const getPostPhase = (phase: FlussBasePhase): FlussPostPhase => {
+    switch (phase) {
+        case FlussPhase.Idle: return FlussPhase.PostIdle;
+        case FlussPhase.Begin: return FlussPhase.PostBegin;
+        case FlussPhase.Running: return FlussPhase.PostRunning;
+        case FlussPhase.End: return FlussPhase.PostEnd;
+        case FlussPhase.Completed: return FlussPhase.PostCompleted;
+        case FlussPhase.Cancelled: return FlussPhase.PostCancelled;
+        default: throw new Error(`Invalid phase for post-phase conversion: ${phase}`);
+    }
+}
