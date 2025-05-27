@@ -23,11 +23,11 @@ class FlussPhase {
             this.#postFunc = postFunc ?? null;
         }
         else {
-            if(!this.getMainFunc) throw new Error(`Main function is not defined for phase type: ${type}`);
+            if(!this.bindMainFunc) throw new Error(`Main function is not defined for phase type: ${type}`);
 
-            this.#mainFunc = this.getMainFunc();
-            this.#preFunc = this.getPreFunc!();
-            this.#postFunc = this.getPostFunc!();
+            this.#mainFunc = this.bindMainFunc();
+            this.#preFunc = this.bindPreFunc!();
+            this.#postFunc = this.bindPostFunc!();
         }
     }
 
@@ -47,11 +47,11 @@ class FlussPhase {
 
     // ------------------------- // -  - // ------------------------- //
 
-    protected getMainFunc?(): FlussPhaseFunc;
+    protected bindMainFunc?(): FlussPhaseFunc;
 
-    protected getPreFunc?(): FlussPhaseFunc | null;
+    protected bindPreFunc?(): FlussPhaseFunc | null;
 
-    protected getPostFunc?(): FlussPhaseFunc | null;
+    protected bindPostFunc?(): FlussPhaseFunc | null;
 }
 
 export default FlussPhase;
