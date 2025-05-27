@@ -90,3 +90,12 @@ export abstract class FlussBoundPhase extends FlussPhase {
 // ------------------------------ // -  - // ------------------------------ //
 
 export type FlussPhaseFunc = () => void | Promise<void>;
+
+export type FlussPhaseBundle = {
+    idle?: FlussPhase;
+    begin?: FlussPhase;
+    running?: FlussPhase;
+    end?: FlussPhase;
+    completed?: FlussPhase;
+    cancelled?: FlussPhase;
+}
