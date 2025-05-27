@@ -1,4 +1,4 @@
-import FlussAction from "./flussAction";
+import FlussAction, { FlussActionBundle } from "./flussAction";
 import { getPostMode, getPreMode, MainMode, PostMode, PreMode } from "./flussMode";
 
 class FlussPhase {
@@ -11,17 +11,17 @@ class FlussPhase {
 
     constructor(mode: MainMode);
 
-    constructor(mode: MainMode, mainFunc: FlussAction, preFunc?: FlussAction, postFunc?: FlussAction);
+    constructor(mode: MainMode, bundle : FlussActionBundle);
 
-    constructor(mode: MainMode, mainFunc?: FlussAction, preFunc?: FlussAction, postFunc?: FlussAction) {
+    constructor(mode: MainMode, bundle? : FlussActionBundle) {
         this.#mode = mode;
         this.#preMode = getPreMode(mode);
         this.#postMode = getPostMode(mode);
 
-        if(mainFunc) {
-            this.#mainFunc = mainFunc;
-            this.#preFunc = preFunc ?? null;
-            this.#postFunc = postFunc ?? null;
+        if(bundle) {
+            this.#mainFunc = bundle.main;
+            this.#preFunc = bundle.pre ?? null;
+            this.#postFunc = bundle.post ?? null;
         }
         else {
             if(!this.bindMainFunc || !this.bindPreFunc || !this.bindPostFunc) 
