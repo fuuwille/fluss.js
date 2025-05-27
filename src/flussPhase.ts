@@ -40,28 +40,11 @@ class FlussPhase {
 
     // ------------------------- // -  - // ------------------------- //
 
-    protected main?(): void {
-        this.checkDerivd();
-        this.#mainFunc?.();
-    }
+    protected main?() : void
 
-    protected pre?(): void {
-        this.checkDerivd();
-        this.#preFunc?.();
-    }
+    protected pre?() : void
 
-    protected post?(): void {
-        this.checkDerivd();
-        this.#postFunc?.();
-    }
-
-    // ------------------------- // -  - // ------------------------- //
-
-    protected checkDerivd(): void {
-        if(!this.main) {
-            throw new Error(`Derived class must implement main, pre and post methods for phase ${this.#type}`);
-        }
-    }
+    protected post?() : void
 }
 
 export default FlussPhase;
