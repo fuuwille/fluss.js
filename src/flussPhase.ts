@@ -4,11 +4,15 @@ class FlussPhase {
     #type : MainPhaseType;
     #preType : PrePhaseType;
     #postType : PostPhaseType;
+    #preFunc : FlussPhaseFunc | null = null;
+    #postFunc : FlussPhaseFunc | null = null;
 
-    constructor(type: MainPhaseType) {
+    constructor(type: MainPhaseType, preFunc: FlussPhaseFunc | null, postFunc: FlussPhaseFunc | null) {
         this.#type = type;
         this.#preType = getPrePhase(type);
         this.#postType = getPostPhase(type);
+        this.#preFunc = preFunc;
+        this.#postFunc = postFunc;
     }
 
     // ------------------------- // -  - // ------------------------- //
