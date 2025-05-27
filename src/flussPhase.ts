@@ -1,4 +1,4 @@
-enum FlussPhase {
+enum FlussPhaseType {
     None = 0,
     Idle = 1 << 0,
     PreIdle = (1 << 1) | Idle,
@@ -20,62 +20,62 @@ enum FlussPhase {
     PostCancelled = (1 << 17) | Cancelled,
 }
 
-export default FlussPhase;
+export default FlussPhaseType;
 
 // ------------------------------ // -  - // ------------------------------ //
 
-export type FlussMainPhase = FlussPhase.Idle | FlussPhase.Begin | FlussPhase.Running | FlussPhase.End | FlussPhase.Completed | FlussPhase.Cancelled;
+export type FlussMainPhaseType = FlussPhaseType.Idle | FlussPhaseType.Begin | FlussPhaseType.Running | FlussPhaseType.End | FlussPhaseType.Completed | FlussPhaseType.Cancelled;
 
-export type FlussPrePhase = FlussPhase.PreIdle | FlussPhase.PreBegin | FlussPhase.PreRunning | FlussPhase.PreEnd | FlussPhase.PreCompleted | FlussPhase.PreCancelled;
+export type FlussPrePhaseType = FlussPhaseType.PreIdle | FlussPhaseType.PreBegin | FlussPhaseType.PreRunning | FlussPhaseType.PreEnd | FlussPhaseType.PreCompleted | FlussPhaseType.PreCancelled;
 
-export type FlussPostPhase = FlussPhase.PostIdle | FlussPhase.PostBegin | FlussPhase.PostRunning | FlussPhase.PostEnd | FlussPhase.PostCompleted | FlussPhase.PostCancelled;
+export type FlussPostPhaseType = FlussPhaseType.PostIdle | FlussPhaseType.PostBegin | FlussPhaseType.PostRunning | FlussPhaseType.PostEnd | FlussPhaseType.PostCompleted | FlussPhaseType.PostCancelled;
 
 // ------------------------------ // -  - // ------------------------------ //
 
 export const phases = ['Idle', 'Begin', 'Running', 'End', 'Completed', 'Cancelled'] as const;
 
-export const flussMainPhases = phases.map(p => FlussPhase[p]).reduce((a, b) => a | b, 0);
+export const flussMainPhaseTypes = phases.map(p => FlussPhaseType[p]).reduce((a, b) => a | b, 0);
 
-export const flussPrePhases = phases.map(p => FlussPhase[`Pre${p}`]).reduce((a, b) => a | b, 0);
+export const flussPrePhaseTypes = phases.map(p => FlussPhaseType[`Pre${p}`]).reduce((a, b) => a | b, 0);
 
-export const flussPostPhases = phases.map(p => FlussPhase[`Post${p}`]).reduce((a, b) => a | b, 0);
-
-// ------------------------------ // -  - // ------------------------------ //
-
-export const isMainPhase = (phase: FlussPhase): phase is FlussMainPhase => {
-    return (phase & flussMainPhases) !== 0;
-}
-
-export const isPrePhase = (phase: FlussPhase): phase is FlussPrePhase => {
-    return (phase & flussPrePhases) !== 0;
-}
-
-export const isPostPhase = (phase: FlussPhase): phase is FlussPostPhase => {
-    return (phase & flussPostPhases) !== 0;
-}
+export const flussPostPhaseTypes = phases.map(p => FlussPhaseType[`Post${p}`]).reduce((a, b) => a | b, 0);
 
 // ------------------------------ // -  - // ------------------------------ //
 
-export const getPrePhase = (phase: FlussMainPhase): FlussPrePhase => {
-    const baseKey = FlussPhase[phase] as keyof typeof FlussPhase;
-    const preKey = `Pre${baseKey}` as keyof typeof FlussPhase;
-    return FlussPhase[preKey] as FlussPrePhase;}
+export const isMainPhase = (phase: FlussPhaseType): phase is FlussMainPhaseType => {
+    return (phase & flussMainPhaseTypes) !== 0;
+}
 
-export const getPostPhase = (phase: FlussMainPhase): FlussPostPhase => {
-    const baseKey = FlussPhase[phase] as keyof typeof FlussPhase;
-    const postKey = `Post${baseKey}` as keyof typeof FlussPhase;
-    return FlussPhase[postKey] as FlussPostPhase;
+export const isPrePhase = (phase: FlussPhaseType): phase is FlussPrePhaseType => {
+    return (phase & flussPrePhaseTypes) !== 0;
+}
+
+export const isPostPhase = (phase: FlussPhaseType): phase is FlussPostPhaseType => {
+    return (phase & flussPostPhaseTypes) !== 0;
 }
 
 // ------------------------------ // -  - // ------------------------------ //
 
-export type FlussPhaseVariant = 'Pre' | 'Post';
+export const getPrePhase = (phase: FlussMainPhaseType): FlussPrePhaseType => {
+    const baseKey = FlussPhaseType[phase] as keyof typeof FlussPhaseType;
+    const preKey = `Pre${baseKey}` as keyof typeof FlussPhaseType;
+    return FlussPhaseType[preKey] as FlussPrePhaseType;}
 
-export const getPhaseVariant = <T extends FlussPhaseVariant>(
-    phase: FlussMainPhase,
+export const getPostPhase = (phase: FlussMainPhaseType): FlussPostPhaseType => {
+    const baseKey = FlussPhaseType[phase] as keyof typeof FlussPhaseType;
+    const postKey = `Post${baseKey}` as keyof typeof FlussPhaseType;
+    return FlussPhaseType[postKey] as FlussPostPhaseType;
+}
+
+// ------------------------------ // -  - // ------------------------------ //
+
+export type FlussPhaseTypeVariant = 'Pre' | 'Post';
+
+export const getPhaseVariant = <T extends FlussPhaseTypeVariant>(
+    phase: FlussMainPhaseType,
     variant: T
-): T extends 'Pre' ? FlussPrePhase : FlussPostPhase => {
-    const baseKey = FlussPhase[phase] as keyof typeof FlussPhase;
-    const fullKey = `${variant}${baseKey}` as keyof typeof FlussPhase;
-    return FlussPhase[fullKey] as any;
+): T extends 'Pre' ? FlussPrePhaseType : FlussPostPhaseType => {
+    const baseKey = FlussPhaseType[phase] as keyof typeof FlussPhaseType;
+    const fullKey = `${variant}${baseKey}` as keyof typeof FlussPhaseType;
+    return FlussPhaseType[fullKey] as any;
 };
