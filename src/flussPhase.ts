@@ -18,3 +18,7 @@ enum FlussPhase {
 }
 
 export default FlussPhase;
+
+// ------------------------------ // -  - // ------------------------------ //
+
+export const MainPhases = FlussPhase.Idle | FlussPhase.Begin | FlussPhase.Running | FlussPhase.End | FlussPhase.Completed;
