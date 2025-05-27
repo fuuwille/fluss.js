@@ -32,6 +32,16 @@ export type FlussPostPhase = FlussPhase.PostIdle | FlussPhase.PostBegin | FlussP
 
 // ------------------------------ // -  - // ------------------------------ //
 
+export const phases = ['Idle', 'Begin', 'Running', 'End', 'Completed', 'Cancelled'] as const;
+
+export const flussBasePhases = phases.map(p => FlussPhase[p]).reduce((a, b) => a | b, 0);
+
+export const flussPrePhases = phases.map(p => FlussPhase[`Pre${p}`]).reduce((a, b) => a | b, 0);
+
+export const flussPostPhases = phases.map(p => FlussPhase[`Post${p}`]).reduce((a, b) => a | b, 0);
+
+// ------------------------------ // -  - // ------------------------------ //
+
 export const isBasePhase = (phase: FlussPhase): phase is FlussBasePhase => {
     return (phase & FlussPhase.Idle) === FlussPhase.Idle ||
            (phase & FlussPhase.Begin) === FlussPhase.Begin ||
