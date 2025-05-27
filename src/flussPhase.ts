@@ -8,28 +8,26 @@ class FlussPhase {
     #preFunc : FlussPhaseFunc | null = null;
     #postFunc : FlussPhaseFunc | null = null;
 
-    constructor(type: MainPhaseType, mainFunc: null, preFunc: null, postFunc: null);
+    constructor(type: MainPhaseType);
 
-    constructor(type: MainPhaseType, mainFunc: FlussPhaseFunc, preFunc: FlussPhaseFunc | null, postFunc: FlussPhaseFunc | null);
+    constructor(type: MainPhaseType, mainFunc: FlussPhaseFunc, preFunc?: FlussPhaseFunc, postFunc?: FlussPhaseFunc);
 
-    constructor(type: MainPhaseType, mainFunc: FlussPhaseFunc | null, preFunc: FlussPhaseFunc | null, postFunc: FlussPhaseFunc | null) {
+    constructor(type: MainPhaseType, mainFunc?: FlussPhaseFunc, preFunc?: FlussPhaseFunc, postFunc?: FlussPhaseFunc) {
         this.#type = type;
         this.#preType = getPrePhase(type);
         this.#postType = getPostPhase(type);
 
         if(mainFunc) {
             this.#mainFunc = mainFunc;
-            this.#preFunc = preFunc;
-            this.#postFunc = postFunc;
+            this.#preFunc = preFunc ?? null;
+            this.#postFunc = postFunc ?? null;
         }
         else {
             if(!this.getMainFunc) throw new Error(`Main function is not defined for phase type: ${type}`);
-            if(!this.getPreFunc) throw new Error(`Pre function is not defined for phase type: ${type}`);
-            if(!this.getPostFunc) throw new Error(`Post function is not defined for phase type: ${type}`);
 
             this.#mainFunc = this.getMainFunc();
-            this.#preFunc = this.getPreFunc();
-            this.#postFunc = this.getPostFunc();
+            this.#preFunc = this.getPreFunc!();
+            this.#postFunc = this.getPostFunc!();
         }
     }
 
