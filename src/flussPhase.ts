@@ -66,3 +66,16 @@ export const getPostPhase = (phase: FlussMainPhase): FlussPostPhase => {
     const postKey = `Post${baseKey}` as keyof typeof FlussPhase;
     return FlussPhase[postKey] as FlussPostPhase;
 }
+
+// ------------------------------ // -  - // ------------------------------ //
+
+export type FlussPhaseVariant = 'Pre' | 'Post';
+
+export const getPhaseVariant = <T extends FlussPhaseVariant>(
+    phase: FlussMainPhase,
+    variant: T
+): T extends 'Pre' ? FlussPrePhase : FlussPostPhase => {
+    const baseKey = FlussPhase[phase] as keyof typeof FlussPhase;
+    const fullKey = `${variant}${baseKey}` as keyof typeof FlussPhase;
+    return FlussPhase[fullKey] as any;
+};
