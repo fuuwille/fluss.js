@@ -28,6 +28,16 @@ class FlussPhase {
     public get postType(): PostPhaseType {
         return this.#postType;
     }
+
+    // ------------------------- // -  - // ------------------------- //
+
+    protected pre?(): void {
+        this.#preFunc?.();
+    }
+
+    protected post?(): void {
+        this.#postFunc?.();
+    }
 }
 
 export default FlussPhase;
