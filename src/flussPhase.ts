@@ -59,7 +59,7 @@ export default FlussPhase;
 
 // ------------------------------ // -  - // ------------------------------ //
 
-export abstract class FlussDerivedPhase extends FlussPhase {
+export abstract class FlussBoundPhase extends FlussPhase {
     constructor(type: MainPhaseType) {
         super(type);
     }
