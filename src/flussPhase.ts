@@ -14,15 +14,18 @@ enum FlussPhase {
     PostEnd = (1 << 11) | End,
     Completed = 1 << 12,
     PreCompleted = (1 << 13) | Completed,
-    PostCompleted = (1 << 14) | Completed
+    PostCompleted = (1 << 14) | Completed,
+    Cancelled = 1 << 15,
+    PreCancelled = (1 << 16) | Cancelled,
+    PostCancelled = (1 << 17) | Cancelled,
 }
 
 export default FlussPhase;
 
 // ------------------------------ // -  - // ------------------------------ //
 
-export type FlussBasePhase = FlussPhase.Idle | FlussPhase.Begin | FlussPhase.Running | FlussPhase.End | FlussPhase.Completed;
+export type FlussBasePhase = FlussPhase.Idle | FlussPhase.Begin | FlussPhase.Running | FlussPhase.End | FlussPhase.Completed | FlussPhase.Cancelled;
 
-export type FlussPrePhase = FlussPhase.PreIdle | FlussPhase.PreBegin | FlussPhase.PreRunning | FlussPhase.PreEnd | FlussPhase.PreCompleted;
+export type FlussPrePhase = FlussPhase.PreIdle | FlussPhase.PreBegin | FlussPhase.PreRunning | FlussPhase.PreEnd | FlussPhase.PreCompleted | FlussPhase.PreCancelled;
 
-export type FlussPostPhase = FlussPhase.PostIdle | FlussPhase.PostBegin | FlussPhase.PostRunning | FlussPhase.PostEnd | FlussPhase.PostCompleted;
+export type FlussPostPhase = FlussPhase.PostIdle | FlussPhase.PostBegin | FlussPhase.PostRunning | FlussPhase.PostEnd | FlussPhase.PostCompleted | FlussPhase.PostCancelled;
