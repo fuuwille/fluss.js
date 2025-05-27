@@ -10,8 +10,9 @@ class FlussPhase {
         this.#preType = getPrePhase(type);
         this.#postType = getPostPhase(type);
     }
-    
 
+    // ------------------------- // -  - // ------------------------- //
+    
     public get type(): MainPhaseType {
         return this.#type;
     }
