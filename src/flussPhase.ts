@@ -59,4 +59,34 @@ export default FlussPhase;
 
 // ------------------------------ // -  - // ------------------------------ //
 
+export abstract class FlussDerivedPhase extends FlussPhase {
+    constructor(type: MainPhaseType) {
+        super(type);
+    }
+
+    // ------------------------- // -  - // ------------------------- //
+
+    public abstract main(): void;
+
+    public pre?(): void;
+
+    public post?(): void;
+
+    // ------------------------- // -  - // ------------------------- //
+
+    protected bindMainFunc(): FlussPhaseFunc {
+        return this.main.bind(this);
+    }
+
+    protected bindPreFunc(): FlussPhaseFunc | null {
+        return this.pre?.bind(this) ?? null;
+    }
+
+    protected bindPostFunc(): FlussPhaseFunc | null {
+        return this.post?.bind(this) ?? null;
+    }
+}
+
+// ------------------------------ // -  - // ------------------------------ //
+
 export type FlussPhaseFunc = () => void;
