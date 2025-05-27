@@ -1,22 +1,22 @@
 import FlussAction from "./flussAction";
-import { getPostPhase, getPrePhase, MainPhaseType, PostPhaseType, PrePhaseType } from "./flussPhaseType";
+import { getPostMode, getPreMode, MainMode, PostMode, PreMode } from "./flussMode";
 
 class FlussPhase {
-    #type : MainPhaseType;
-    #preType : PrePhaseType;
-    #postType : PostPhaseType;
+    #mode : MainMode;
+    #preMode : PreMode;
+    #postMode : PostMode;
     #mainFunc : FlussAction | null = null;
     #preFunc : FlussAction | null = null;
     #postFunc : FlussAction | null = null;
 
-    constructor(type: MainPhaseType);
+    constructor(mode: MainMode);
 
-    constructor(type: MainPhaseType, mainFunc: FlussAction, preFunc?: FlussAction, postFunc?: FlussAction);
+    constructor(mode: MainMode, mainFunc: FlussAction, preFunc?: FlussAction, postFunc?: FlussAction);
 
-    constructor(type: MainPhaseType, mainFunc?: FlussAction, preFunc?: FlussAction, postFunc?: FlussAction) {
-        this.#type = type;
-        this.#preType = getPrePhase(type);
-        this.#postType = getPostPhase(type);
+    constructor(mode: MainMode, mainFunc?: FlussAction, preFunc?: FlussAction, postFunc?: FlussAction) {
+        this.#mode = mode;
+        this.#preMode = getPreMode(mode);
+        this.#postMode = getPostMode(mode);
 
         if(mainFunc) {
             this.#mainFunc = mainFunc;
@@ -25,7 +25,7 @@ class FlussPhase {
         }
         else {
             if(!this.bindMainFunc || !this.bindPreFunc || !this.bindPostFunc) 
-                throw new Error(`FlussPhase: Missing phase functions for type ${type}.`);
+                throw new Error(`FlussPhase: Missing phase functions for type ${mode}.`);
 
             this.#mainFunc = this.bindMainFunc();
             this.#preFunc = this.bindPreFunc!();
@@ -35,16 +35,16 @@ class FlussPhase {
 
     // ------------------------- // -  - // ------------------------- //
     
-    public get type(): MainPhaseType {
-        return this.#type;
+    public get mode(): MainMode {
+        return this.#mode;
     }
 
-    public get preType(): PrePhaseType {
-        return this.#preType;
+    public get preMode(): PreMode {
+        return this.#preMode;
     }
 
-    public get postType(): PostPhaseType {
-        return this.#postType;
+    public get postMode(): PostMode {
+        return this.#postMode;
     }
 
     // ------------------------- // -  - // ------------------------- //
@@ -61,8 +61,8 @@ export default FlussPhase;
 // ------------------------------ // -  - // ------------------------------ //
 
 export abstract class FlussBoundPhase extends FlussPhase {
-    constructor(type: MainPhaseType) {
-        super(type);
+    constructor(mode: MainMode) {
+        super(mode);
     }
 
     // ------------------------- // -  - // ------------------------- //
