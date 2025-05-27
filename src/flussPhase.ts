@@ -1,3 +1,4 @@
+import FlussPhaseFunc from "./flussPhaseFunc";
 import { getPostPhase, getPrePhase, MainPhaseType, PostPhaseType, PrePhaseType } from "./flussPhaseType";
 
 class FlussPhase {
@@ -88,8 +89,6 @@ export abstract class FlussBoundPhase extends FlussPhase {
 }
 
 // ------------------------------ // -  - // ------------------------------ //
-
-export type FlussPhaseFunc = () => void | Promise<void>;
 
 export type FlussPhaseBundle = {
     idle?: FlussPhase;
