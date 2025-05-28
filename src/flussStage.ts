@@ -85,6 +85,6 @@ export type FlussStageContent = {
     begin?: FlussPhaseData;
     running?: FlussPhaseData;
     end?: FlussPhaseData;
-    complete?: FlussPhaseData;
+    completed?: FlussPhaseData;
     cancelled?: FlussPhaseData;
 }
