@@ -1,10 +1,10 @@
-import { FlussStageBundle, FlussStageData } from "./flussStage";
+import { FlussStageData } from "./flussStage";
 
 class Fluss {
-    #config : FlussConfig;
+    #data : FlussData;
 
-    constructor(config: FlussConfig) {
-        this.#config = config;
+    constructor(data: FlussData) {
+        this.#data = data;
     }
 }
 
@@ -12,10 +12,6 @@ export default Fluss;
 
 // ------------------------------ // -  - // ------------------------------ //
 
-export type FlussConfig = {
-    stages: FlussStageBundle;
-}
-
-export type FlussContent = {
+export type FlussData = {
     [key: string]: FlussStageData;
 }
