@@ -1,4 +1,4 @@
-import { FlussPhaseBundle, FlussPhaseData, FlussPhaseDef } from "./flussPhase";
+import { FlussPhaseData } from "./flussPhase";
 
 class FlussStage {  
     #name : string;

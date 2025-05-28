@@ -46,8 +46,8 @@ class FlussPhase {
 
     // ------------------------- // -  - // ------------------------- //
 
-    public create(def : FlussPhaseDef) : FlussPhase {
-        return new FlussPhase(def.mode, def.content);
+    public create(mode : MainMode, data : FlussPhaseData) : FlussPhase {
+        return new FlussPhase(mode, data);
     }
 }
 
@@ -76,20 +76,6 @@ export abstract class FlussBoundPhase extends FlussPhase {
 export default FlussPhase;
 
 // ------------------------------ // -  - // ------------------------------ //
-
-export type FlussPhaseDef = {
-    mode: MainMode;
-    content: FlussPhaseData;
-}
-
-export type FlussPhaseBundle = {
-    idle?: FlussPhaseDef;
-    begin?: FlussPhaseDef;
-    running?: FlussPhaseDef;
-    end?: FlussPhaseDef;
-    completed?: FlussPhaseDef;
-    cancelled?: FlussPhaseDef;
-}
 
 export type FlussPhaseData = {
     main: FlussAction;
