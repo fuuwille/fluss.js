@@ -43,6 +43,12 @@ class FlussPhase {
     public get postMode(): PostMode {
         return this.#postMode;
     }
+
+    // ------------------------- // -  - // ------------------------- //
+
+    public create(def : FlussPhaseDef) : FlussPhase {
+        return new FlussPhase(def.mode, def.actionBundle);
+    }
 }
 
 export abstract class FlussBoundPhase extends FlussPhase {
