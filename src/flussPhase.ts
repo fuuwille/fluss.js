@@ -5,30 +5,30 @@ class FlussPhase {
     #mode : MainMode;
     #preMode : PreMode;
     #postMode : PostMode;
-    #content : FlussPhaseContent;
+    #data : FlussPhaseData;
 
     constructor(mode: MainMode);
 
-    constructor(mode: MainMode, content : FlussPhaseContent);
+    constructor(mode: MainMode, data : FlussPhaseData);
 
-    constructor(mode: MainMode, content? : FlussPhaseContent) {
+    constructor(mode: MainMode, data? : FlussPhaseData) {
         this.#mode = mode;
         this.#preMode = getPreMode(mode);
         this.#postMode = getPostMode(mode);
 
-        if(!content) {
+        if(!data) {
             if(this.bindAction) {
-                content = this.bindAction();
+                data = this.bindAction();
             }
             else {
                 throw new Error(`FlussPhase: No action bundle provided for mode ${mode}.`);
             }
         }
 
-        this.#content = content;
+        this.#data = data;
     }
 
-    protected bindAction?(): FlussPhaseContent;
+    protected bindAction?(): FlussPhaseData;
 
     // ------------------------- // -  - // ------------------------- //
     
@@ -56,7 +56,7 @@ export abstract class FlussBoundPhase extends FlussPhase {
         super(mode);
     }
 
-    protected bindAction(): FlussPhaseContent {
+    protected bindAction(): FlussPhaseData {
         return {
             main: this.onMain.bind(this),
             pre: this.onPre?.bind(this) ?? undefined,
@@ -79,7 +79,7 @@ export default FlussPhase;
 
 export type FlussPhaseDef = {
     mode: MainMode;
-    content: FlussPhaseContent;
+    content: FlussPhaseData;
 }
 
 export type FlussPhaseBundle = {
@@ -91,7 +91,7 @@ export type FlussPhaseBundle = {
     cancelled?: FlussPhaseDef;
 }
 
-export type FlussPhaseContent = {
+export type FlussPhaseData = {
     main: FlussAction;
     pre?: FlussAction;
     post?: FlussAction;

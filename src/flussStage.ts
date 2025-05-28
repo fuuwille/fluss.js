@@ -1,4 +1,4 @@
-import { FlussPhaseBundle, FlussPhaseContent, FlussPhaseDef } from "./flussPhase";
+import { FlussPhaseBundle, FlussPhaseData, FlussPhaseDef } from "./flussPhase";
 
 class FlussStage {  
     #name : string;
@@ -81,10 +81,10 @@ export type FlussStageBundle = {
 }
 
 export type FlussStageContent = {
-    idle?: FlussPhaseContent;
-    begin?: FlussPhaseContent;
-    running?: FlussPhaseContent;
-    end?: FlussPhaseContent;
-    complete?: FlussPhaseContent;
-    cancelled?: FlussPhaseContent;
+    idle?: FlussPhaseData;
+    begin?: FlussPhaseData;
+    running?: FlussPhaseData;
+    end?: FlussPhaseData;
+    complete?: FlussPhaseData;
+    cancelled?: FlussPhaseData;
 }
