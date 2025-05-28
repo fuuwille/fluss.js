@@ -2,27 +2,27 @@ import { FlussPhaseBundle, FlussPhaseData, FlussPhaseDef } from "./flussPhase";
 
 class FlussStage {  
     #name : string;
-    #phases : FlussPhaseBundle;
+    #data : FlussStageData;
 
     constructor(name : string);
 
-    constructor(name : string, phases : FlussPhaseBundle);
+    constructor(name : string, data : FlussStageData);
 
-    constructor(name : string, phases? : FlussPhaseBundle) {
+    constructor(name : string, data? : FlussStageData) {
         this.#name = name;
 
-        if(!phases) {
+        if(!data) {
             if(this.bindPhase) {
-                phases = this.bindPhase();
+                data = this.bindPhase();
             } else {
                 throw new Error(`FlussStage: No phase bundle provided for stage ${name}.`);
             }
         }
 
-        this.#phases = phases;
+        this.#data = data;
     }
 
-    protected bindPhase?(): FlussPhaseBundle;
+    protected bindPhase?(): FlussStageData;
 
     // ------------------------- // -  - // ------------------------- //
 
@@ -42,7 +42,7 @@ export abstract class FlussBoundStage extends FlussStage {
         super(name);
     }
 
-    protected bindPhase(): FlussPhaseBundle {
+    protected bindPhase(): FlussStageData {
         return {
             idle: this.idlePhase?.() ?? undefined,
             begin: this.beginPhase?.() ?? undefined,
@@ -55,17 +55,17 @@ export abstract class FlussBoundStage extends FlussStage {
 
     // ------------------------- // -  - // ------------------------- //
 
-    protected idlePhase?() : FlussPhaseDef
+    protected idlePhase?() : FlussPhaseData
 
-    protected beginPhase?() : FlussPhaseDef;
+    protected beginPhase?() : FlussPhaseData;
 
-    protected runningPhase?() : FlussPhaseDef;
+    protected runningPhase?() : FlussPhaseData;
 
-    protected endPhase?() : FlussPhaseDef;
+    protected endPhase?() : FlussPhaseData;
 
-    protected completedPhase?() : FlussPhaseDef;
+    protected completedPhase?() : FlussPhaseData;
 
-    protected cancelledPhase?() : FlussPhaseDef;
+    protected cancelledPhase?() : FlussPhaseData;
 }
 
 export default FlussStage;
@@ -73,7 +73,7 @@ export default FlussStage;
 // ------------------------------ // -  - // ------------------------------ //
 
 export type FlussStageDef = {
-    phases: FlussPhaseBundle;
+    phases: FlussStageData;
 }
 
 export type FlussStageBundle = {
