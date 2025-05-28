@@ -1,4 +1,4 @@
-import FlussPhase, { FlussPhaseBundle } from "./flussPhase";
+import FlussPhase, { FlussPhaseBundle, FlussPhaseDef } from "./flussPhase";
 
 class FlussStage {  
     #name : string;
@@ -49,17 +49,17 @@ export abstract class FlussBoundStage extends FlussStage {
 
     // ------------------------- // -  - // ------------------------- //
 
-    protected idlePhase?() : FlussPhase
+    protected idlePhase?() : FlussPhaseDef
 
-    protected beginPhase?() : FlussPhase;
+    protected beginPhase?() : FlussPhaseDef;
 
-    protected runningPhase?() : FlussPhase;
+    protected runningPhase?() : FlussPhaseDef;
 
-    protected endPhase?() : FlussPhase;
+    protected endPhase?() : FlussPhaseDef;
 
-    protected completedPhase?() : FlussPhase;
+    protected completedPhase?() : FlussPhaseDef;
 
-    protected cancelledPhase?() : FlussPhase;
+    protected cancelledPhase?() : FlussPhaseDef;
 }
 
 export default FlussStage;

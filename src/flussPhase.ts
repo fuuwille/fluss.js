@@ -83,10 +83,10 @@ export type FlussPhaseDef = {
 }
 
 export type FlussPhaseBundle = {
-    idle?: FlussPhase;
-    begin?: FlussPhase;
-    running?: FlussPhase;
-    end?: FlussPhase;
-    completed?: FlussPhase;
-    cancelled?: FlussPhase;
+    idle?: FlussPhaseDef;
+    begin?: FlussPhaseDef;
+    running?: FlussPhaseDef;
+    end?: FlussPhaseDef;
+    completed?: FlussPhaseDef;
+    cancelled?: FlussPhaseDef;
 }
