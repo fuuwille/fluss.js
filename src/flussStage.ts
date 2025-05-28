@@ -32,8 +32,8 @@ class FlussStage {
 
     // ------------------------- // -  - // ------------------------- //
         
-    public create(name : string, def : FlussStageDef) : FlussStage {
-        return new FlussStage(name, def.phases);
+    public create(name : string, data : FlussStageData) : FlussStage {
+        return new FlussStage(name, data);
     }
 }
 
@@ -71,14 +71,6 @@ export abstract class FlussBoundStage extends FlussStage {
 export default FlussStage;
 
 // ------------------------------ // -  - // ------------------------------ //
-
-export type FlussStageDef = {
-    phases: FlussStageData;
-}
-
-export type FlussStageBundle = {
-    [key: string]: FlussStageDef;
-}
 
 export type FlussStageData = {
     idle?: FlussPhaseData;
