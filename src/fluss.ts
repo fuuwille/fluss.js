@@ -1,11 +1,17 @@
 import { FlussStageBundle } from "./flussStage";
 
 class Fluss {
-    #stageBundle : FlussStageBundle;
+    #config : FlussConfig;
 
-    constructor(stageBundle: FlussStageBundle) {
-        this.#stageBundle = stageBundle;
+    constructor(config: FlussConfig) {
+        this.#config = config;
     }
 }
 
 export default Fluss;
+
+// ------------------------------ // -  - // ------------------------------ //
+
+export type FlussConfig = {
+    stages: FlussStageBundle;
+}
