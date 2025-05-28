@@ -82,3 +82,17 @@ export type FlussPhaseData = {
     pre?: FlussAction;
     post?: FlussAction;
 }
+
+export type FlussPhaseType = new (mode : MainMode) => FlussPhase;
+
+export type FlussPhaseDef = FlussPhaseData | FlussPhaseType;
+
+// ------------------------------ // -  - // ------------------------------ //
+
+export const isDataDef = (def: FlussPhaseDef): def is FlussPhaseData => {
+    return typeof def === 'object' && !isTypeDef(def);
+};
+
+export const isTypeDef = (def: FlussPhaseDef): def is FlussPhaseType => {
+    return typeof def === 'function' && !!def.prototype?.constructor;
+}
