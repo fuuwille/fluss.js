@@ -1,4 +1,4 @@
-import { FlussPhaseBundle } from "./flussPhase";
+import FlussPhase, { FlussPhaseBundle } from "./flussPhase";
 
 class FlussStage {  
     #name : string;
@@ -29,6 +29,37 @@ class FlussStage {
     public get name(): string {
         return this.#name;
     }
+}
+
+export abstract class FlussBoundStage extends FlussStage {
+    constructor(name : string) {
+        super(name);
+    }
+
+    protected bindPhase(): FlussPhaseBundle {
+        return {
+            idle: this.idlePhase?.() ?? undefined,
+            begin: this.beginPhase?.() ?? undefined,
+            running: this.runningPhase?.() ?? undefined,
+            end: this.endPhase?.() ?? undefined,
+            completed: this.completedPhase?.() ?? undefined,
+            cancelled: this.cancelledPhase?.() ?? undefined
+        };
+    }
+
+    // ------------------------- // -  - // ------------------------- //
+
+    protected idlePhase?() : FlussPhase
+
+    protected beginPhase?() : FlussPhase;
+
+    protected runningPhase?() : FlussPhase;
+
+    protected endPhase?() : FlussPhase;
+
+    protected completedPhase?() : FlussPhase;
+
+    protected cancelledPhase?() : FlussPhase;
 }
 
 export default FlussStage;
