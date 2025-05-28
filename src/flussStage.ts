@@ -83,4 +83,4 @@ export type FlussStageData = {
 
 export type FlussStageType = new (name: string) => FlussBoundStage;
 
-export type FlussStageDef = FlussPhaseData | FlussStageType;
+export type FlussStageDef = FlussStageData | FlussStageType;
