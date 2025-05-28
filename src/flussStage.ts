@@ -2,24 +2,24 @@ import { FlussPhaseBundle, FlussPhaseDef } from "./flussPhase";
 
 class FlussStage {  
     #name : string;
-    #phaseBundle : FlussPhaseBundle;
+    #phases : FlussPhaseBundle;
 
     constructor(name : string);
 
-    constructor(name : string, phaseBundle : FlussPhaseBundle);
+    constructor(name : string, phases : FlussPhaseBundle);
 
-    constructor(name : string, phaseBundle? : FlussPhaseBundle) {
+    constructor(name : string, phases? : FlussPhaseBundle) {
         this.#name = name;
 
-        if(!phaseBundle) {
+        if(!phases) {
             if(this.bindPhase) {
-                phaseBundle = this.bindPhase();
+                phases = this.bindPhase();
             } else {
                 throw new Error(`FlussStage: No phase bundle provided for stage ${name}.`);
             }
         }
 
-        this.#phaseBundle = phaseBundle;
+        this.#phases = phases;
     }
 
     protected bindPhase?(): FlussPhaseBundle;
