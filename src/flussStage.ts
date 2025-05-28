@@ -4,7 +4,11 @@ class FlussStage {
     #name : string;
     #phaseBundle : FlussPhaseBundle;
 
-    constructor(name : string, phaseBundle : FlussPhaseBundle) {
+    constructor(name : string);
+
+    constructor(name : string, phaseBundle : FlussPhaseBundle);
+
+    constructor(name : string, phaseBundle? : FlussPhaseBundle) {
         this.#name = name;
 
         if(!phaseBundle) {
