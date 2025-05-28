@@ -66,6 +66,11 @@ export default FlussStage;
 
 // ------------------------------ // -  - // ------------------------------ //
 
+export type FlussStageDef = {
+    name: string;
+    phaseBundle: FlussPhaseBundle;
+}
+
 export type FlussStageBundle = {
     [key: string]: FlussStage;
 }
