@@ -1,4 +1,4 @@
-import { FlussStageBundle, FlussStageContent } from "./flussStage";
+import { FlussStageBundle, FlussStageData } from "./flussStage";
 
 class Fluss {
     #config : FlussConfig;
@@ -17,5 +17,5 @@ export type FlussConfig = {
 }
 
 export type FlussContent = {
-    [key: string]: FlussStageContent;
+    [key: string]: FlussStageData;
 }

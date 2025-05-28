@@ -80,7 +80,7 @@ export type FlussStageBundle = {
     [key: string]: FlussStageDef;
 }
 
-export type FlussStageContent = {
+export type FlussStageData = {
     idle?: FlussPhaseData;
     begin?: FlussPhaseData;
     running?: FlussPhaseData;
