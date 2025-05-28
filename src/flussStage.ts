@@ -22,8 +22,6 @@ class FlussStage {
         this.#phaseBundle = phaseBundle;
     }
 
-    // ------------------------- // -  - // ------------------------- //
-
     protected bindPhase?(): FlussPhaseBundle;
 }
 
