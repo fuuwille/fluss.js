@@ -46,8 +46,15 @@ class FlussPhase {
 
     // ------------------------- // -  - // ------------------------- //
 
-    public create(mode : MainMode, data : FlussPhaseData) : FlussPhase {
-        return new FlussPhase(mode, data);
+    public create(mode : MainMode, def : FlussPhaseDef) : FlussPhase {
+        if(isDataDef(def)) {
+            return new FlussPhase(mode, def);
+        }
+        if(isTypeDef(def)) {
+            return new def(mode);
+        }
+
+        throw new Error(`FlussPhase: Invalid phase definition for mode ${mode}. Expected FlussPhaseData or FlussPhaseType.`);
     }
 }
 
