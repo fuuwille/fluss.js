@@ -5,9 +5,7 @@ class FlussPhase {
     #mode : MainMode;
     #preMode : PreMode;
     #postMode : PostMode;
-    #mainFunc : FlussAction | null = null;
-    #preFunc : FlussAction | null = null;
-    #postFunc : FlussAction | null = null;
+    #actionBundle : FlussActionBundle;
 
     constructor(mode: MainMode);
 
@@ -27,9 +25,7 @@ class FlussPhase {
             }
         }
 
-        this.#mainFunc = actionBundle.main;
-        this.#preFunc = actionBundle.pre ?? null;
-        this.#postFunc = actionBundle.post ?? null;
+        this.#actionBundle = actionBundle;
     }
 
     protected bindAction?(): FlussActionBundle;
@@ -57,7 +53,7 @@ export abstract class FlussBoundPhase extends FlussPhase {
     constructor(mode: MainMode) {
         super(mode);
     }
-    
+
     protected bindAction(): FlussActionBundle {
         return {
             main: this.onMain.bind(this),
