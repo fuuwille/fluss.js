@@ -80,3 +80,5 @@ export type FlussStageData = {
     completed?: FlussPhaseData;
     cancelled?: FlussPhaseData;
 }
+
+export type FlussStageType = new (name: string) => FlussBoundStage;
