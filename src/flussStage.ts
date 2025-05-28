@@ -32,8 +32,15 @@ class FlussStage {
 
     // ------------------------- // -  - // ------------------------- //
         
-    public create(name : string, data : FlussStageData) : FlussStage {
-        return new FlussStage(name, data);
+    public create(name : string, def : FlussStageDef) : FlussStage {
+        if(isDataDef(def)) {
+            return new FlussStage(name, def);
+        }
+        if(isTypeDef(def)) {
+            return new def(name);
+        }
+
+        throw new Error(`FlussStage: Invalid stage definition for ${name}. Expected FlussPhaseData or FlussStageType.`);
     }
 }
 
