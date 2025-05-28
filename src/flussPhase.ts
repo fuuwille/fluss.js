@@ -1,4 +1,4 @@
-import FlussAction, { FlussActionBundle } from "./flussAction";
+import { FlussActionBundle } from "./flussAction";
 import { getPostMode, getPreMode, MainMode, PostMode, PreMode } from "./flussMode";
 
 class FlussPhase {
@@ -45,10 +45,6 @@ class FlussPhase {
     }
 }
 
-export default FlussPhase;
-
-// ------------------------------ // -  - // ------------------------------ //
-
 export abstract class FlussBoundPhase extends FlussPhase {
     constructor(mode: MainMode) {
         super(mode);
@@ -70,6 +66,8 @@ export abstract class FlussBoundPhase extends FlussPhase {
 
     public onPost?(): void;
 }
+
+export default FlussPhase;
 
 // ------------------------------ // -  - // ------------------------------ //
 
