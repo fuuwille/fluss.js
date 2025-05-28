@@ -5,27 +5,27 @@ class FlussPhase {
     #mode : MainMode;
     #preMode : PreMode;
     #postMode : PostMode;
-    #actionBundle : FlussActionBundle;
+    #actions : FlussActionBundle;
 
     constructor(mode: MainMode);
 
-    constructor(mode: MainMode, actionBundle : FlussActionBundle);
+    constructor(mode: MainMode, actions : FlussActionBundle);
 
-    constructor(mode: MainMode, actionBundle? : FlussActionBundle) {
+    constructor(mode: MainMode, actions? : FlussActionBundle) {
         this.#mode = mode;
         this.#preMode = getPreMode(mode);
         this.#postMode = getPostMode(mode);
 
-        if(!actionBundle) {
+        if(!actions) {
             if(this.bindAction) {
-                actionBundle = this.bindAction();
+                actions = this.bindAction();
             }
             else {
                 throw new Error(`FlussPhase: No action bundle provided for mode ${mode}.`);
             }
         }
 
-        this.#actionBundle = actionBundle;
+        this.#actions = actions;
     }
 
     protected bindAction?(): FlussActionBundle;
@@ -47,7 +47,7 @@ class FlussPhase {
     // ------------------------- // -  - // ------------------------- //
 
     public create(def : FlussPhaseDef) : FlussPhase {
-        return new FlussPhase(def.mode, def.actionBundle);
+        return new FlussPhase(def.mode, def.actions);
     }
 }
 
@@ -79,7 +79,7 @@ export default FlussPhase;
 
 export type FlussPhaseDef = {
     mode: MainMode;
-    actionBundle: FlussActionBundle;
+    actions: FlussActionBundle;
 }
 
 export type FlussPhaseBundle = {
