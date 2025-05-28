@@ -11,25 +11,25 @@ class FlussPhase {
 
     constructor(mode: MainMode);
 
-    constructor(mode: MainMode, bundle : FlussActionBundle);
+    constructor(mode: MainMode, actionBundle : FlussActionBundle);
 
-    constructor(mode: MainMode, bundle? : FlussActionBundle) {
+    constructor(mode: MainMode, actionBundle? : FlussActionBundle) {
         this.#mode = mode;
         this.#preMode = getPreMode(mode);
         this.#postMode = getPostMode(mode);
 
-        if(!bundle) {
+        if(!actionBundle) {
             if(this.bindAction) {
-                bundle = this.bindAction();
+                actionBundle = this.bindAction();
             }
             else {
                 throw new Error(`FlussPhase: No action bundle provided for mode ${mode}.`);
             }
         }
-        
-        this.#mainFunc = bundle.main;
-        this.#preFunc = bundle.pre ?? null;
-        this.#postFunc = bundle.post ?? null;
+
+        this.#mainFunc = actionBundle.main;
+        this.#preFunc = actionBundle.pre ?? null;
+        this.#postFunc = actionBundle.post ?? null;
     }
 
     // ------------------------- // -  - // ------------------------- //
