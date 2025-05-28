@@ -3,9 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kyrzdev/fluss.js.git"
@@ -17,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/kyrzdev/fluss.js/issues"
   },
-  "homepage": "https://github.com/kyrzdev/fluss.js#readme"
+  "homepage": "https://github.com/kyrzdev/fluss.js#readme",
+  "devDependencies": {
+    "vitest": "^3.1.4"
+  }
 }
