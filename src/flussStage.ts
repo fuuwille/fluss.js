@@ -29,6 +29,12 @@ class FlussStage {
     public get name(): string {
         return this.#name;
     }
+
+    // ------------------------- // -  - // ------------------------- //
+        
+    public create(def : FlussStageDef) : FlussStage {
+        return new FlussStage(def.name, def.phaseBundle);
+    }
 }
 
 export abstract class FlussBoundStage extends FlussStage {
