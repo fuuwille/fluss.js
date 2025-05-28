@@ -1,4 +1,4 @@
-import { FlussActionBundle } from "./flussAction";
+import FlussAction, { FlussActionBundle } from "./flussAction";
 import { getPostMode, getPreMode, MainMode, PostMode, PreMode } from "./flussMode";
 
 class FlussPhase {
@@ -89,4 +89,10 @@ export type FlussPhaseBundle = {
     end?: FlussPhaseDef;
     completed?: FlussPhaseDef;
     cancelled?: FlussPhaseDef;
+}
+
+export type FlussPhaseContent = {
+    main: FlussAction;
+    pre?: FlussAction;
+    post?: FlussAction;
 }
