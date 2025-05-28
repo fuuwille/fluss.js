@@ -18,19 +18,18 @@ class FlussPhase {
         this.#preMode = getPreMode(mode);
         this.#postMode = getPostMode(mode);
 
-        if(bundle) {
-            this.#mainFunc = bundle.main;
-            this.#preFunc = bundle.pre ?? null;
-            this.#postFunc = bundle.post ?? null;
+        if(!bundle) {
+            if(this.bindAction) {
+                bundle = this.bindAction();
+            }
+            else {
+                throw new Error(`FlussPhase: No action bundle provided for mode ${mode}.`);
+            }
         }
-        else {
-            if(!this.bindMainFunc || !this.bindPreFunc || !this.bindPostFunc) 
-                throw new Error(`FlussPhase: Missing phase functions for type ${mode}.`);
-
-            this.#mainFunc = this.bindMainFunc();
-            this.#preFunc = this.bindPreFunc!();
-            this.#postFunc = this.bindPostFunc!();
-        }
+        
+        this.#mainFunc = bundle.main;
+        this.#preFunc = bundle.pre ?? null;
+        this.#postFunc = bundle.post ?? null;
     }
 
     // ------------------------- // -  - // ------------------------- //
@@ -49,11 +48,7 @@ class FlussPhase {
 
     // ------------------------- // -  - // ------------------------- //
 
-    protected bindMainFunc?(): FlussAction;
-
-    protected bindPreFunc?(): FlussAction | null;
-
-    protected bindPostFunc?(): FlussAction | null;
+    protected bindAction?(): FlussActionBundle;
 }
 
 export default FlussPhase;
