@@ -47,10 +47,10 @@ class FlussPhase {
     // ------------------------- // -  - // ------------------------- //
 
     public create(mode : MainMode, def : FlussPhaseDef) : FlussPhase {
-        if(isDataDef(def)) {
+        if(isPhaseData(def)) {
             return new FlussPhase(mode, def);
         }
-        if(isTypeDef(def)) {
+        if(isPhaseType(def)) {
             return new def(mode);
         }
 
@@ -96,10 +96,10 @@ export type FlussPhaseDef = FlussPhaseData | FlussPhaseType;
 
 // ------------------------------ // -  - // ------------------------------ //
 
-export const isDataDef = (def: FlussPhaseDef): def is FlussPhaseData => {
-    return typeof def === 'object' && !isTypeDef(def);
+export const isPhaseData = (def: FlussPhaseDef): def is FlussPhaseData => {
+    return typeof def === 'object' && !isPhaseType(def);
 };
 
-export const isTypeDef = (def: FlussPhaseDef): def is FlussPhaseType => {
+export const isPhaseType = (def: FlussPhaseDef): def is FlussPhaseType => {
     return typeof def === 'function' && !!def.prototype?.constructor;
 }

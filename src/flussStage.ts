@@ -33,10 +33,10 @@ class FlussStage {
     // ------------------------- // -  - // ------------------------- //
         
     public create(name : string, def : FlussStageDef) : FlussStage {
-        if(isDataDef(def)) {
+        if(isStageData(def)) {
             return new FlussStage(name, def);
         }
-        if(isTypeDef(def)) {
+        if(isStageType(def)) {
             return new def(name);
         }
 
@@ -94,10 +94,10 @@ export type FlussStageDef = FlussStageData | FlussStageType;
 
 // ------------------------------ // -  - // ------------------------------ //
 
-export const isDataDef = (def: FlussStageDef): def is FlussStageData => {
-    return typeof def === 'object' && !isTypeDef(def);
+export const isStageData = (def: FlussStageDef): def is FlussStageData => {
+    return typeof def === 'object' && !isStageType(def);
 };
 
-export const isTypeDef = (def: FlussStageDef): def is FlussStageType => {
+export const isStageType = (def: FlussStageDef): def is FlussStageType => {
     return typeof def === 'function' && !!def.prototype?.constructor;
 }
