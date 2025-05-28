@@ -33,7 +33,7 @@ class FlussStage {
     // ------------------------- // -  - // ------------------------- //
         
     public create(name : string, def : FlussStageDef) : FlussStage {
-        return new FlussStage(name, def.phaseBundle);
+        return new FlussStage(name, def.phases);
     }
 }
 
@@ -73,7 +73,7 @@ export default FlussStage;
 // ------------------------------ // -  - // ------------------------------ //
 
 export type FlussStageDef = {
-    phaseBundle: FlussPhaseBundle;
+    phases: FlussPhaseBundle;
 }
 
 export type FlussStageBundle = {
