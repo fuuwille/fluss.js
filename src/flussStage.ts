@@ -23,6 +23,12 @@ class FlussStage {
     }
 
     protected bindPhase?(): FlussPhaseBundle;
+
+    // ------------------------- // -  - // ------------------------- //
+
+    public get name(): string {
+        return this.#name;
+    }
 }
 
 export default FlussStage;
