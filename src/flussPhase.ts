@@ -71,6 +71,11 @@ export default FlussPhase;
 
 // ------------------------------ // -  - // ------------------------------ //
 
+export type FlussPhaseDef = {
+    mode: MainMode;
+    actionBundle: FlussActionBundle;
+}
+
 export type FlussPhaseBundle = {
     idle?: FlussPhase;
     begin?: FlussPhase;
