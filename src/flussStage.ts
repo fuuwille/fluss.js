@@ -72,5 +72,5 @@ export type FlussStageDef = {
 }
 
 export type FlussStageBundle = {
-    [key: string]: FlussStage;
+    [key: string]: FlussStageDef;
 }
