@@ -84,3 +84,13 @@ export type FlussStageData = {
 export type FlussStageType = new (name: string) => FlussBoundStage;
 
 export type FlussStageDef = FlussStageData | FlussStageType;
+
+// ------------------------------ // -  - // ------------------------------ //
+
+export const isDataDef = (def: FlussStageDef): def is FlussStageData => {
+    return typeof def === 'object' && !isTypeDef(def);
+};
+
+export const isTypeDef = (def: FlussStageDef): def is FlussStageType => {
+    return typeof def === 'function' && !!def.prototype?.constructor;
+}
