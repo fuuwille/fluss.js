@@ -17,8 +17,8 @@ class FlussPhase {
         this.#postMode = getPostMode(mode);
 
         if(!data) {
-            if(this.bindAction) {
-                data = this.bindAction();
+            if(this.bind) {
+                data = this.bind();
             }
             else {
                 throw new Error(`FlussPhase: No action bundle provided for mode ${mode}.`);
@@ -28,7 +28,7 @@ class FlussPhase {
         this.#data = data;
     }
 
-    protected bindAction?(): FlussPhaseData;
+    protected bind?(): FlussPhaseData;
 
     // ------------------------- // -  - // ------------------------- //
     
@@ -56,7 +56,7 @@ export abstract class FlussBoundPhase extends FlussPhase {
         super(mode);
     }
 
-    protected bindAction(): FlussPhaseData {
+    protected bind(): FlussPhaseData {
         return {
             main: this.onMain.bind(this),
             pre: this.onPre?.bind(this) ?? undefined,
