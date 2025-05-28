@@ -63,3 +63,9 @@ export abstract class FlussBoundStage extends FlussStage {
 }
 
 export default FlussStage;
+
+// ------------------------------ // -  - // ------------------------------ //
+
+export type FlussStageBundle = {
+    [key: string]: FlussStage;
+}
