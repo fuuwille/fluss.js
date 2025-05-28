@@ -1,34 +1,34 @@
-import FlussAction, { FlussActionBundle } from "./flussAction";
+import FlussAction from "./flussAction";
 import { getPostMode, getPreMode, MainMode, PostMode, PreMode } from "./flussMode";
 
 class FlussPhase {
     #mode : MainMode;
     #preMode : PreMode;
     #postMode : PostMode;
-    #actions : FlussActionBundle;
+    #content : FlussPhaseContent;
 
     constructor(mode: MainMode);
 
-    constructor(mode: MainMode, actions : FlussActionBundle);
+    constructor(mode: MainMode, content : FlussPhaseContent);
 
-    constructor(mode: MainMode, actions? : FlussActionBundle) {
+    constructor(mode: MainMode, content? : FlussPhaseContent) {
         this.#mode = mode;
         this.#preMode = getPreMode(mode);
         this.#postMode = getPostMode(mode);
 
-        if(!actions) {
+        if(!content) {
             if(this.bindAction) {
-                actions = this.bindAction();
+                content = this.bindAction();
             }
             else {
                 throw new Error(`FlussPhase: No action bundle provided for mode ${mode}.`);
             }
         }
 
-        this.#actions = actions;
+        this.#content = content;
     }
 
-    protected bindAction?(): FlussActionBundle;
+    protected bindAction?(): FlussPhaseContent;
 
     // ------------------------- // -  - // ------------------------- //
     
@@ -47,7 +47,7 @@ class FlussPhase {
     // ------------------------- // -  - // ------------------------- //
 
     public create(def : FlussPhaseDef) : FlussPhase {
-        return new FlussPhase(def.mode, def.actions);
+        return new FlussPhase(def.mode, def.content);
     }
 }
 
@@ -56,11 +56,11 @@ export abstract class FlussBoundPhase extends FlussPhase {
         super(mode);
     }
 
-    protected bindAction(): FlussActionBundle {
+    protected bindAction(): FlussPhaseContent {
         return {
             main: this.onMain.bind(this),
-            pre: this.onPre?.bind(this) ?? null,
-            post: this.onPost?.bind(this) ?? null
+            pre: this.onPre?.bind(this) ?? undefined,
+            post: this.onPost?.bind(this) ?? undefined
         }
     }
 
@@ -79,7 +79,7 @@ export default FlussPhase;
 
 export type FlussPhaseDef = {
     mode: MainMode;
-    actions: FlussActionBundle;
+    content: FlussPhaseContent;
 }
 
 export type FlussPhaseBundle = {
