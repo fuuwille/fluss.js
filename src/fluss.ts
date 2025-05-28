@@ -1,4 +1,4 @@
-import { FlussStageBundle } from "./flussStage";
+import { FlussStageBundle, FlussStageContent } from "./flussStage";
 
 class Fluss {
     #config : FlussConfig;
@@ -14,4 +14,8 @@ export default Fluss;
 
 export type FlussConfig = {
     stages: FlussStageBundle;
+}
+
+export type FlussContent = {
+    [key: string]: FlussStageContent;
 }
