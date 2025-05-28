@@ -7,6 +7,8 @@ class Fluss {
         this.#data = data;
     }
 
+    protected bind?() : FlussData;
+
     // ------------------------- // -  - // ------------------------- //
 
     public static create(data: FlussData) : Fluss {
