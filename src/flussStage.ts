@@ -1,4 +1,4 @@
-import { FlussPhaseData } from "./flussPhase";
+import { FlussPhaseData, FlussPhaseDef } from "./flussPhase";
 
 class FlussStage {  
     #name : string;
@@ -80,12 +80,12 @@ export default FlussStage;
 // ------------------------------ // -  - // ------------------------------ //
 
 export type FlussStageData = {
-    idle?: FlussPhaseData;
-    begin?: FlussPhaseData;
-    running?: FlussPhaseData;
-    end?: FlussPhaseData;
-    completed?: FlussPhaseData;
-    cancelled?: FlussPhaseData;
+    idle?: FlussPhaseDef;
+    begin?: FlussPhaseDef;
+    running?: FlussPhaseDef;
+    end?: FlussPhaseDef;
+    completed?: FlussPhaseDef;
+    cancelled?: FlussPhaseDef;
 }
 
 export type FlussStageType = new (name: string) => FlussBoundStage;

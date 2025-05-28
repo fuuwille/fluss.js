@@ -1,4 +1,4 @@
-import { FlussStageData } from "./flussStage";
+import { FlussStageDef } from "./flussStage";
 
 class Fluss {
     #data : FlussData;
@@ -13,5 +13,5 @@ export default Fluss;
 // ------------------------------ // -  - // ------------------------------ //
 
 export type FlussData = {
-    [key: string]: FlussStageData;
+    [key: string]: FlussStageDef;
 }
