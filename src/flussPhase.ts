@@ -32,6 +32,8 @@ class FlussPhase {
         this.#postFunc = actionBundle.post ?? null;
     }
 
+    protected bindAction?(): FlussActionBundle;
+
     // ------------------------- // -  - // ------------------------- //
     
     public get mode(): MainMode {
@@ -45,10 +47,6 @@ class FlussPhase {
     public get postMode(): PostMode {
         return this.#postMode;
     }
-
-    // ------------------------- // -  - // ------------------------- //
-
-    protected bindAction?(): FlussActionBundle;
 }
 
 export default FlussPhase;
@@ -59,6 +57,14 @@ export abstract class FlussBoundPhase extends FlussPhase {
     constructor(mode: MainMode) {
         super(mode);
     }
+    
+    protected bindAction(): FlussActionBundle {
+        return {
+            main: this.onMain.bind(this),
+            pre: this.onPre?.bind(this) ?? null,
+            post: this.onPost?.bind(this) ?? null
+        }
+    }
 
     // ------------------------- // -  - // ------------------------- //
 
@@ -67,16 +73,6 @@ export abstract class FlussBoundPhase extends FlussPhase {
     public onPre?(): void;
 
     public onPost?(): void;
-
-    // ------------------------- // -  - // ------------------------- //
-
-    protected bindAction(): FlussActionBundle {
-        return {
-            main: this.onMain.bind(this),
-            pre: this.onPre?.bind(this) ?? null,
-            post: this.onPost?.bind(this) ?? null
-        }
-    }
 }
 
 // ------------------------------ // -  - // ------------------------------ //
