@@ -43,19 +43,6 @@ class FlussPhase {
     public get postMode(): PostMode {
         return this.#postMode;
     }
-
-    // ------------------------- // -  - // ------------------------- //
-
-    public create(mode : MainMode, def : FlussPhaseDef) : FlussPhase {
-        if(isPhaseData(def)) {
-            return new FlussPhase(mode, def);
-        }
-        if(isPhaseType(def)) {
-            return new def(mode);
-        }
-
-        throw new Error(`FlussPhase: Invalid phase definition for mode ${mode}. Expected FlussPhaseData or FlussPhaseType.`);
-    }
 }
 
 export abstract class FlussBoundPhase extends FlussPhase {
@@ -102,4 +89,17 @@ export const isPhaseData = (def: FlussPhaseDef): def is FlussPhaseData => {
 
 export const isPhaseType = (def: FlussPhaseDef): def is FlussPhaseType => {
     return typeof def === 'function' && !!def.prototype?.constructor;
+}
+
+// ------------------------------ // -  - // ------------------------------ //
+
+export const createPhase = (mode: MainMode, def: FlussPhaseDef): FlussPhase => {
+    if(isPhaseData(def)) {
+        return new FlussPhase(mode, def);
+    }
+    if(isPhaseType(def)) {
+        return new def(mode);
+    }
+
+    throw new Error(`FlussPhase: Invalid phase definition for mode ${mode}. Expected FlussPhaseData or FlussPhaseType.`);
 }

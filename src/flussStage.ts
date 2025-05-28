@@ -29,19 +29,6 @@ class FlussStage {
     public get name(): string {
         return this.#name;
     }
-
-    // ------------------------- // -  - // ------------------------- //
-        
-    public create(name : string, def : FlussStageDef) : FlussStage {
-        if(isStageData(def)) {
-            return new FlussStage(name, def);
-        }
-        if(isStageType(def)) {
-            return new def(name);
-        }
-
-        throw new Error(`FlussStage: Invalid stage definition for ${name}. Expected FlussPhaseData or FlussStageType.`);
-    }
 }
 
 export abstract class FlussBoundStage extends FlussStage {
@@ -100,4 +87,17 @@ export const isStageData = (def: FlussStageDef): def is FlussStageData => {
 
 export const isStageType = (def: FlussStageDef): def is FlussStageType => {
     return typeof def === 'function' && !!def.prototype?.constructor;
+}
+
+// ------------------------------ // -  - // ------------------------------ //
+
+export const createStage = (name: string, def: FlussStageDef): FlussStage => {
+    if(isStageData(def)) {
+        return new FlussStage(name, def);
+    }
+    if(isStageType(def)) {
+        return new def(name);
+    }
+
+    throw new Error(`FlussStage: Invalid stage definition for ${name}. Expected FlussPhaseData or FlussStageType.`);
 }

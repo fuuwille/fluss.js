@@ -6,12 +6,6 @@ class Fluss {
     constructor(data: FlussData) {     
         this.#data = data;
     }
-
-    // ------------------------- // -  - // ------------------------- //
-
-    public static create(data: FlussData) : Fluss {
-        return new Fluss(data);
-    }
 }
 
 export default Fluss;
@@ -20,4 +14,10 @@ export default Fluss;
 
 export type FlussData = {
     [key: string]: FlussStageDef;
+}
+
+// ------------------------------ // -  - // ------------------------------ //
+
+export const createFluss = (data: FlussData): Fluss => {
+    return new Fluss(data);
 }
