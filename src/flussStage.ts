@@ -116,7 +116,3 @@ export const createStage = (name: string, def: FlussStageDef): FlussStage => {
 
     throw new Error(`FlussStage: Invalid stage definition for ${name}. Expected FlussPhaseData or FlussStageType.`);
 }
-
-export const defineStage = (src : FlussStageSource, priority? : number): FlussStageDef => {
-    return { src, priority }
-}

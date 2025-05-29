@@ -1,10 +1,21 @@
-import { FlussStageDef } from "./flussStage";
+import { FlussPhaseDef, FlussPhaseSource } from "./flussPhase";
+import { FlussStageDef, FlussStageSource } from "./flussStage";
 
 class Fluss {
     #data : FlussData;
 
     constructor(data: FlussData) {     
         this.#data = data;
+    }
+
+    // ------------------------------ // -  - // ------------------------------ //
+
+    public static stage(src : FlussStageSource, priority? : number) : FlussStageDef {
+        return { src, priority }
+    }
+
+    public static phase(src : FlussPhaseSource) : FlussPhaseDef {
+        return { src }
     }
 }
 

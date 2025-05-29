@@ -107,9 +107,3 @@ export const createPhase = (mode: MainMode, def: FlussPhaseDef): FlussPhase => {
 
     throw new Error(`FlussPhase: Invalid phase definition for mode ${mode}. Expected FlussPhaseData or FlussPhaseType.`);
 }
-
-export const definePhase = (src: FlussPhaseSource): FlussPhaseDef => {
-    return {
-        src
-    }
-}
