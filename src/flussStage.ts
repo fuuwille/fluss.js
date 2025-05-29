@@ -5,11 +5,11 @@ class FlussStage {
     #priority : number;
     #data : FlussStageData;
 
-    constructor(name : string, priority : FlussStagePriority);
+    constructor(name : string, priority : number);
 
-    constructor(name : string, priority : FlussStagePriority, data : FlussStageData);
+    constructor(name : string, priority : number, data : FlussStageData);
 
-    constructor(name : string, priority : FlussStagePriority, data? : FlussStageData) {
+    constructor(name : string, priority : number, data? : FlussStageData) {
         this.#name = name;
 
         if(!data) {
@@ -20,7 +20,7 @@ class FlussStage {
             }
         }
 
-        this.#priority = typeof priority === 'function' ? priority() : (priority ?? 0);
+        this.#priority = priority;
         this.#data = data;
     }
 
@@ -38,7 +38,7 @@ class FlussStage {
 }
 
 export abstract class FlussBoundStage extends FlussStage {
-    constructor(name : string, priority : FlussStagePriority) {
+    constructor(name : string, priority : number) {
         super(name, priority);
     }
 
@@ -81,7 +81,7 @@ export type FlussStageData = {
     cancelled?: FlussPhaseDef;
 }
 
-export type FlussStageType = new (name: string) => FlussBoundStage;
+export type FlussStageType = new (name: string, priority: number) => FlussBoundStage;
 
 export type FlussStageSource = FlussStageData | FlussStageType;
 
@@ -105,11 +105,13 @@ export const isStageType = (obj: any): obj is FlussStageType => {
 // ------------------------------ // -  - // ------------------------------ //
 
 export const createStage = (name: string, def: FlussStageDef): FlussStage => {
+    const priority = typeof def.priority === 'function' ? def.priority() : def.priority ?? -1;
+
     if(isStageData(def.src)) {
-        return new FlussStage(name, def.priority, def.src);
+        return new FlussStage(name, priority, def.src);
     }
     if(isStageType(def.src)) {
-        return new def.src(name);
+        return new def.src(name, priority?? -1);
     }
 
     throw new Error(`FlussStage: Invalid stage definition for ${name}. Expected FlussPhaseData or FlussStageType.`);
