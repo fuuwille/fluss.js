@@ -79,9 +79,11 @@ export type FlussStageType = new (name: string) => FlussBoundStage;
 
 export type FlussStageSource = FlussStageData | FlussStageType;
 
+export type FlussStagePriority = number | (() => number);
+
 export type FlussStageDef = {
     src : FlussStageSource;
-    priority?: number;
+    priority?: FlussStagePriority;
 }
 
 // ------------------------------ // -  - // ------------------------------ //
