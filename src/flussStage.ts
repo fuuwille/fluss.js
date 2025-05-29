@@ -77,8 +77,10 @@ export type FlussStageData = {
 
 export type FlussStageType = new (name: string) => FlussBoundStage;
 
+export type FlussStageSource = FlussStageData | FlussStageType;
+
 export type FlussStageDef = {
-    src : FlussStageData | FlussStageType;
+    src : FlussStageSource;
 }
 
 // ------------------------------ // -  - // ------------------------------ //
@@ -104,7 +106,7 @@ export const createStage = (name: string, def: FlussStageDef): FlussStage => {
     throw new Error(`FlussStage: Invalid stage definition for ${name}. Expected FlussPhaseData or FlussStageType.`);
 }
 
-export const defineStage = (src : FlussStageData | FlussStageType): FlussStageDef => {
+export const defineStage = (src : FlussStageSource): FlussStageDef => {
     return {
         src
     }
