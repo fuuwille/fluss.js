@@ -85,11 +85,11 @@ export type FlussStageType = new (name: string, priority: number) => FlussBoundS
 
 export type FlussStageSource = FlussStageData | FlussStageType;
 
-export type FlussStagePriority = number | (() => number) | null;
+export type FlussStagePriority = number | (() => number);
 
 export type FlussStageDef = {
     src : FlussStageSource;
-    priority: FlussStagePriority;
+    priority?: FlussStagePriority;
 }
 
 // ------------------------------ // -  - // ------------------------------ //
@@ -118,8 +118,5 @@ export const createStage = (name: string, def: FlussStageDef): FlussStage => {
 }
 
 export const defineStage = (src : FlussStageSource, priority? : number): FlussStageDef => {
-    return {
-        src,
-        priority : priority ?? null
-    }
+    return { src, priority }
 }
