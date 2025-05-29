@@ -99,11 +99,11 @@ export const isStageType = (obj: any): obj is FlussStageType => {
 // ------------------------------ // -  - // ------------------------------ //
 
 export const createStage = (name: string, def: FlussStageDef): FlussStage => {
-    if(isStageData(def)) {
-        return new FlussStage(name, def);
+    if(isStageData(def.src)) {
+        return new FlussStage(name, def.src);
     }
-    if(isStageType(def)) {
-        return new def(name);
+    if(isStageType(def.src)) {
+        return new def.src(name);
     }
 
     throw new Error(`FlussStage: Invalid stage definition for ${name}. Expected FlussPhaseData or FlussStageType.`);
