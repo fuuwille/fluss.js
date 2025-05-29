@@ -28,6 +28,6 @@ export const createFluss = (data: FlussData): Fluss => {
 
 export const defineFluss = (stages: FlussDataStages): FlussData => {
     return {
-        stages: stages
+        stages
     };
 }
