@@ -38,12 +38,14 @@ export abstract class FlussBoundStage extends FlussStage {
 
     protected bindPhase(): FlussStageData {
         return {
-            idlePhase: this.idlePhase?.() ?? undefined,
-            beginPhase: this.beginPhase?.() ?? undefined,
-            runningPhase: this.runningPhase?.() ?? undefined,
-            endPhase: this.endPhase?.() ?? undefined,
-            completedPhase: this.completedPhase?.() ?? undefined,
-            cancelledPhase: this.cancelledPhase?.() ?? undefined
+            phases: {
+                idlePhase: this.idlePhase?.(),
+                beginPhase: this.beginPhase?.(),
+                runningPhase: this.runningPhase?.(),
+                endPhase: this.endPhase?.(),
+                completedPhase: this.completedPhase?.(),
+                cancelledPhase: this.cancelledPhase?.()
+            }
         };
     }
 
@@ -67,6 +69,10 @@ export default FlussStage;
 // ------------------------------ // -  - // ------------------------------ //
 
 export type FlussStageData = {
+    phases : FlussStageDataPhases;
+}
+
+export type FlussStageDataPhases = {
     idlePhase?: FlussPhaseDef;
     beginPhase?: FlussPhaseDef;
     runningPhase?: FlussPhaseDef;
