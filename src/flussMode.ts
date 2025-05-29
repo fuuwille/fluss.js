@@ -1,8 +1,8 @@
 enum FlussMode {
     None = 0,
-    Idle = 1 << 0,
-    PreIdle = (1 << 1) | Idle,
-    PostIdle = (1 << 2) | Idle,
+    Pending = 1 << 0,
+    PrePending = (1 << 1) | Pending,
+    PostPending = (1 << 2) | Pending,
     Begin = 1 << 3,
     PreBegin = (1 << 4) | Begin,
     PostBegin = (1 << 5) | Begin,
@@ -24,15 +24,15 @@ export default FlussMode;
 
 // ------------------------------ // -  - // ------------------------------ //
 
-export type MainMode = FlussMode.Idle | FlussMode.Begin | FlussMode.Running | FlussMode.End | FlussMode.Completed | FlussMode.Cancelled;
+export type MainMode = FlussMode.Pending | FlussMode.Begin | FlussMode.Running | FlussMode.End | FlussMode.Completed | FlussMode.Cancelled;
 
-export type PreMode = FlussMode.PreIdle | FlussMode.PreBegin | FlussMode.PreRunning | FlussMode.PreEnd | FlussMode.PreCompleted | FlussMode.PreCancelled;
+export type PreMode = FlussMode.PrePending | FlussMode.PreBegin | FlussMode.PreRunning | FlussMode.PreEnd | FlussMode.PreCompleted | FlussMode.PreCancelled;
 
-export type PostMode = FlussMode.PostIdle | FlussMode.PostBegin | FlussMode.PostRunning | FlussMode.PostEnd | FlussMode.PostCompleted | FlussMode.PostCancelled;
+export type PostMode = FlussMode.PostPending | FlussMode.PostBegin | FlussMode.PostRunning | FlussMode.PostEnd | FlussMode.PostCompleted | FlussMode.PostCancelled;
 
 // ------------------------------ // -  - // ------------------------------ //
 
-export const modes = ['Idle', 'Begin', 'Running', 'End', 'Completed', 'Cancelled'] as const;
+export const modes = ['Pending', 'Begin', 'Running', 'End', 'Completed', 'Cancelled'] as const;
 
 export const mainModes = modes.map(p => FlussMode[p]).reduce((a, b) => a | b, 0);
 

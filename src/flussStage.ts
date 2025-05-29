@@ -38,7 +38,7 @@ export abstract class FlussBoundStage extends FlussStage {
 
     protected bindPhase(): FlussStageData {
         return {
-            idlePhase: this.idlePhase?.(),
+            pendingPhase: this.pendingPhase?.(),
             beginPhase: this.beginPhase?.(),
             runningPhase: this.runningPhase?.(),
             endPhase: this.endPhase?.(),
@@ -49,7 +49,7 @@ export abstract class FlussBoundStage extends FlussStage {
 
     // ------------------------- // -  - // ------------------------- //
 
-    protected idlePhase?() : FlussPhaseDef
+    protected pendingPhase?() : FlussPhaseDef
 
     protected beginPhase?() : FlussPhaseDef;
 
@@ -67,7 +67,7 @@ export default FlussStage;
 // ------------------------------ // -  - // ------------------------------ //
 
 export type FlussStageData = {
-    idlePhase?: FlussPhaseDef;
+    pendingPhase?: FlussPhaseDef;
     beginPhase?: FlussPhaseDef;
     runningPhase?: FlussPhaseDef;
     endPhase?: FlussPhaseDef;
