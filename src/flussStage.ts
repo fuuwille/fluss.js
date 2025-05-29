@@ -38,28 +38,28 @@ export abstract class FlussBoundStage extends FlussStage {
 
     protected bindPhase(): FlussStageData {
         return {
-            pendingPhase: this.pendingPhase?.(),
-            beginPhase: this.beginPhase?.(),
-            runningPhase: this.runningPhase?.(),
-            endPhase: this.endPhase?.(),
-            completedPhase: this.completedPhase?.(),
-            cancelledPhase: this.cancelledPhase?.()
+            pending: this.pending?.(),
+            begin: this.begin?.(),
+            running: this.running?.(),
+            end: this.end?.(),
+            completed: this.completed?.(),
+            cancelled: this.cancelled?.()
         };
     }
 
     // ------------------------- // -  - // ------------------------- //
 
-    protected pendingPhase?() : FlussPhaseDef
+    protected pending?() : FlussPhaseDef
 
-    protected beginPhase?() : FlussPhaseDef;
+    protected begin?() : FlussPhaseDef;
 
-    protected runningPhase?() : FlussPhaseDef;
+    protected running?() : FlussPhaseDef;
 
-    protected endPhase?() : FlussPhaseDef;
+    protected end?() : FlussPhaseDef;
 
-    protected completedPhase?() : FlussPhaseDef;
+    protected completed?() : FlussPhaseDef;
 
-    protected cancelledPhase?() : FlussPhaseDef;
+    protected cancelled?() : FlussPhaseDef;
 }
 
 export default FlussStage;
@@ -67,12 +67,12 @@ export default FlussStage;
 // ------------------------------ // -  - // ------------------------------ //
 
 export type FlussStageData = {
-    pendingPhase?: FlussPhaseDef;
-    beginPhase?: FlussPhaseDef;
-    runningPhase?: FlussPhaseDef;
-    endPhase?: FlussPhaseDef;
-    completedPhase?: FlussPhaseDef;
-    cancelledPhase?: FlussPhaseDef;
+    pending?: FlussPhaseDef;
+    begin?: FlussPhaseDef;
+    running?: FlussPhaseDef;
+    end?: FlussPhaseDef;
+    completed?: FlussPhaseDef;
+    cancelled?: FlussPhaseDef;
 }
 
 export type FlussStageType = new (name: string) => FlussBoundStage;
