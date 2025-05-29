@@ -13,7 +13,7 @@ export default Fluss;
 // ------------------------------ // -  - // ------------------------------ //
 
 export type FlussData = {
-    [key: string]: FlussStageDef;
+    stages : FlussDataStages;
 }
 
 export type FlussDataStages = {
