@@ -13,17 +13,11 @@ export default Fluss;
 // ------------------------------ // -  - // ------------------------------ //
 
 export type FlussData = {
-    stages : FlussDataStages;
-}
-
-export type FlussDataStages = {
     [key: string] : FlussStageDef;
 }
 
 // ------------------------------ // -  - // ------------------------------ //
 
-export const createFluss = (stages: FlussDataStages): Fluss => {
-    return new Fluss({
-        stages
-    });
+export const createFluss = (data: FlussData): Fluss => {
+    return new Fluss(data);
 }
