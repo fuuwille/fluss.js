@@ -83,12 +83,12 @@ export type FlussPhaseDef = FlussPhaseData | FlussPhaseType;
 
 // ------------------------------ // -  - // ------------------------------ //
 
-export const isPhaseData = (def: FlussPhaseDef): def is FlussPhaseData => {
-    return typeof def === 'object' && !isPhaseType(def);
+export const isPhaseData = (obj: any): obj is FlussPhaseData => {
+    return typeof obj === 'object' && !isPhaseType(obj);
 };
 
-export const isPhaseType = (def: FlussPhaseDef): def is FlussPhaseType => {
-    return typeof def === 'function' && !!def.prototype?.constructor;
+export const isPhaseType = (obj: any): obj is FlussPhaseType => {
+    return typeof obj === 'function' && !!obj.prototype?.constructor;
 }
 
 // ------------------------------ // -  - // ------------------------------ //
