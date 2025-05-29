@@ -2,6 +2,7 @@ import { FlussPhaseData, FlussPhaseDef } from "./flussPhase";
 
 class FlussStage {  
     #name : string;
+    #priority : number;
     #data : FlussStageData;
 
     constructor(name : string, priority : FlussStagePriority);
@@ -19,6 +20,7 @@ class FlussStage {
             }
         }
 
+        this.#priority = typeof priority === 'function' ? priority() : (priority ?? 0);
         this.#data = data;
     }
 
@@ -28,6 +30,10 @@ class FlussStage {
 
     public get name(): string {
         return this.#name;
+    }
+
+    public get priority(): number {
+        return this.#priority;
     }
 }
 
