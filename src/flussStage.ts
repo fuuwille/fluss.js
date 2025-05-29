@@ -38,14 +38,12 @@ export abstract class FlussBoundStage extends FlussStage {
 
     protected bindPhase(): FlussStageData {
         return {
-            phases: {
-                idle: this.idlePhase?.(),
-                begin: this.beginPhase?.(),
-                running: this.runningPhase?.(),
-                end: this.endPhase?.(),
-                completed: this.completedPhase?.(),
-                cancelled: this.cancelledPhase?.()
-            }
+            idle: this.idlePhase?.(),
+            begin: this.beginPhase?.(),
+            running: this.runningPhase?.(),
+            end: this.endPhase?.(),
+            completed: this.completedPhase?.(),
+            cancelled: this.cancelledPhase?.()
         };
     }
 
@@ -69,10 +67,6 @@ export default FlussStage;
 // ------------------------------ // -  - // ------------------------------ //
 
 export type FlussStageData = {
-    phases : FlussStageDataPhases;
-}
-
-export type FlussStageDataPhases = {
     idle?: FlussPhaseDef;
     begin?: FlussPhaseDef;
     running?: FlussPhaseDef;
@@ -110,8 +104,8 @@ export const createStage = (name: string, def: FlussStageDef): FlussStage => {
     throw new Error(`FlussStage: Invalid stage definition for ${name}. Expected FlussPhaseData or FlussStageType.`);
 }
 
-export const defineStage = (src : FlussStageDataPhases | FlussStageType): FlussStageDef => {
+export const defineStage = (src : FlussStageData | FlussStageType): FlussStageDef => {
     return {
-        src: isStageType(src) ? src : { phases: src }
+        src
     }
 }
