@@ -4,11 +4,11 @@ class FlussStage {
     #name : string;
     #data : FlussStageData;
 
-    constructor(name : string);
+    constructor(name : string, priority : FlussStagePriority);
 
-    constructor(name : string, data : FlussStageData);
+    constructor(name : string, priority : FlussStagePriority, data : FlussStageData);
 
-    constructor(name : string, data? : FlussStageData) {
+    constructor(name : string, priority : FlussStagePriority, data? : FlussStageData) {
         this.#name = name;
 
         if(!data) {
@@ -32,8 +32,8 @@ class FlussStage {
 }
 
 export abstract class FlussBoundStage extends FlussStage {
-    constructor(name : string) {
-        super(name);
+    constructor(name : string, priority : FlussStagePriority) {
+        super(name, priority);
     }
 
     protected bindPhase(): FlussStageData {
@@ -79,11 +79,11 @@ export type FlussStageType = new (name: string) => FlussBoundStage;
 
 export type FlussStageSource = FlussStageData | FlussStageType;
 
-export type FlussStagePriority = number | (() => number);
+export type FlussStagePriority = number | (() => number) | null;
 
 export type FlussStageDef = {
     src : FlussStageSource;
-    priority?: FlussStagePriority;
+    priority: FlussStagePriority;
 }
 
 // ------------------------------ // -  - // ------------------------------ //
@@ -100,7 +100,7 @@ export const isStageType = (obj: any): obj is FlussStageType => {
 
 export const createStage = (name: string, def: FlussStageDef): FlussStage => {
     if(isStageData(def.src)) {
-        return new FlussStage(name, def.src);
+        return new FlussStage(name, def.priority, def.src);
     }
     if(isStageType(def.src)) {
         return new def.src(name);
@@ -112,6 +112,6 @@ export const createStage = (name: string, def: FlussStageDef): FlussStage => {
 export const defineStage = (src : FlussStageSource, priority? : number): FlussStageDef => {
     return {
         src,
-        priority
+        priority : priority ?? null
     }
 }
