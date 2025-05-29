@@ -79,7 +79,11 @@ export type FlussPhaseData = {
 
 export type FlussPhaseType = new (mode : MainMode) => FlussPhase;
 
-export type FlussPhaseDef = FlussPhaseData | FlussPhaseType;
+export type FlussPhaseSource = FlussPhaseData | FlussPhaseType;
+
+export type FlussPhaseDef = {
+    src : FlussPhaseSource;
+}
 
 // ------------------------------ // -  - // ------------------------------ //
 
@@ -102,4 +106,10 @@ export const createPhase = (mode: MainMode, def: FlussPhaseDef): FlussPhase => {
     }
 
     throw new Error(`FlussPhase: Invalid phase definition for mode ${mode}. Expected FlussPhaseData or FlussPhaseType.`);
+}
+
+export const definePhase = (src: FlussPhaseSource): FlussPhaseDef => {
+    return {
+        src
+    }
 }
