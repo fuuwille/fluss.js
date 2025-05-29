@@ -83,7 +83,9 @@ export type FlussStageDataPhases = {
 
 export type FlussStageType = new (name: string) => FlussBoundStage;
 
-export type FlussStageDef = FlussStageData | FlussStageType;
+export type FlussStageDef = {
+    src : FlussStageData | FlussStageType;
+}
 
 // ------------------------------ // -  - // ------------------------------ //
 
@@ -109,11 +111,7 @@ export const createStage = (name: string, def: FlussStageDef): FlussStage => {
 }
 
 export const defineStage = (src : FlussStageDataPhases | FlussStageType): FlussStageDef => {
-    if(isStageType(src)) {
-        return src;
-    }
-
     return {
-        phases: src
-    } as FlussStageData;
+        src: isStageType(src) ? src : { phases: src }
+    }
 }
