@@ -52,9 +52,9 @@ export abstract class FlussBoundPhase extends FlussPhase {
 
     protected bind(): FlussPhaseData {
         return {
-            main: this.onMain.bind(this),
-            pre: this.onPre?.bind(this) ?? undefined,
-            post: this.onPost?.bind(this) ?? undefined
+            onMain: this.onMain.bind(this),
+            onPre: this.onPre?.bind(this) ?? undefined,
+            onPost: this.onPost?.bind(this) ?? undefined
         }
     }
 
@@ -72,9 +72,9 @@ export default FlussPhase;
 // ------------------------------ // -  - // ------------------------------ //
 
 export type FlussPhaseData = {
-    main: FlussAction;
-    pre?: FlussAction;
-    post?: FlussAction;
+    onMain: FlussAction;
+    onPre?: FlussAction;
+    onPost?: FlussAction;
 }
 
 export type FlussPhaseType = new (mode : MainMode) => FlussPhase;
