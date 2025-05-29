@@ -22,12 +22,8 @@ export type FlussDataStages = {
 
 // ------------------------------ // -  - // ------------------------------ //
 
-export const createFluss = (data: FlussData): Fluss => {
-    return new Fluss(data);
-}
-
-export const defineFluss = (stages: FlussDataStages): FlussData => {
-    return {
+export const createFluss = (stages: FlussDataStages): Fluss => {
+    return new Fluss({
         stages
-    };
+    });
 }
