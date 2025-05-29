@@ -49,17 +49,17 @@ export abstract class FlussBoundStage extends FlussStage {
 
     // ------------------------- // -  - // ------------------------- //
 
-    protected idlePhase?() : FlussPhaseData
+    protected idlePhase?() : FlussPhaseDef
 
-    protected beginPhase?() : FlussPhaseData;
+    protected beginPhase?() : FlussPhaseDef;
 
-    protected runningPhase?() : FlussPhaseData;
+    protected runningPhase?() : FlussPhaseDef;
 
-    protected endPhase?() : FlussPhaseData;
+    protected endPhase?() : FlussPhaseDef;
 
-    protected completedPhase?() : FlussPhaseData;
+    protected completedPhase?() : FlussPhaseDef;
 
-    protected cancelledPhase?() : FlussPhaseData;
+    protected cancelledPhase?() : FlussPhaseDef;
 }
 
 export default FlussStage;
