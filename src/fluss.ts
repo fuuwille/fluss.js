@@ -17,11 +17,17 @@ export type FlussData = {
 }
 
 export type FlussDataStages = {
-    [key: string]: FlussStageDef;
+    [key: string] : FlussStageDef;
 }
 
 // ------------------------------ // -  - // ------------------------------ //
 
 export const createFluss = (data: FlussData): Fluss => {
     return new Fluss(data);
+}
+
+export const defineFluss = (stages: FlussDataStages): FlussData => {
+    return {
+        stages: stages
+    };
 }
