@@ -55,7 +55,7 @@ export class FlussFlowProvider {
         return this.#flow;
     }
 
-    public get stages(): FlussStage[] {
+    public get stages(): readonly FlussStage[] {
         return this.#stages;
     }
 
@@ -64,7 +64,7 @@ export class FlussFlowProvider {
     public createStage(name : string, src : FlussStageSource, priority? : FlussStagePriority) : FlussStage {
         const stage = createStage(fluss.stageRef(this.#flow, name), src, priority);
         this.#stages.push(stage);
-        
+
         return stage;
     }
 }
