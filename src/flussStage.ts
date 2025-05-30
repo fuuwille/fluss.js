@@ -42,8 +42,8 @@ class FlussStage {
         this.#endingPhase = data.ending ? createPhase(fluss.phaseRef(this, FlussStageMode.Ending), data.ending.src) : null;
         this.#completedPhase = data.completed ? createPhase(fluss.phaseRef(this, FlussStageMode.Completed), data.completed.src) : null;
         this.#cancelledPhase = data.cancelled ? createPhase(fluss.phaseRef(this, FlussStageMode.Cancelled), data.cancelled.src) : null;
-        this.#failedPhase = null; // Not provided in the data, can be set later
-        this.#timedOutPhase = null; // Not provided in the data, can be set later
+        this.#failedPhase = data.failed ? createPhase(fluss.phaseRef(this, FlussStageMode.Failed), data.failed.src) : null;
+        this.#timedOutPhase = data.timedOut ? createPhase(fluss.phaseRef(this, FlussStageMode.TimedOut), data.timedOut.src) : null;
     }
 
     protected bind?(): FlussStageData;
