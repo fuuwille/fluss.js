@@ -78,6 +78,8 @@ export type FlussStageRef = {
     name : string;
 }
 
+export type FlussStagePriority = number | (() => number);
+
 export type FlussStageData = {
     pending?: FlussPhaseDef;
     begin?: FlussPhaseDef;
@@ -104,8 +106,6 @@ export enum FlussStageMode {
 export type FlussStageType = new (ref: FlussStageRef, priority: number) => FlussBoundStage;
 
 export type FlussStageSource = FlussStageData | FlussStageType;
-
-export type FlussStagePriority = number | (() => number);
 
 export type FlussStageDef = {
     src : FlussStageSource;
