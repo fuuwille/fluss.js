@@ -16,7 +16,7 @@ class FlussFlow {
         }
 
         const sortedStages = stages.sort((a, b) => {
-            return (a.priority ?? Infinity) - (b.priority ?? Infinity);
+            return (b.priority ?? Infinity) - (a.priority ?? Infinity);
         });
 
         this.#stages = [...sortedStages];
