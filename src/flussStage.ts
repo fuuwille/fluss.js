@@ -5,6 +5,7 @@ class FlussStage {
     #ref : FlussStageRef;
     #priority : number;
     #data : FlussStageData;
+    #mode : FlussStageMode;
 
     constructor(ref : FlussStageRef, priority : number);
 
@@ -23,6 +24,7 @@ class FlussStage {
 
         this.#priority = priority;
         this.#data = data;
+        this.#mode = FlussStageMode.None;
     }
 
     protected bind?(): FlussStageData;
@@ -35,6 +37,10 @@ class FlussStage {
 
     public get priority(): number {
         return this.#priority;
+    }
+    
+    public get mode(): FlussStageMode {
+        return this.#mode;
     }
 }
 
