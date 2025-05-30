@@ -13,7 +13,7 @@ class FlussFlow {
         });
 
         if (modifier) {
-            modifier(stages);
+            modifier(new FlussFlowProvider(this, stages));
         }
 
         const sortedStages = stages.sort((a, b) => {
@@ -38,7 +38,27 @@ export type FlussFlowData = {
     [key: string] : FlussStageDef;
 }
 
-export type FlussFlowModifier = (stages : FlussStage[]) => void;
+export type FlussFlowModifier = (provider : FlussFlowProvider) => void;
+
+export class FlussFlowProvider {
+    #flow : FlussFlow;
+    #stages : readonly FlussStage[];
+
+    constructor(flow: FlussFlow, stages: readonly FlussStage[]) {
+        this.#flow = flow;
+        this.#stages = stages;
+    }
+
+    // ------------------------- // -  - // ------------------------- //
+
+    public get flow(): FlussFlow {
+        return this.#flow;
+    }
+
+    public get stages(): readonly FlussStage[] {
+        return this.#stages;
+    }
+}
 
 // ------------------------------ // -  - // ------------------------------ //
 
