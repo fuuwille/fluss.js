@@ -3,7 +3,7 @@ import { FlussStageDef } from "./flussStage";
 class FlussFlow {
     #data : FlussFlowData;
 
-    constructor(data: FlussFlowData) {     
+    constructor(data: FlussFlowData, generator? : FlussFlowGenerator) {     
         this.#data = data;
     }
 }
@@ -20,6 +20,6 @@ export type FlussFlowGenerator = (stages : FlussStageDef[]) => void;
 
 // ------------------------------ // -  - // ------------------------------ //
 
-export const createFlow = (data: FlussFlowData): FlussFlow => {
-    return new FlussFlow(data);
+export const createFlow = (data: FlussFlowData, generator? : FlussFlowGenerator): FlussFlow => {
+    return new FlussFlow(data, generator);
 }
