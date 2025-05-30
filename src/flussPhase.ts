@@ -47,8 +47,8 @@ export abstract class FlussBoundPhase extends FlussPhase {
     protected bind(): FlussPhaseData {
         return {
             onMain: this.onMain.bind(this),
-            onPre: this.onPre?.bind(this) ?? undefined,
-            onPost: this.onPost?.bind(this) ?? undefined
+            onBefore: this.onBefore?.bind(this) ?? undefined,
+            onAfter: this.onAfter?.bind(this) ?? undefined
         }
     }
 
@@ -56,9 +56,9 @@ export abstract class FlussBoundPhase extends FlussPhase {
 
     public abstract onMain(): void;
 
-    public onPre?(): void;
+    public onBefore?(): void | Promise<void>;
 
-    public onPost?(): void;
+    public onAfter?(): void | Promise<void>;
 }
 
 export default FlussPhase;
@@ -72,8 +72,8 @@ export type FlussPhaseRef = {
 
 export type FlussPhaseData = {
     onMain: FlussAction;
-    onPre?: FlussAction;
-    onPost?: FlussAction;
+    onBefore?: FlussAction;
+    onAfter?: FlussAction;
 }
 
 // ------------------------------ // -  - // ------------------------------ //
