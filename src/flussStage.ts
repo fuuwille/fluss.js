@@ -157,6 +157,10 @@ class FlussStage {
 
     // ------------------------- // -  - // ------------------------- //
 
+    public isNone() : boolean {
+        return this.#mode === FlussStageMode.None;
+    }
+
     public isPending() : boolean {
         return (this.#mode & FlussStageMode.Pending) !== 0;
     }
