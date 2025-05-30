@@ -8,11 +8,11 @@ class fluss {
 
     // ------------------------- // -  - // ------------------------- //
 
-    public static stage(src : FlussStageSource, priority? : number) : FlussStageDef {
+    public static stageDef(src : FlussStageSource, priority? : number) : FlussStageDef {
         return { src, priority }
     }
 
-    public static phase(src : FlussPhaseSource) : FlussPhaseDef {
+    public static phaseDef(src : FlussPhaseSource) : FlussPhaseDef {
         return { src }
     }
 }
