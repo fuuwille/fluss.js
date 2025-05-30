@@ -105,7 +105,7 @@ export const isStageType = (obj: any): obj is FlussStageType => {
 // ------------------------------ // -  - // ------------------------------ //
 
 export const createStage = (name: string, def: FlussStageDef): FlussStage => {
-    const priority = typeof def.priority === 'function' ? def.priority() : def.priority ?? -1;
+    const priority = typeof def.priority === 'function' ? def.priority() : def.priority ?? 0;
 
     if(isStageData(def.src)) {
         return new FlussStage(name, priority, def.src);
