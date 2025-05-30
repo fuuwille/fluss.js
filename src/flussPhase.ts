@@ -74,9 +74,11 @@ class FlussPhase {
             return false;
         }
 
-        this.beforeAction?.();
-        this.mainAction();
-        this.afterAction?.();
+        const state = this.ref.stage.ref.flow.state;
+
+        this.beforeAction?.(state);
+        this.mainAction(state);
+        this.afterAction?.(state);
 
         return true;
     }
@@ -86,16 +88,18 @@ class FlussPhase {
             return Promise.resolve(false);
         }
 
+        const state = this.ref.stage.ref.flow.state;
+
         if(this.beforeAction) {
-            await Promise.resolve(this.beforeAction());
+            await Promise.resolve(this.beforeAction(state));
         }
 
         if(this.mainAction) {
-            await Promise.resolve(this.mainAction());
+            await Promise.resolve(this.mainAction(state));
         }
 
         if(this.afterAction) {
-            await Promise.resolve(this.afterAction());
+            await Promise.resolve(this.afterAction(state));
         }
         
         return true;
