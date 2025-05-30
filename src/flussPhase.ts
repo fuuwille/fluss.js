@@ -3,8 +3,8 @@ import FlussStage, { FlussStageMode } from "./flussStage";
 
 class FlussPhase {
     #ref : FlussPhaseRef;
-    #mode : FlussPhaseMode;
     #data : FlussPhaseData;
+    #mode : FlussPhaseMode;
 
     constructor(ref : FlussPhaseRef);
 
@@ -70,17 +70,19 @@ export type FlussPhaseRef = {
     mode : FlussStageMode;
 }
 
+export type FlussPhaseData = {
+    onMain: FlussAction;
+    onPre?: FlussAction;
+    onPost?: FlussAction;
+}
+
+// ------------------------------ // -  - // ------------------------------ //
+
 export enum FlussPhaseMode {
     None = 0,
     Pre = 1 << 0,
     Main = 1 << 1,
     Post = 1 << 2,
-}
-
-export type FlussPhaseData = {
-    onMain: FlussAction;
-    onPre?: FlussAction;
-    onPost?: FlussAction;
 }
 
 export type FlussPhaseType = new (ref : FlussPhaseRef) => FlussBoundPhase;
