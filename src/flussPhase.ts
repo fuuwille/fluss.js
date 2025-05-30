@@ -1,14 +1,17 @@
 import FlussAction from "./flussAction";
+import FlussStage, { FlussStageMode } from "./flussStage";
 
 class FlussPhase {
+    #ref : FlussPhaseRef;
     #mode : FlussPhaseMode;
     #data : FlussPhaseData;
 
-    constructor();
+    constructor(ref : FlussPhaseRef);
 
-    constructor(data : FlussPhaseData);
+    constructor(ref : FlussPhaseRef, data : FlussPhaseData);
 
-    constructor(data? : FlussPhaseData) {
+    constructor(ref : FlussPhaseRef, data? : FlussPhaseData) {
+        this.#ref = ref;
         this.#mode = FlussPhaseMode.None;
 
         if(!data) {
@@ -26,6 +29,10 @@ class FlussPhase {
     protected bind?(): FlussPhaseData;
 
     // ------------------------- // -  - // ------------------------- //
+
+    public get ref(): FlussPhaseRef {
+        return this.#ref;
+    }
     
     public get mode(): FlussPhaseMode {
         return this.#mode;
@@ -33,8 +40,8 @@ class FlussPhase {
 }
 
 export abstract class FlussBoundPhase extends FlussPhase {
-    constructor() {
-        super();
+    constructor(ref : FlussPhaseRef) {
+        super(ref);
     }
 
     protected bind(): FlussPhaseData {
@@ -58,6 +65,11 @@ export default FlussPhase;
 
 // ------------------------------ // -  - // ------------------------------ //
 
+export type FlussPhaseRef = {
+    stage : FlussStage;
+    mode : FlussStageMode;
+}
+
 export enum FlussPhaseMode {
     None = 0,
     Pre = 1 << 0,
@@ -71,7 +83,7 @@ export type FlussPhaseData = {
     onPost?: FlussAction;
 }
 
-export type FlussPhaseType = new () => FlussBoundPhase;
+export type FlussPhaseType = new (ref : FlussPhaseRef) => FlussBoundPhase;
 
 export type FlussPhaseSource = FlussPhaseData | FlussPhaseType;
 
@@ -91,12 +103,12 @@ export const isPhaseType = (obj: any): obj is FlussPhaseType => {
 
 // ------------------------------ // -  - // ------------------------------ //
 
-export const createPhase = (src : FlussPhaseSource): FlussPhase => {
+export const createPhase = (ref : FlussPhaseRef, src : FlussPhaseSource): FlussPhase => {
     if(isPhaseData(src)) {
-        return new FlussPhase(src);
+        return new FlussPhase(ref, src);
     }
     if(isPhaseType(src)) {
-        return new src();
+        return new src(ref);
     }
 
     throw new Error(`FlussPhase: Invalid phase definition. Expected FlussPhaseData or FlussPhaseType.`);
