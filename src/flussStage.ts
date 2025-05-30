@@ -109,7 +109,9 @@ export abstract class FlussBoundStage extends FlussStage {
             running: this.runningDef?.(),
             ending: this.endingDef?.(),
             completed: this.completedDef?.(),
-            cancelled: this.cancelledDef?.()
+            cancelled: this.cancelledDef?.(),
+            failed: this.failedDef?.(),
+            timedOut: this.timedOutDef?.()
         };
     }
 
@@ -126,6 +128,10 @@ export abstract class FlussBoundStage extends FlussStage {
     protected completedDef?() : FlussPhaseDef;
 
     protected cancelledDef?() : FlussPhaseDef;
+
+    protected failedDef?() : FlussPhaseDef;
+
+    protected timedOutDef?() : FlussPhaseDef;
 }
 
 export default FlussStage;
@@ -146,6 +152,8 @@ export type FlussStageData = {
     ending?: FlussPhaseDef;
     completed?: FlussPhaseDef;
     cancelled?: FlussPhaseDef;
+    failed?: FlussPhaseDef;
+    timedOut?: FlussPhaseDef;
 }
 
 export enum FlussStageMode {
