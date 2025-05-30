@@ -1,9 +1,16 @@
+import FlussFlow from "./flussFlow";
 import { FlussPhaseDef, FlussPhaseSource } from "./flussPhase";
-import { FlussStageDef, FlussStageSource } from "./flussStage";
+import { FlussStageDef, FlussStageRef, FlussStageSource } from "./flussStage";
 
 class fluss {
 
     private constructor() {     
+    }
+
+    // ------------------------- // -  - // ------------------------- //
+
+    public static stageRef(flow : FlussFlow, name : string) : FlussStageRef {
+        return { flow, name };
     }
 
     // ------------------------- // -  - // ------------------------- //
