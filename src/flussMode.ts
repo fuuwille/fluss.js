@@ -12,12 +12,19 @@ enum FlussMode {
     End = 1 << 9,
     PreEnd = (1 << 10) | End,
     PostEnd = (1 << 11) | End,
+
     Completed = 1 << 12,
     PreCompleted = (1 << 13) | Completed,
     PostCompleted = (1 << 14) | Completed,
     Cancelled = 1 << 15,
     PreCancelled = (1 << 16) | Cancelled,
     PostCancelled = (1 << 17) | Cancelled,
+    Failed = 1 << 18,
+    PreFailed = (1 << 19) | Failed,
+    PostFailed = (1 << 20) | Failed,
+    TimedOut = 1 << 21,
+    PreTimedOut = (1 << 22) | TimedOut,
+    PostTimedOut = (1 << 23) | TimedOut,
 }
 
 export default FlussMode;
