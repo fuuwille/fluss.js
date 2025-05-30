@@ -1,7 +1,7 @@
 import { FlussPhaseDef, FlussPhaseSource } from "./flussPhase";
 import { FlussStageDef, FlussStageSource } from "./flussStage";
 
-class Fluss {
+class fluss {
 
     private constructor() {     
     }
@@ -17,4 +17,4 @@ class Fluss {
     }
 }
 
-export default Fluss;
+export default fluss;
