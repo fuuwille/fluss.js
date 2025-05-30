@@ -144,6 +144,17 @@ class FlussStage {
         return true;
     }
 
+    public finalize() : boolean {
+        if(!this.isEnd()) {
+            return false;
+        }
+
+        this.#mode = FlussStageMode.Completed;
+        this.#completedPhase?.execute();
+
+        return true;
+    }
+
     // ------------------------- // -  - // ------------------------- //
 
     public isPending() : boolean {
