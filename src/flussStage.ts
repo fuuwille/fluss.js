@@ -7,6 +7,8 @@ class FlussStage {
     #priority : number;
     #mode : FlussStageMode;
 
+    // ---------- // -  - // ---------- //
+
     #pendingPhase: FlussPhase | null;
     #beginningPhase: FlussPhase | null;
     #runningPhase: FlussPhase | null;
@@ -15,6 +17,8 @@ class FlussStage {
     #cancelledPhase: FlussPhase | null;
     #failedPhase: FlussPhase | null;
     #timedOutPhase: FlussPhase | null;
+
+    // ---------- // -  - // ---------- //
 
     constructor(ref : FlussStageRef, priority : number);
 
@@ -45,6 +49,8 @@ class FlussStage {
         this.#failedPhase = data.failed ? createPhase(fluss.phaseRef(this, FlussStageMode.Failed), data.failed.src) : null;
         this.#timedOutPhase = data.timedOut ? createPhase(fluss.phaseRef(this, FlussStageMode.TimedOut), data.timedOut.src) : null;
     }
+
+    // ---------- // -  - // ---------- //
 
     protected bind?(): FlussStageData;
 
