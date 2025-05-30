@@ -34,6 +34,43 @@ class FlussFlow {
     public get current() : FlussStage | null {
         return this.#current;
     }
+
+    // ------------------------- // -  - // ------------------------- //
+
+    public start() : boolean {
+        if (!this.#current) {
+            return false;
+        }
+
+        this.#current.start();
+        return true;
+    }
+
+    public run() : boolean {
+        if (!this.#current) {
+            return false;
+        }
+
+        this.#current.run();
+        return true;
+    }
+
+    public finalize() : boolean {
+        if (!this.#current) {
+            return false;
+        }
+
+        this.#current.finalize();
+        const currentIndex = this.#stages.indexOf(this.#current);
+
+        if (currentIndex >= 0 && currentIndex < this.#stages.length - 1) {
+            this.#current = this.#stages[currentIndex + 1];
+        } else {
+            this.#current = null; // No more stages to process
+        }
+
+        return true;
+    }
 }
 
 export default FlussFlow;
