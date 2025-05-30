@@ -13,8 +13,8 @@ class FlussStage {
         this.#name = name;
 
         if(!data) {
-            if(this.bindPhase) {
-                data = this.bindPhase();
+            if(this.bind) {
+                data = this.bind();
             } else {
                 throw new Error(`FlussStage: No phase bundle provided for stage ${name}.`);
             }
@@ -24,7 +24,7 @@ class FlussStage {
         this.#data = data;
     }
 
-    protected bindPhase?(): FlussStageData;
+    protected bind?(): FlussStageData;
 
     // ------------------------- // -  - // ------------------------- //
 
@@ -42,7 +42,7 @@ export abstract class FlussBoundStage extends FlussStage {
         super(name, priority);
     }
 
-    protected bindPhase(): FlussStageData {
+    protected bind(): FlussStageData {
         return {
             pending: this.pending?.(),
             begin: this.begin?.(),
