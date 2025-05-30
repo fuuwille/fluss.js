@@ -1,6 +1,14 @@
 class FlussStage {
+    #mode: FlussStageMode = FlussStageMode.Pending;
+
     public constructor() {
 
+    }
+
+    // ------------------------- // -  - // ------------------------- //
+
+    public get mode() : FlussStageMode {
+        return this.#mode;
     }
 }
 
