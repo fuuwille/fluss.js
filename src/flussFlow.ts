@@ -1,5 +1,4 @@
-import { FlussPhaseDef, FlussPhaseSource } from "./flussPhase";
-import { FlussStageDef, FlussStageSource } from "./flussStage";
+import { FlussStageDef } from "./flussStage";
 
 class FlussFlow {
     #data : FlussFlowData;
