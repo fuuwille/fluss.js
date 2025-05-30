@@ -55,25 +55,14 @@ export class FlussFlowProvider {
         return this.#flow;
     }
 
-    public get stages(): readonly FlussStage[] {
+    public get stages(): FlussStage[] {
         return this.#stages;
     }
 
     // ------------------------- // -  - // ------------------------- //
 
     public createStage(name : string, src : FlussStageSource, priority? : FlussStagePriority) : FlussStage {
-        const stage = createStage(fluss.stageRef(this.#flow, name), src, priority);
-        this.#stages.push(stage);
-
-        return stage;
-    }
-
-    public findStage(name: string) : FlussStage | undefined {
-        return this.#stages.find(stage => stage.ref.name === name);
-    }
-
-    public atStage(index: number) : FlussStage | undefined {
-        return this.#stages[index];
+        return createStage(fluss.stageRef(this.#flow, name), src, priority);
     }
 }
 
