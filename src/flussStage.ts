@@ -70,6 +70,40 @@ class FlussStage {
 
     // ------------------------- // -  - // ------------------------- //
 
+    public get pendingPhase(): FlussPhase | null {
+        return this.#pendingPhase;
+    }
+
+    public get beginningPhase(): FlussPhase | null {
+        return this.#beginningPhase;
+    }
+
+    public get runningPhase(): FlussPhase | null {
+        return this.#runningPhase;
+    }
+
+    public get endingPhase(): FlussPhase | null {
+        return this.#endingPhase;
+    }
+
+    public get completedPhase(): FlussPhase | null {
+        return this.#completedPhase;
+    }
+
+    public get cancelledPhase(): FlussPhase | null {
+        return this.#cancelledPhase;
+    }
+
+    public get failedPhase(): FlussPhase | null {
+        return this.#failedPhase;
+    }
+
+    public get timedOutPhase(): FlussPhase | null {
+        return this.#timedOutPhase;
+    }
+
+    // ------------------------- // -  - // ------------------------- //
+
     public isPending() : boolean {
         return (this.#mode & FlussStageMode.Pending) !== 0;
     }
