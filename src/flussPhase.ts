@@ -19,7 +19,7 @@ class FlussPhase {
                 data = this.bind();
             }
             else {
-                throw new Error(`FlussPhase: No action bundle provided.`);
+                throw new Error(`FlussPhase: No action bundle provided for ${ref.mode} mode.`);
             }
         }
 
@@ -113,5 +113,5 @@ export const createPhase = (ref : FlussPhaseRef, src : FlussPhaseSource): FlussP
         return new src(ref);
     }
 
-    throw new Error(`FlussPhase: Invalid phase definition. Expected FlussPhaseData or FlussPhaseType.`);
+    throw new Error(`FlussPhase: Invalid phase definition for ${ref.mode} mode. Expected FlussPhaseData or FlussPhaseType.`);
 }

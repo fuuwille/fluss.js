@@ -38,7 +38,7 @@ class FlussStage {
     public get priority(): number {
         return this.#priority;
     }
-    
+
     public get mode(): FlussStageMode {
         return this.#mode;
     }
@@ -140,5 +140,5 @@ export const createStage = (ref: FlussStageRef, src : FlussStageSource, priority
         return new src(ref, _priority);
     }
 
-    throw new Error(`FlussStage: Invalid stage definition for ${name}. Expected FlussPhaseData or FlussStageType.`);
+    throw new Error(`FlussStage: Invalid stage definition for ${ref.name}. Expected FlussPhaseData or FlussStageType.`);
 }
