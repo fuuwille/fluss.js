@@ -1,12 +1,15 @@
 import fluss from "./fluss";
 import FlussStage, { createStage, FlussStageDef, FlussStagePriority, FlussStageSource } from "./flussStage";
+import FlussState from "./flussState";
 
-class FlussFlow {
+class FlussFlow<TState extends FlussState = FlussState> {
+    #state : TState;
     #data : FlussFlowData;
     #stages : readonly FlussStage[];
     #current : FlussStage | null = null;
 
-    constructor(data: FlussFlowData, modifier? : FlussFlowModifier) {     
+    constructor(state : TState, data: FlussFlowData, modifier? : FlussFlowModifier) {  
+        this.#state = state;   
         this.#data = data;
 
         const stages = Object.entries(data).map(([name, def]) => {
@@ -146,6 +149,6 @@ export class FlussFlowProvider {
 
 // ------------------------------ // -  - // ------------------------------ //
 
-export const createFlow = (data: FlussFlowData, modifier? : FlussFlowModifier): FlussFlow => {
-    return new FlussFlow(data, modifier);
+export const createFlow = <TState extends FlussState>(state: TState, data: FlussFlowData, modifier? : FlussFlowModifier): FlussFlow => {
+    return new FlussFlow(state, data, modifier);
 }
