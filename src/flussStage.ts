@@ -127,6 +127,17 @@ class FlussStage {
 
     // ------------------------- // -  - // ------------------------- //
 
+    public start() : boolean {
+        if(!this.isNone()) {
+            return false;
+        }
+
+        this.#mode = FlussStageMode.Pending;
+        this.#pendingPhase?.execute();
+
+        return true;
+    }
+
     public run() : boolean {
         if(!this.isPending()) {
             return false;
