@@ -111,7 +111,7 @@ export const createStage = (name: string, src : FlussStageSource, priority?: Flu
         return new FlussStage(name, _priority, src);
     }
     if(isStageType(src)) {
-        return new src(name, _priority ?? -1);
+        return new src(name, _priority);
     }
 
     throw new Error(`FlussStage: Invalid stage definition for ${name}. Expected FlussPhaseData or FlussStageType.`);
