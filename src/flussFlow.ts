@@ -4,6 +4,7 @@ import FlussStage, { createStage, FlussStageDef, FlussStagePriority, FlussStageS
 class FlussFlow {
     #data : FlussFlowData;
     #stages : readonly FlussStage[];
+    #current : FlussStage | null = null;
 
     constructor(data: FlussFlowData, modifier? : FlussFlowModifier) {     
         this.#data = data;
@@ -21,12 +22,17 @@ class FlussFlow {
         });
 
         this.#stages = [...sortedStages];
+        this.#current = this.#stages.length > 0 ? this.#stages[0] : null;
     }
 
     // ------------------------- // -  - // ------------------------- //
 
     public get stages() : readonly FlussStage[] {
         return this.#stages;
+    }
+
+    public get current() : FlussStage | null {
+        return this.#current;
     }
 }
 
