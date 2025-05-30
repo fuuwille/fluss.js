@@ -1,3 +1,4 @@
+import fluss from "./fluss";
 import FlussStage, { createStage, FlussStageDef } from "./flussStage";
 
 class FlussFlow {
@@ -8,7 +9,7 @@ class FlussFlow {
         this.#data = data;
 
         const stages = Object.entries(data).map(([name, def]) => {
-            return null! as FlussStage //createStage(name, def.src, def.priority);
+            return createStage(fluss.stageRef(this, name), def.src, def.priority);
         });
 
         if (modifier) {
