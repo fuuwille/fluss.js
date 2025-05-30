@@ -104,14 +104,14 @@ export const isStageType = (obj: any): obj is FlussStageType => {
 
 // ------------------------------ // -  - // ------------------------------ //
 
-export const createStage = (name: string, def: FlussStageDef): FlussStage => {
-    const priority = typeof def.priority === 'function' ? def.priority() : def.priority ?? 0;
+export const createStage = (name: string, src : FlussStageSource, priority?: FlussStagePriority): FlussStage => {
+    const _priority = typeof priority === 'function' ? priority() : priority ?? 0;
 
-    if(isStageData(def.src)) {
-        return new FlussStage(name, priority, def.src);
+    if(isStageData(src)) {
+        return new FlussStage(name, _priority, src);
     }
-    if(isStageType(def.src)) {
-        return new def.src(name, priority?? -1);
+    if(isStageType(src)) {
+        return new src(name, _priority ?? -1);
     }
 
     throw new Error(`FlussStage: Invalid stage definition for ${name}. Expected FlussPhaseData or FlussStageType.`);

@@ -8,7 +8,7 @@ class FlussFlow {
         this.#data = data;
 
         const stages = Object.entries(data).map(([name, def]) => {
-            return createStage(name, def);
+            return createStage(name, def.src, def.priority);
         });
 
         if (modifier) {
