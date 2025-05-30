@@ -97,12 +97,12 @@ export const isPhaseType = (obj: any): obj is FlussPhaseType => {
 
 // ------------------------------ // -  - // ------------------------------ //
 
-export const createPhase = (mode: MainMode, def: FlussPhaseDef): FlussPhase => {
-    if(isPhaseData(def)) {
-        return new FlussPhase(mode, def);
+export const createPhase = (mode: MainMode, src : FlussPhaseSource): FlussPhase => {
+    if(isPhaseData(src)) {
+        return new FlussPhase(mode, src);
     }
-    if(isPhaseType(def)) {
-        return new def(mode);
+    if(isPhaseType(src)) {
+        return new src(mode);
     }
 
     throw new Error(`FlussPhase: Invalid phase definition for mode ${mode}. Expected FlussPhaseData or FlussPhaseType.`);
