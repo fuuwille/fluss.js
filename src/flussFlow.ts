@@ -16,6 +16,8 @@ export type FlussFlowData = {
     [key: string] : FlussStageDef;
 }
 
+export type FlussFlowGenerator = (stages : FlussStageDef[]) => void;
+
 // ------------------------------ // -  - // ------------------------------ //
 
 export const createFlow = (data: FlussFlowData): FlussFlow => {
