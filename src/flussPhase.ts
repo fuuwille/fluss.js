@@ -1,25 +1,22 @@
 import FlussAction from "./flussAction";
-import FlussMode, { FlussCycleMode } from "./flussMode";
 
 class FlussPhase {
-    #mode : FlussMode;
-    #cycleMode : FlussCycleMode;
+    #mode : FlussPhaseMode;
     #data : FlussPhaseData;
 
-    constructor(mode: FlussMode);
+    constructor();
 
-    constructor(mode: FlussMode, data : FlussPhaseData);
+    constructor(data : FlussPhaseData);
 
-    constructor(mode: FlussMode, data? : FlussPhaseData) {
-        this.#mode = mode;
-        this.#cycleMode = FlussCycleMode.None;
+    constructor(data? : FlussPhaseData) {
+        this.#mode = FlussPhaseMode.None;
 
         if(!data) {
             if(this.bind) {
                 data = this.bind();
             }
             else {
-                throw new Error(`FlussPhase: No action bundle provided for mode ${mode}.`);
+                throw new Error(`FlussPhase: No action bundle provided.`);
             }
         }
 
@@ -30,18 +27,14 @@ class FlussPhase {
 
     // ------------------------- // -  - // ------------------------- //
     
-    public get mode(): FlussMode {
+    public get mode(): FlussPhaseMode {
         return this.#mode;
-    }
-
-    public get cycleMode(): FlussCycleMode {
-        return this.#cycleMode;
     }
 }
 
 export abstract class FlussBoundPhase extends FlussPhase {
-    constructor(mode: FlussMode) {
-        super(mode);
+    constructor() {
+        super();
     }
 
     protected bind(): FlussPhaseData {
@@ -65,13 +58,20 @@ export default FlussPhase;
 
 // ------------------------------ // -  - // ------------------------------ //
 
+export enum FlussPhaseMode {
+    None = 0,
+    Pre = 1 << 0,
+    Main = 1 << 1,
+    Post = 1 << 2,
+}
+
 export type FlussPhaseData = {
     onMain: FlussAction;
     onPre?: FlussAction;
     onPost?: FlussAction;
 }
 
-export type FlussPhaseType = new (mode : FlussMode) => FlussPhase;
+export type FlussPhaseType = new () => FlussBoundPhase;
 
 export type FlussPhaseSource = FlussPhaseData | FlussPhaseType;
 
@@ -91,13 +91,13 @@ export const isPhaseType = (obj: any): obj is FlussPhaseType => {
 
 // ------------------------------ // -  - // ------------------------------ //
 
-export const createPhase = (mode: FlussMode, src : FlussPhaseSource): FlussPhase => {
+export const createPhase = (src : FlussPhaseSource): FlussPhase => {
     if(isPhaseData(src)) {
-        return new FlussPhase(mode, src);
+        return new FlussPhase(src);
     }
     if(isPhaseType(src)) {
-        return new src(mode);
+        return new src();
     }
 
-    throw new Error(`FlussPhase: Invalid phase definition for mode ${mode}. Expected FlussPhaseData or FlussPhaseType.`);
+    throw new Error(`FlussPhase: Invalid phase definition. Expected FlussPhaseData or FlussPhaseType.`);
 }

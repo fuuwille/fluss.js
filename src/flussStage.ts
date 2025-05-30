@@ -72,6 +72,18 @@ export default FlussStage;
 
 // ------------------------------ // -  - // ------------------------------ //
 
+export enum FlussStageMode {
+    None = 0,
+    Pending = 1 << 0,
+    Begin = 1 << 1,
+    Running = 1 << 2,
+    End = 1 << 3,
+    Completed = 1 << 4,
+    Cancelled = 1 << 5,
+    Failed = 1 << 6,
+    TimedOut = 1 << 7,
+}
+
 export type FlussStageData = {
     pending?: FlussPhaseDef;
     begin?: FlussPhaseDef;
