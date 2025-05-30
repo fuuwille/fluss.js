@@ -48,7 +48,7 @@ class FlussStage {
     }
 
     public isBegin() : boolean {
-        return (this.#mode & FlussStageMode.Begin) !== 0;
+        return (this.#mode & FlussStageMode.Beginning) !== 0;
     }
 
     public isRunning() : boolean {
@@ -56,7 +56,7 @@ class FlussStage {
     }
 
     public isEnd() : boolean {
-        return (this.#mode & FlussStageMode.End) !== 0;
+        return (this.#mode & FlussStageMode.Ending) !== 0;
     }
 
     public isFinalized() : boolean {
@@ -74,10 +74,6 @@ class FlussStage {
     public isFailed() : boolean {
         return (this.#mode & FlussStageMode.Failed) !== 0;
     }
-
-    public isTimedOut() : boolean {
-        return (this.#mode & FlussStageMode.TimedOut) !== 0;
-    }
 }
 
 export abstract class FlussBoundStage extends FlussStage {
@@ -88,9 +84,9 @@ export abstract class FlussBoundStage extends FlussStage {
     protected bind(): FlussStageData {
         return {
             pending: this.pending?.(),
-            begin: this.begin?.(),
+            beginning: this.beginning?.(),
             running: this.running?.(),
-            end: this.end?.(),
+            ending: this.ending?.(),
             completed: this.completed?.(),
             cancelled: this.cancelled?.()
         };
@@ -100,11 +96,11 @@ export abstract class FlussBoundStage extends FlussStage {
 
     protected pending?() : FlussPhaseDef
 
-    protected begin?() : FlussPhaseDef;
+    protected beginning?() : FlussPhaseDef;
 
     protected running?() : FlussPhaseDef;
 
-    protected end?() : FlussPhaseDef;
+    protected ending?() : FlussPhaseDef;
 
     protected completed?() : FlussPhaseDef;
 
@@ -124,9 +120,9 @@ export type FlussStagePriority = number | (() => number);
 
 export type FlussStageData = {
     pending?: FlussPhaseDef;
-    begin?: FlussPhaseDef;
+    beginning?: FlussPhaseDef;
     running?: FlussPhaseDef;
-    end?: FlussPhaseDef;
+    ending?: FlussPhaseDef;
     completed?: FlussPhaseDef;
     cancelled?: FlussPhaseDef;
 }
@@ -134,9 +130,10 @@ export type FlussStageData = {
 export enum FlussStageMode {
     None = 0,
     Pending = 1 << 0,
-    Begin = 1 << 1,
+    Beginning = 1 << 1,
     Running = 1 << 2,
-    End = 1 << 3,
+    Ending = 1 << 3,
+    
     Completed = 1 << 4,
     Cancelled = 1 << 5,
     Failed = 1 << 6,
