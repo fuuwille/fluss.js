@@ -79,6 +79,20 @@ class FlussPhase {
 
         return true;
     }
+
+    public async executeAsync(): Promise<boolean> {
+        if(this.ref.stage.currentPhase != this) {
+            return Promise.resolve(false);
+        }
+
+        await Promise.all([
+            Promise.resolve(this.beforeAction?.()),
+            Promise.resolve(this.mainAction()),
+            Promise.resolve(this.afterAction?.()),
+        ]);
+
+        return true;
+    }
 }
 
 export abstract class FlussBoundPhase extends FlussPhase {
