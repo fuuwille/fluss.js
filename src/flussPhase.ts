@@ -1,20 +1,18 @@
 import FlussAction from "./flussAction";
-import { getPostMode, getPreMode, MainMode, PostMode, PreMode } from "./flussMode";
+import FlussMode, { FlussCycleMode } from "./flussMode";
 
 class FlussPhase {
-    #mode : MainMode;
-    #preMode : PreMode;
-    #postMode : PostMode;
+    #mode : FlussMode;
+    #cycleMode : FlussCycleMode;
     #data : FlussPhaseData;
 
-    constructor(mode: MainMode);
+    constructor(mode: FlussMode);
 
-    constructor(mode: MainMode, data : FlussPhaseData);
+    constructor(mode: FlussMode, data : FlussPhaseData);
 
-    constructor(mode: MainMode, data? : FlussPhaseData) {
+    constructor(mode: FlussMode, data? : FlussPhaseData) {
         this.#mode = mode;
-        this.#preMode = getPreMode(mode);
-        this.#postMode = getPostMode(mode);
+        this.#cycleMode = FlussCycleMode.None;
 
         if(!data) {
             if(this.bind) {
@@ -32,21 +30,17 @@ class FlussPhase {
 
     // ------------------------- // -  - // ------------------------- //
     
-    public get mode(): MainMode {
+    public get mode(): FlussMode {
         return this.#mode;
     }
 
-    public get preMode(): PreMode {
-        return this.#preMode;
-    }
-
-    public get postMode(): PostMode {
-        return this.#postMode;
+    public get cycleMode(): FlussCycleMode {
+        return this.#cycleMode;
     }
 }
 
 export abstract class FlussBoundPhase extends FlussPhase {
-    constructor(mode: MainMode) {
+    constructor(mode: FlussMode) {
         super(mode);
     }
 
@@ -77,7 +71,7 @@ export type FlussPhaseData = {
     onPost?: FlussAction;
 }
 
-export type FlussPhaseType = new (mode : MainMode) => FlussPhase;
+export type FlussPhaseType = new (mode : FlussMode) => FlussPhase;
 
 export type FlussPhaseSource = FlussPhaseData | FlussPhaseType;
 
@@ -97,7 +91,7 @@ export const isPhaseType = (obj: any): obj is FlussPhaseType => {
 
 // ------------------------------ // -  - // ------------------------------ //
 
-export const createPhase = (mode: MainMode, src : FlussPhaseSource): FlussPhase => {
+export const createPhase = (mode: FlussMode, src : FlussPhaseSource): FlussPhase => {
     if(isPhaseData(src)) {
         return new FlussPhase(mode, src);
     }
