@@ -1,16 +1,17 @@
-import { FlussPhaseData, FlussPhaseDef } from "./flussPhase";
+import FlussFlow from "./flussFlow";
+import { FlussPhaseDef } from "./flussPhase";
 
 class FlussStage {  
-    #name : string;
+    #ref : FlussStageRef;
     #priority : number;
     #data : FlussStageData;
 
-    constructor(name : string, priority : number);
+    constructor(ref : FlussStageRef, priority : number);
 
-    constructor(name : string, priority : number, data : FlussStageData);
+    constructor(ref : FlussStageRef, priority : number, data : FlussStageData);
 
-    constructor(name : string, priority : number, data? : FlussStageData) {
-        this.#name = name;
+    constructor(ref : FlussStageRef, priority : number, data? : FlussStageData) {
+        this.#ref = ref;
 
         if(!data) {
             if(this.bind) {
@@ -28,8 +29,8 @@ class FlussStage {
 
     // ------------------------- // -  - // ------------------------- //
 
-    public get name(): string {
-        return this.#name;
+    public get ref(): FlussStageRef {
+        return this.#ref;
     }
 
     public get priority(): number {
@@ -38,8 +39,8 @@ class FlussStage {
 }
 
 export abstract class FlussBoundStage extends FlussStage {
-    constructor(name : string, priority : number) {
-        super(name, priority);
+    constructor(ref : FlussStageRef, priority : number) {
+        super(ref, priority);
     }
 
     protected bind(): FlussStageData {
@@ -72,6 +73,20 @@ export default FlussStage;
 
 // ------------------------------ // -  - // ------------------------------ //
 
+export type FlussStageRef = {
+    flow: FlussFlow;
+    name : string;
+}
+
+export type FlussStageData = {
+    pending?: FlussPhaseDef;
+    begin?: FlussPhaseDef;
+    running?: FlussPhaseDef;
+    end?: FlussPhaseDef;
+    completed?: FlussPhaseDef;
+    cancelled?: FlussPhaseDef;
+}
+
 export enum FlussStageMode {
     None = 0,
     Pending = 1 << 0,
@@ -84,16 +99,9 @@ export enum FlussStageMode {
     TimedOut = 1 << 7,
 }
 
-export type FlussStageData = {
-    pending?: FlussPhaseDef;
-    begin?: FlussPhaseDef;
-    running?: FlussPhaseDef;
-    end?: FlussPhaseDef;
-    completed?: FlussPhaseDef;
-    cancelled?: FlussPhaseDef;
-}
+// ------------------------------ // -  - // ------------------------------ //
 
-export type FlussStageType = new (name: string, priority: number) => FlussBoundStage;
+export type FlussStageType = new (ref: FlussStageRef, priority: number) => FlussBoundStage;
 
 export type FlussStageSource = FlussStageData | FlussStageType;
 
@@ -116,14 +124,14 @@ export const isStageType = (obj: any): obj is FlussStageType => {
 
 // ------------------------------ // -  - // ------------------------------ //
 
-export const createStage = (name: string, src : FlussStageSource, priority?: FlussStagePriority): FlussStage => {
+export const createStage = (ref: FlussStageRef, src : FlussStageSource, priority?: FlussStagePriority): FlussStage => {
     const _priority = typeof priority === 'function' ? priority() : priority ?? 0;
 
     if(isStageData(src)) {
-        return new FlussStage(name, _priority, src);
+        return new FlussStage(ref, _priority, src);
     }
     if(isStageType(src)) {
-        return new src(name, _priority);
+        return new src(ref, _priority);
     }
 
     throw new Error(`FlussStage: Invalid stage definition for ${name}. Expected FlussPhaseData or FlussStageType.`);
