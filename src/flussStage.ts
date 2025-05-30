@@ -1,10 +1,20 @@
+import fluss from "./fluss";
 import FlussFlow from "./flussFlow";
-import { FlussPhaseDef } from "./flussPhase";
+import FlussPhase, { createPhase, FlussPhaseDef } from "./flussPhase";
 
 class FlussStage {  
     #ref : FlussStageRef;
     #priority : number;
     #mode : FlussStageMode;
+
+    #pendingPhase: FlussPhase | null;
+    #beginningPhase: FlussPhase | null;
+    #runningPhase: FlussPhase | null;
+    #endingPhase: FlussPhase | null;
+    #completedPhase: FlussPhase | null;
+    #cancelledPhase: FlussPhase | null;
+    #failedPhase: FlussPhase | null;
+    #timedOutPhase: FlussPhase | null;
 
     constructor(ref : FlussStageRef, priority : number);
 
@@ -23,6 +33,17 @@ class FlussStage {
 
         this.#priority = priority;
         this.#mode = FlussStageMode.None;
+
+        // ---------- // -  - // ---------- //
+
+        this.#pendingPhase = data.pending ? createPhase(fluss.phaseRef(this, FlussStageMode.Pending), data.pending.src) : null;
+        this.#beginningPhase = data.beginning ? createPhase(fluss.phaseRef(this, FlussStageMode.Beginning), data.beginning.src) : null;
+        this.#runningPhase = data.running ? createPhase(fluss.phaseRef(this, FlussStageMode.Running), data.running.src) : null;
+        this.#endingPhase = data.ending ? createPhase(fluss.phaseRef(this, FlussStageMode.Ending), data.ending.src) : null;
+        this.#completedPhase = data.completed ? createPhase(fluss.phaseRef(this, FlussStageMode.Completed), data.completed.src) : null;
+        this.#cancelledPhase = data.cancelled ? createPhase(fluss.phaseRef(this, FlussStageMode.Cancelled), data.cancelled.src) : null;
+        this.#failedPhase = null; // Not provided in the data, can be set later
+        this.#timedOutPhase = null; // Not provided in the data, can be set later
     }
 
     protected bind?(): FlussStageData;
