@@ -65,6 +65,20 @@ class FlussPhase {
     protected get afterAction(): FlussAction | undefined {
         return this.#afterAction;
     }
+    
+    // ------------------------- // -  - // ------------------------- //
+
+    public execute() : boolean {
+        if(this.ref.stage.currentPhase != this) {
+            return false;
+        }
+
+        this.beforeAction?.();
+        this.mainAction();
+        this.afterAction?.();
+
+        return true;
+    }
 }
 
 export abstract class FlussBoundPhase extends FlussPhase {
