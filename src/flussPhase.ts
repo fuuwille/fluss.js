@@ -78,9 +78,9 @@ export type FlussPhaseData = {
 
 export enum FlussPhaseMode {
     None = 0,
-    Pre = 1 << 0,
+    Before = 1 << 0,
     Main = 1 << 1,
-    Post = 1 << 2,
+    After = 1 << 2,
 }
 
 // ------------------------------ // -  - // ------------------------------ //
