@@ -6,6 +6,14 @@ class FlussPhase {
     #data : FlussPhaseData;
     #mode : FlussPhaseMode;
 
+    // ---------- // -  - // ---------- //
+
+    #mainAction : FlussAction;
+    #beforeAction? : FlussAction;
+    #afterAction? : FlussAction;
+
+    // ---------- // -  - // ---------- //
+
     constructor(ref : FlussPhaseRef);
 
     constructor(ref : FlussPhaseRef, data : FlussPhaseData);
@@ -24,6 +32,12 @@ class FlussPhase {
         }
 
         this.#data = data;
+
+        // ---------- // -  - // ---------- //
+
+        this.#mainAction = data.onMain;
+        this.#beforeAction = data.onBefore;
+        this.#afterAction = data.onAfter;
     }
 
     protected bind?(): FlussPhaseData;
@@ -36,6 +50,20 @@ class FlussPhase {
     
     public get mode(): FlussPhaseMode {
         return this.#mode;
+    }
+
+    // ------------------------- // -  - // ------------------------- //
+
+    protected get mainAction(): FlussAction {
+        return this.#mainAction;
+    }
+
+    protected get beforeAction(): FlussAction | undefined {
+        return this.#beforeAction;
+    }
+
+    protected get afterAction(): FlussAction | undefined {
+        return this.#afterAction;
     }
 }
 
