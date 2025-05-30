@@ -85,11 +85,30 @@ class FlussPhase {
             return Promise.resolve(false);
         }
 
-        await Promise.all([
-            Promise.resolve(this.beforeAction?.()),
-            Promise.resolve(this.mainAction()),
-            Promise.resolve(this.afterAction?.()),
-        ]);
+        if(this.beforeAction) {
+            if(this.beforeAction.constructor.name === 'AsyncFunction') {
+                await this.beforeAction();
+            }
+            else {
+                this.beforeAction();
+            }
+        }
+
+        if(this.mainAction.constructor.name === 'AsyncFunction') {
+            await this.mainAction();
+        }
+        else {
+            this.mainAction();
+        }
+        
+        if(this.afterAction) {
+            if(this.afterAction.constructor.name === 'AsyncFunction') {
+                await this.afterAction();
+            }
+            else {
+                this.afterAction();
+            }
+        }
 
         return true;
     }
