@@ -67,6 +67,14 @@ export class FlussFlowProvider {
 
         return stage;
     }
+
+    public findStage(name: string) : FlussStage | undefined {
+        return this.#stages.find(stage => stage.ref.name === name);
+    }
+
+    public atStage(index: number) : FlussStage | undefined {
+        return this.#stages[index];
+    }
 }
 
 // ------------------------------ // -  - // ------------------------------ //
