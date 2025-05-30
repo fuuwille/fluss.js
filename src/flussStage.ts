@@ -40,6 +40,44 @@ class FlussStage {
     public get mode(): FlussStageMode {
         return this.#mode;
     }
+
+    // ------------------------- // -  - // ------------------------- //
+
+    public isPending() : boolean {
+        return (this.#mode & FlussStageMode.Pending) !== 0;
+    }
+
+    public isBegin() : boolean {
+        return (this.#mode & FlussStageMode.Begin) !== 0;
+    }
+
+    public isRunning() : boolean {
+        return (this.#mode & FlussStageMode.Running) !== 0;
+    }
+
+    public isEnd() : boolean {
+        return (this.#mode & FlussStageMode.End) !== 0;
+    }
+
+    public isFinalized() : boolean {
+        return (this.#mode & (FlussStageMode.Completed | FlussStageMode.Cancelled | FlussStageMode.Failed | FlussStageMode.TimedOut)) !== 0;
+    }
+
+    public isCompleted() : boolean {
+        return (this.#mode & FlussStageMode.Completed) !== 0;
+    }
+
+    public isCancelled() : boolean {
+        return (this.#mode & FlussStageMode.Cancelled) !== 0;
+    }
+
+    public isFailed() : boolean {
+        return (this.#mode & FlussStageMode.Failed) !== 0;
+    }
+
+    public isTimedOut() : boolean {
+        return (this.#mode & FlussStageMode.TimedOut) !== 0;
+    }
 }
 
 export abstract class FlussBoundStage extends FlussStage {
