@@ -1,5 +1,5 @@
 import fluss from "./fluss";
-import FlussStage, { createStage, FlussStageDef } from "./flussStage";
+import FlussStage, { createStage, FlussStageDef, FlussStagePriority, FlussStageSource } from "./flussStage";
 
 class FlussFlow {
     #data : FlussFlowData;
@@ -42,9 +42,9 @@ export type FlussFlowModifier = (provider : FlussFlowProvider) => void;
 
 export class FlussFlowProvider {
     #flow : FlussFlow;
-    #stages : readonly FlussStage[];
+    #stages : FlussStage[];
 
-    constructor(flow: FlussFlow, stages: readonly FlussStage[]) {
+    constructor(flow: FlussFlow, stages: FlussStage[]) {
         this.#flow = flow;
         this.#stages = stages;
     }
@@ -55,8 +55,17 @@ export class FlussFlowProvider {
         return this.#flow;
     }
 
-    public get stages(): readonly FlussStage[] {
+    public get stages(): FlussStage[] {
         return this.#stages;
+    }
+
+    // ------------------------- // -  - // ------------------------- //
+
+    public createStage(name : string, src : FlussStageSource, priority? : FlussStagePriority) : FlussStage {
+        const stage = createStage(fluss.stageRef(this.#flow, name), src, priority);
+        this.#stages.push(stage);
+        
+        return stage;
     }
 }
 
