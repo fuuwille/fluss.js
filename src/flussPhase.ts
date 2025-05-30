@@ -1,3 +1,4 @@
+import fluss from "./fluss";
 import FlussAction from "./flussAction";
 import FlussStage, { FlussStageMode } from "./flussStage";
 
@@ -86,30 +87,17 @@ class FlussPhase {
         }
 
         if(this.beforeAction) {
-            if(this.beforeAction.constructor.name === 'AsyncFunction') {
-                await this.beforeAction();
-            }
-            else {
-                this.beforeAction();
-            }
+            await Promise.resolve(this.beforeAction());
         }
 
-        if(this.mainAction.constructor.name === 'AsyncFunction') {
-            await this.mainAction();
+        if(this.mainAction) {
+            await Promise.resolve(this.mainAction());
         }
-        else {
-            this.mainAction();
+
+        if(this.afterAction) {
+            await Promise.resolve(this.afterAction());
         }
         
-        if(this.afterAction) {
-            if(this.afterAction.constructor.name === 'AsyncFunction') {
-                await this.afterAction();
-            }
-            else {
-                this.afterAction();
-            }
-        }
-
         return true;
     }
 }
