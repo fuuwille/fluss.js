@@ -1,8 +1,9 @@
 class FlussStage {
+    #data : FlussStageData;
     #mode: FlussStageMode = FlussStageMode.Pending;
 
-    public constructor() {
-
+    public constructor(data : FlussStageData) {
+        this.#data = data;
     }
 
     // ------------------------- // -  - // ------------------------- //
@@ -35,6 +36,11 @@ class FlussStage {
 export default FlussStage;
 
 // ------------------------------ // -  - // ------------------------------ //
+
+export type FlussStageData = {
+    onRunning?: () => void;
+    onCompleted?: () => void;
+}
 
 export enum FlussStageMode {
     Pending = 0,
