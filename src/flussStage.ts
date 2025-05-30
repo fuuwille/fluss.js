@@ -4,7 +4,6 @@ import { FlussPhaseDef } from "./flussPhase";
 class FlussStage {  
     #ref : FlussStageRef;
     #priority : number;
-    #data : FlussStageData;
     #mode : FlussStageMode;
 
     constructor(ref : FlussStageRef, priority : number);
@@ -23,7 +22,6 @@ class FlussStage {
         }
 
         this.#priority = priority;
-        this.#data = data;
         this.#mode = FlussStageMode.None;
     }
 
