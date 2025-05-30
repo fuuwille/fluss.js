@@ -83,28 +83,28 @@ export abstract class FlussBoundStage extends FlussStage {
 
     protected bind(): FlussStageData {
         return {
-            pending: this.pendingPhase?.(),
-            beginning: this.beginningPhase?.(),
-            running: this.runningPhase?.(),
-            ending: this.endingPhase?.(),
-            completed: this.completedPhase?.(),
-            cancelled: this.cancelledPhase?.()
+            pending: this.pendingDef?.(),
+            beginning: this.beginningDef?.(),
+            running: this.runningDef?.(),
+            ending: this.endingDef?.(),
+            completed: this.completedDef?.(),
+            cancelled: this.cancelledDef?.()
         };
     }
 
     // ------------------------- // -  - // ------------------------- //
 
-    protected pendingPhase?() : FlussPhaseDef
+    protected pendingDef?() : FlussPhaseDef
 
-    protected beginningPhase?() : FlussPhaseDef;
+    protected beginningDef?() : FlussPhaseDef;
 
-    protected runningPhase?() : FlussPhaseDef;
+    protected runningDef?() : FlussPhaseDef;
 
-    protected endingPhase?() : FlussPhaseDef;
+    protected endingDef?() : FlussPhaseDef;
 
-    protected completedPhase?() : FlussPhaseDef;
+    protected completedDef?() : FlussPhaseDef;
 
-    protected cancelledPhase?() : FlussPhaseDef;
+    protected cancelledDef?() : FlussPhaseDef;
 }
 
 export default FlussStage;
