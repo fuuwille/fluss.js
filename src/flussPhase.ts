@@ -76,14 +76,14 @@ export type FlussPhaseData = {
     onAfter?: FlussAction;
 }
 
-// ------------------------------ // -  - // ------------------------------ //
-
 export enum FlussPhaseMode {
     None = 0,
     Pre = 1 << 0,
     Main = 1 << 1,
     Post = 1 << 2,
 }
+
+// ------------------------------ // -  - // ------------------------------ //
 
 export type FlussPhaseType = new (ref : FlussPhaseRef) => FlussBoundPhase;
 
