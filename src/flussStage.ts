@@ -138,6 +138,17 @@ class FlussStage {
         return true;
     }
 
+    public async startAsync() : Promise<boolean> {
+        if(!this.isNone()) {
+            return Promise.resolve(false);
+        }
+
+        this.#mode = FlussStageMode.Pending;
+        await this.#pendingPhase?.executeAsync();
+
+        return true;
+    }
+
     public run() : boolean {
         if(!this.isPending()) {
             return false;
@@ -155,6 +166,23 @@ class FlussStage {
         return true;
     }
 
+    public async runAsync() : Promise<boolean> {
+        if(!this.isPending()) {
+            return Promise.resolve(false);
+        }
+
+        this.#mode = FlussStageMode.Beginning;
+        await this.#beginningPhase?.executeAsync();
+
+        this.#mode = FlussStageMode.Running;
+        await this.#runningPhase?.executeAsync();
+
+        this.#mode = FlussStageMode.Ending;
+        await this.#endingPhase?.executeAsync();
+
+        return true;
+    }
+
     public finalize() : boolean {
         if(!this.isEnd()) {
             return false;
@@ -162,6 +190,17 @@ class FlussStage {
 
         this.#mode = FlussStageMode.Completed;
         this.#completedPhase?.execute();
+
+        return true;
+    }
+
+    public async finalizeAsync() : Promise<boolean> {
+        if(!this.isEnd()) {
+            return Promise.resolve(false);
+        }
+
+        this.#mode = FlussStageMode.Completed;
+        await this.#completedPhase?.executeAsync();
 
         return true;
     }
