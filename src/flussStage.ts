@@ -83,28 +83,28 @@ export abstract class FlussBoundStage extends FlussStage {
 
     protected bind(): FlussStageData {
         return {
-            pending: this.pending?.(),
-            beginning: this.beginning?.(),
-            running: this.running?.(),
-            ending: this.ending?.(),
-            completed: this.completed?.(),
-            cancelled: this.cancelled?.()
+            pending: this.pendingPhase?.(),
+            beginning: this.beginningPhase?.(),
+            running: this.runningPhase?.(),
+            ending: this.endingPhase?.(),
+            completed: this.completedPhase?.(),
+            cancelled: this.cancelledPhase?.()
         };
     }
 
     // ------------------------- // -  - // ------------------------- //
 
-    protected pending?() : FlussPhaseDef
+    protected pendingPhase?() : FlussPhaseDef
 
-    protected beginning?() : FlussPhaseDef;
+    protected beginningPhase?() : FlussPhaseDef;
 
-    protected running?() : FlussPhaseDef;
+    protected runningPhase?() : FlussPhaseDef;
 
-    protected ending?() : FlussPhaseDef;
+    protected endingPhase?() : FlussPhaseDef;
 
-    protected completed?() : FlussPhaseDef;
+    protected completedPhase?() : FlussPhaseDef;
 
-    protected cancelled?() : FlussPhaseDef;
+    protected cancelledPhase?() : FlussPhaseDef;
 }
 
 export default FlussStage;
@@ -133,7 +133,7 @@ export enum FlussStageMode {
     Beginning = 1 << 1,
     Running = 1 << 2,
     Ending = 1 << 3,
-    
+
     Completed = 1 << 4,
     Cancelled = 1 << 5,
     Failed = 1 << 6,
