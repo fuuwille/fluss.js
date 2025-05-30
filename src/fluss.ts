@@ -1,6 +1,6 @@
 import FlussFlow from "./flussFlow";
-import { FlussPhaseDef, FlussPhaseSource } from "./flussPhase";
-import { FlussStageDef, FlussStageRef, FlussStageSource } from "./flussStage";
+import { FlussPhaseDef, FlussPhaseRef, FlussPhaseSource } from "./flussPhase";
+import FlussStage, { FlussStageDef, FlussStageMode, FlussStageRef, FlussStageSource } from "./flussStage";
 
 class fluss {
 
@@ -11,6 +11,10 @@ class fluss {
 
     public static stageRef(flow : FlussFlow, name : string) : FlussStageRef {
         return { flow, name };
+    }
+
+    public static phaseRef(stage : FlussStage, mode : FlussStageMode) : FlussPhaseRef {
+        return { stage, mode };
     }
 
     // ------------------------- // -  - // ------------------------- //
