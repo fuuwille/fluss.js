@@ -30,6 +30,10 @@ class FlussFlow<TState extends FlussState = FlussState> {
 
     // ------------------------- // -  - // ------------------------- //
 
+    public get state() : TState {
+        return this.#state;
+    }
+
     public get stages() : readonly FlussStage[] {
         return this.#stages;
     }
