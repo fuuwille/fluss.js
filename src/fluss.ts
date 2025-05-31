@@ -15,8 +15,6 @@ class fluss {
         return { src : data }
     }
 
-    // ------------------------- // -  - // ------------------------- //
-
     public static stage = (data : FlussStageData) : FlussStageDef => {
         return { src: data };
     }
