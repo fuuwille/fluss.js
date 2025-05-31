@@ -1,3 +1,4 @@
+import { FlussResult } from "./fluss";
 import FlussFlow from "./flussFlow";
 
 class FlussStage {
@@ -36,7 +37,7 @@ class FlussStage {
         }
 
         try {
-            let result : FlussStageResult | void = undefined;
+            let result : FlussResult | void = undefined;
 
             if(this.runningAction) {
                 result = typeof this.runningAction === "function" 
@@ -47,9 +48,7 @@ class FlussStage {
             this.#mode = FlussStageMode.Pending;
 
             if(result) {
-                if((result & FlussStageResult.Continue) === FlussStageResult.Continue) {
-                    await this.finalizeAsync();
-                }
+                await this.finalizeAsync();
             }
             
             return true;
@@ -65,7 +64,7 @@ class FlussStage {
         }
 
         try {
-            let result : FlussStageResult | void = undefined;
+            let result : FlussResult | void = undefined;
 
             if(this.runningAction) {
                 result = typeof this.finalizingAction === "function" 
@@ -76,9 +75,7 @@ class FlussStage {
             this.#mode = FlussStageMode.Completed;
 
             if(result) {
-                if((result & FlussStageResult.Continue) === FlussStageResult.Continue) {
-                    await Promise.resolve(this.ref.flow.nextStage()?.runAsync());
-                }
+                await Promise.resolve(this.ref.flow.nextStage()?.runAsync());
             }
 
             return true;
@@ -147,18 +144,12 @@ export enum FlussStageMode {
 
 // ------------------------------ // -  - // ------------------------------ //
 
-export enum FlussStageResult {
-    Success = 1,
-    Failure = 2,
-    Continue = 4,
-}
-
 export type FlussStageReturn<T> = T | void;
 
-export type FlussStageRunning = FlussStageResult | FlussStageRunningAction;
+export type FlussStageRunning = FlussResult | FlussStageRunningAction;
 
-export type FlussStageRunningAction = (flow : FlussFlow) => FlussStageReturn<FlussStageResult> | Promise<FlussStageReturn<FlussStageResult>>;
+export type FlussStageRunningAction = (flow : FlussFlow) => FlussStageReturn<FlussResult> | Promise<FlussStageReturn<FlussResult>>;
 
-export type FlussStageFinalizing = FlussStageResult | FlussStageFinalizingAction;
+export type FlussStageFinalizing = FlussResult | FlussStageFinalizingAction;
 
-export type FlussStageFinalizingAction = (flow : FlussFlow) => FlussStageReturn<FlussStageResult> | Promise<FlussStageReturn<FlussStageResult>>;
+export type FlussStageFinalizingAction = (flow : FlussFlow) => FlussStageReturn<FlussResult> | Promise<FlussStageReturn<FlussResult>>;
