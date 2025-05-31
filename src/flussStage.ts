@@ -50,9 +50,9 @@ export enum FlussStageMode {
 
 // ------------------------------ // -  - // ------------------------------ //
 
-export type FlussStageRunning = () => FlussStageResult;
+export type FlussStageRunning = () => FlussStageResult | Promise<FlussStageResult>;
 
-export type FlussStageCompleted = () => FlussStageCommand;
+export type FlussStageCompleted = () => FlussStageCommand | Promise<FlussStageCommand>;
 
 export enum FlussStageResult {
     Success = 0,
