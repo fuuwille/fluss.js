@@ -36,6 +36,20 @@ class FlussStage {
         }
     }
 
+    public async runAsync() : Promise<boolean> {
+        if(!this.doRun()) {
+            return false;
+        }
+
+        try {
+            await Promise.resolve(this.runningAction?.());
+            return true;
+        }
+        catch (error) {
+            return false;
+        }
+    }
+
     public complete() : boolean {
         if(!this.doComplete()) {
             return false;
@@ -43,6 +57,20 @@ class FlussStage {
 
         try {
             this.completedAction?.();
+            return true;
+        }
+        catch (error) {
+            return false;
+        }
+    }
+
+    public async completeAsync() : Promise<boolean> {
+        if(!this.doComplete()) {
+            return false;
+        }
+
+        try {
+            await Promise.resolve(this.completedAction?.());
             return true;
         }
         catch (error) {
