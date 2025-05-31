@@ -36,6 +36,12 @@ class fluss {
     public static get timedOut() : FlussResult {
         return 'timedOut' as FlussResult;
     }
+
+    // ------------------------- // -  - // ------------------------- //
+
+    public static get continue() : FlussCommand {
+        return 'continue' as FlussCommand;
+    }
 }
 
 export default fluss;
