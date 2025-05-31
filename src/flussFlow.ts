@@ -47,19 +47,19 @@ export default FlussFlow;
 
 // ------------------------------ // -  - // ------------------------------ //
 
-export type FlussFlowData<TKey extends FlussFlowKey> = Record<
-    TKey extends FlussFlowFlexKey ? string 
-    : TKey extends FlussFlowFixedKey<infer T> ? T : never,
-    FlussStageData>;
-
-// ------------------------------ // -  - // ------------------------------ //
-
 export type FlussFlowKey = FlussFlowFixedKey | FlussFlowFlexKey;
 
 export type FlussFlowFixedKey<T extends string = string> = T & { __brand: "flowFixedKey" };
 
 export type FlussFlowFlexKey<T extends null = null> = T & { __brand: "flowFlexKey" };
 
+// ------------------------------ // -  - // ------------------------------ //
+
 export type FlussFlowState = {
     [key : string] : any;
 }
+
+export type FlussFlowData<TKey extends FlussFlowKey> = Record<
+    TKey extends FlussFlowFlexKey ? string 
+    : TKey extends FlussFlowFixedKey<infer T> ? T : never,
+    FlussStageData>;
