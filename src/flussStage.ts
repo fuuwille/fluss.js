@@ -27,8 +27,13 @@ class FlussStage {
             return false;
         }
 
-        this.runningAction?.();
-        return true;
+        try {
+            this.runningAction?.();
+            return true;
+        }
+        catch (error) {
+            return false;
+        }
     }
 
     public complete() : boolean {
@@ -36,8 +41,13 @@ class FlussStage {
             return false;
         }
 
-        this.completedAction?.();
-        return true;
+        try {
+            this.completedAction?.();
+            return true;
+        }
+        catch (error) {
+            return false;
+        }
     }
 
     // ------------------------- // -  - // ------------------------- //
