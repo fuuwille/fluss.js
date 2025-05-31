@@ -1,4 +1,4 @@
-import FlussFlow, { FlussFlowData, FlussFlowDef, FlussFlowFixedKey, FlussFlowFlexKey, FlussFlowState } from "./flussFlow";
+import { FlussFlowData, FlussFlowDef, FlussFlowFixedKey, FlussFlowFlexKey } from "./flussFlow";
 import { FlussStageData, FlussStageDef } from "./flussStage";
 
 class fluss {

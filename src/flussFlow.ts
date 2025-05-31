@@ -1,4 +1,4 @@
-import FlussStage, { FlussStageData, FlussStageDef, FlussStageMode } from "./flussStage";
+import FlussStage, { FlussStageDef, FlussStageMode } from "./flussStage";
 
 class FlussFlow<TKey extends FlussFlowKey = FlussFlowKey, TState extends FlussFlowState = FlussFlowState> {
     #state: TState;
