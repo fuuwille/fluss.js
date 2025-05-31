@@ -47,7 +47,10 @@ export default FlussFlow;
 
 // ------------------------------ // -  - // ------------------------------ //
 
-export type FlussFlowData<TKey extends FlussFlowKey> = Record<TKey extends FlussFlowFlexKey ? string : TKey, FlussStageData>;
+export type FlussFlowData<TKey extends FlussFlowKey> = Record<
+    TKey extends FlussFlowFlexKey ? string 
+    : TKey extends FlussFlowFixedKey<infer T> ? T : never,
+    FlussStageData>;
 
 // ------------------------------ // -  - // ------------------------------ //
 
