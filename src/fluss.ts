@@ -18,6 +18,24 @@ class fluss {
     public static stage = (data : FlussStageData) : FlussStageDef => {
         return { src: data };
     }
+
+    // ------------------------- // -  - // ------------------------- //
+
+    public static get success() : FlussResult {
+        return 'success' as FlussResult;
+    }
+
+    public static get failure() : FlussResult {
+        return 'failure' as FlussResult;
+    }
+
+    public static get skipped() : FlussResult {
+        return 'skipped' as FlussResult;
+    }
+
+    public static get timedOut() : FlussResult {
+        return 'timedOut' as FlussResult;
+    }
 }
 
 export default fluss;
