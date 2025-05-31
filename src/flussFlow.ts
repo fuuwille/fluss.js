@@ -1,4 +1,4 @@
-import FlussStage, { FlussStageData, FlussStageMode } from "./flussStage";
+import FlussStage, { FlussStageData, FlussStageDef, FlussStageMode } from "./flussStage";
 
 class FlussFlow<TKey extends FlussFlowKey = FlussFlowKey, TState extends FlussFlowState = FlussFlowState> {
     #state: TState;
@@ -13,8 +13,8 @@ class FlussFlow<TKey extends FlussFlowKey = FlussFlowKey, TState extends FlussFl
         this.#state = state;
         this.#data = data;
 
-        const stages = Object.entries<FlussStageData>(data).map(([name, def]) => {
-            return new FlussStage({ flow: this, name }, def);
+        const stages = Object.entries<FlussStageDef>(data).map(([name, def]) => {
+            return new FlussStage({ flow: this, name }, def.src);
         });
 
         this.#stages = Object.freeze(stages);
@@ -74,4 +74,4 @@ export type FlussFlowState = {
     [key : string] : any;
 }
 
-export type FlussFlowData<TKey extends FlussFlowKey> = Record<TKey extends FlussFlowKey<infer T> ? T : never, FlussStageData>;
+export type FlussFlowData<TKey extends FlussFlowKey> = Record<TKey extends FlussFlowKey<infer T> ? T : never, FlussStageDef>;
