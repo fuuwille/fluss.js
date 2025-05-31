@@ -59,7 +59,7 @@ class FlussStage {
             this.#mode = FlussStageMode.Completed;
 
             if(command) {
-                await this.ref.flow.next()?.executeAsync();
+                await this.ref.flow.nextAsync();
             }
         }
         catch (error) {
