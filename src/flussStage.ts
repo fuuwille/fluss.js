@@ -2,8 +2,16 @@ class FlussStage {
     #data : FlussStageData;
     #mode: FlussStageMode = FlussStageMode.Pending;
 
+    // ---------- // -  - // ---------- //
+
+    #runningAction: FlussStageRunning | undefined;
+    #completedAction: FlussStageCompleted | undefined;
+
     public constructor(data : FlussStageData) {
         this.#data = data;
+
+        this.#runningAction = data.onRunning;
+        this.#completedAction = data.onCompleted;
     }
 
     // ------------------------- // -  - // ------------------------- //
