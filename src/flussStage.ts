@@ -8,14 +8,14 @@ class FlussStage {
     // ---------- // -  - // ---------- //
 
     #runningAction: FlussStageRunning | undefined;
-    #completedAction: FlussStageCompleted | undefined;
+    #finalizingAction: FlussStageCompleted | undefined;
 
     public constructor(ref : FlussStageRef, data : FlussStageData) {
         this.#data = data;
 
         this.#ref = Object.freeze(ref);
         this.#runningAction = data.onRunning;
-        this.#completedAction = data.onCompleted;
+        this.#finalizingAction = data.onFinalizing;
     }
 
     // ------------------------- // -  - // ------------------------- //
@@ -69,10 +69,10 @@ class FlussStage {
         }
 
         try {
-            if(this.completedAction) {
-                let result = typeof this.completedAction === "function" 
-                    ? await Promise.resolve(this.completedAction(this.ref.flow))
-                    : await Promise.resolve(this.completedAction);
+            if(this.finalizingAction) {
+                let result = typeof this.finalizingAction === "function" 
+                    ? await Promise.resolve(this.finalizingAction(this.ref.flow))
+                    : await Promise.resolve(this.finalizingAction);
 
                 const stage = this.ref.flow.nextStage();
 
@@ -99,8 +99,8 @@ class FlussStage {
         return this.#runningAction;
     }
 
-    protected get completedAction() : FlussStageCompleted | undefined {
-        return this.#completedAction;
+    protected get finalizingAction() : FlussStageCompleted | undefined {
+        return this.#finalizingAction;
     }
 
     // ------------------------- // -  - // ------------------------- //
@@ -139,7 +139,7 @@ export type FlussStageDef = {
 
 export type FlussStageData = {
     onRunning?: FlussStageRunning;
-    onCompleted?: FlussStageCompleted;
+    onFinalizing?: FlussStageCompleted;
 }
 
 export enum FlussStageMode {
