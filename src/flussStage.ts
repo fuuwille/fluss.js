@@ -30,24 +30,6 @@ class FlussStage {
 
     // ------------------------- // -  - // ------------------------- //
 
-    public run() : boolean {
-        if(!this.doRun()) {
-            return false;
-        }
-
-        try {
-            if(this.runningAction) {
-                let result = typeof this.runningAction === "function" 
-                    ? this.runningAction(this.ref.flow)
-                    : this.runningAction;
-            }
-            return true;
-        }
-        catch (error) {
-            return false;
-        }
-    }
-
     public async runAsync() : Promise<boolean> {
         if(!this.doRun()) {
             return false;
@@ -67,34 +49,6 @@ class FlussStage {
         }
     }
 
-    public complete() : boolean {
-        if(!this.doComplete()) {
-            return false;
-        }
-
-        try {
-            if(this.completedAction) {
-                let result = typeof this.completedAction === "function" 
-                    ? this.completedAction(this.ref.flow)
-                    : this.completedAction;
-
-                if(result) {
-                    switch (result) {
-                        case FlussStageCommand.Continue:
-                            this.ref.flow.nextStage();
-                            break;
-                    }
-                }
-            }
-
-            this.#mode = FlussStageMode.Pending;
-            return true;
-        }
-        catch (error) {
-            return false;
-        }
-    }
-
     public async completeAsync() : Promise<boolean> {
         if(!this.doComplete()) {
             return false;
@@ -106,16 +60,18 @@ class FlussStage {
                     ? await Promise.resolve(this.completedAction(this.ref.flow))
                     : await Promise.resolve(this.completedAction);
 
+                const stage = this.ref.flow.nextStage();
+
                 if(result) {
                     switch (result) {
                         case FlussStageCommand.Continue:
-                            this.ref.flow.nextStage();
+                            await stage?.runAsync();
                             break;
                     }
                 }
             }
 
-            this.#mode = FlussStageMode.Pending;
+            this.#mode = FlussStageMode.Completed;
             return true;
         }
         catch (error) {
