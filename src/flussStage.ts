@@ -3,7 +3,7 @@ import FlussFlow from "./flussFlow";
 class FlussStage {
     #ref: FlussStageRef;
     #data : FlussStageData;
-    #mode: FlussStageMode = FlussStageMode.Pending;
+    #mode: FlussStageMode = FlussStageMode.Idle;
 
     // ---------- // -  - // ---------- //
 
@@ -118,7 +118,7 @@ class FlussStage {
     // ------------------------- // -  - // ------------------------- //
 
     protected doRun() : boolean {
-        if (this.#mode !== FlussStageMode.Pending) {
+        if (this.#mode !== FlussStageMode.Idle) {
             return false;
         }
 
@@ -127,7 +127,7 @@ class FlussStage {
     }
 
     protected doComplete() : boolean {
-        if (this.#mode !== FlussStageMode.Running) {
+        if (this.#mode !== FlussStageMode.Pending) {
             return false;
         }
 
@@ -146,9 +146,10 @@ export type FlussStageData = {
 }
 
 export enum FlussStageMode {
-    Pending = 0,
+    Idle = 0,
     Running = 1,
-    Completed = 2
+    Pending = 2,
+    Completed = 4
 }
 
 // ------------------------------ // -  - // ------------------------------ //
