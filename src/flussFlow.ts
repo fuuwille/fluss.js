@@ -47,6 +47,11 @@ class FlussFlow<TKey extends FlussFlowKey = FlussFlowKey, TState extends FlussFl
         }
 
         this.#index++;
+        
+        if(this.current) {
+            this.current.executeAsync();
+        }
+
         return this.current;
     }
 }
