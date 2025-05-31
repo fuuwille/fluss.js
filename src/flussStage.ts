@@ -36,7 +36,11 @@ class FlussStage {
         }
 
         try {
-            this.runningAction?.(this.ref.flow);
+            if(this.runningAction) {
+                let result = typeof this.runningAction === "function" 
+                    ? this.runningAction(this.ref.flow)
+                    : this.runningAction;
+            }
             return true;
         }
         catch (error) {
@@ -50,7 +54,12 @@ class FlussStage {
         }
 
         try {
-            await Promise.resolve(this.runningAction?.(this.ref.flow));
+            if(this.runningAction) {
+                let result = typeof this.runningAction === "function" 
+                    ? await Promise.resolve(this.runningAction(this.ref.flow))
+                    : await Promise.resolve(this.runningAction);
+            }
+
             return true;
         }
         catch (error) {
@@ -64,7 +73,12 @@ class FlussStage {
         }
 
         try {
-            this.completedAction?.(this.ref.flow);
+            if(this.completedAction) {
+                let result = typeof this.completedAction === "function" 
+                    ? this.completedAction(this.ref.flow)
+                    : this.completedAction;
+            }
+
             return true;
         }
         catch (error) {
@@ -78,7 +92,12 @@ class FlussStage {
         }
 
         try {
-            await Promise.resolve(this.completedAction?.(this.ref.flow));
+            if(this.completedAction) {
+                let result = typeof this.completedAction === "function" 
+                    ? await Promise.resolve(this.completedAction(this.ref.flow))
+                    : await Promise.resolve(this.completedAction);
+            }
+
             return true;
         }
         catch (error) {
