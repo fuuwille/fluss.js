@@ -74,4 +74,8 @@ export type FlussFlowState = {
     [key : string] : any;
 }
 
+export type FlussFlowDef<TKey extends FlussFlowKey> = {
+    src : FlussFlowData<TKey>;
+}
+
 export type FlussFlowData<TKey extends FlussFlowKey> = Record<TKey extends FlussFlowKey<infer T> ? T : never, FlussStageDef>;
