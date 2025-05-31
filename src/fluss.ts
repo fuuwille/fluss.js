@@ -10,8 +10,8 @@ class fluss {
         return new FlussFlow<FlussFlowFixedKey<TKey>, TState>(state, data);
     }
 
-    public static flexFlow = <TState extends FlussFlowState = FlussFlowState>(state : TState, data: FlussFlowData<FlussFlowFixedKey>) : FlussFlow<FlussFlowFixedKey, TState> => {
-        return new FlussFlow<FlussFlowFixedKey, TState>(state, data);
+    public static flexFlow = <TState extends FlussFlowState = FlussFlowState>(state : TState, data: FlussFlowData<FlussFlowFlexKey>) : FlussFlow<FlussFlowFlexKey, TState> => {
+        return new FlussFlow<FlussFlowFlexKey, TState>(state, data);
     }
 }
 
