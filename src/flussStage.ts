@@ -8,14 +8,14 @@ class FlussStage {
 
     // ---------- // -  - // ---------- //
 
-    #onRunning: FlussStageRunning | undefined;
+    #onRunning: FlussStagePreparing | undefined;
     #onFinalizing: FlussStageFinalizing | undefined;
 
     public constructor(ref : FlussStageRef, data : FlussStageData) {
         this.#data = data;
 
         this.#ref = Object.freeze(ref);
-        this.#onRunning = data.onRunning;
+        this.#onRunning = data.onPreparing;
         this.#onFinalizing = data.onFinalizing;
     }
 
@@ -40,12 +40,12 @@ class FlussStage {
         let command : FlussCommand | void = undefined;
 
         try {
-            this.#mode = FlussStageMode.Running;
+            this.#mode = FlussStageMode.Preparing;
 
-            if(this.onRunning) {
-                const promise = typeof this.onRunning === "function" 
-                    ? this.onRunning(this.ref.flow)
-                    : Promise.resolve(this.onRunning);
+            if(this.onPreparing) {
+                const promise = typeof this.onPreparing === "function" 
+                    ? this.onPreparing(this.ref.flow)
+                    : Promise.resolve(this.onPreparing);
 
                 result = await promise;
             }
@@ -80,7 +80,7 @@ class FlussStage {
 
     // ------------------------- // -  - // ------------------------- //
 
-    protected get onRunning() : FlussStageRunning | undefined {
+    protected get onPreparing() : FlussStagePreparing | undefined {
         return this.#onRunning;
     }
 
@@ -105,22 +105,22 @@ export type FlussStageDef = {
 };
 
 export type FlussStageData = {
-    onRunning?: FlussStageRunning;
+    onPreparing?: FlussStagePreparing;
     onFinalizing?: FlussStageFinalizing;
 }
 
 export enum FlussStageMode {
     Idle,
-    Running,
+    Preparing,
     Finalizing,
     Completed,
 }
 
 // ------------------------------ // -  - // ------------------------------ //
 
-export type FlussStageRunning = FlussResult | FlussStageRunningAction;
+export type FlussStagePreparing = FlussResult | FlussStagePreparingAction;
 
-export type FlussStageRunningAction = (flow : FlussFlow) => FlussReturn<FlussResult> | Promise<FlussReturn<FlussResult>>;
+export type FlussStagePreparingAction = (flow : FlussFlow) => FlussReturn<FlussResult> | Promise<FlussReturn<FlussResult>>;
 
 export type FlussStageFinalizing = FlussCommand | FlussStageFinalizingAction;
 
