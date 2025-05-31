@@ -1,4 +1,4 @@
-import { FlussResult } from "./fluss";
+import { FlussCommand, FlussResult } from "./fluss";
 import FlussFlow from "./flussFlow";
 
 class FlussStage {
@@ -37,7 +37,7 @@ class FlussStage {
         }
 
         let result : FlussResult | void = undefined;
-        let command : FlussResult | void = undefined;
+        let command : FlussCommand | void = undefined;
 
         try {
             this.#mode = FlussStageMode.Running;
@@ -115,6 +115,6 @@ export type FlussStageRunning = FlussResult | FlussStageRunningAction;
 
 export type FlussStageRunningAction = (flow : FlussFlow) => FlussStageReturn<FlussResult> | Promise<FlussStageReturn<FlussResult>>;
 
-export type FlussStageFinalizing = FlussResult | FlussStageFinalizingAction;
+export type FlussStageFinalizing = FlussCommand | FlussStageFinalizingAction;
 
-export type FlussStageFinalizingAction = (flow : FlussFlow) => FlussStageReturn<FlussResult> | Promise<FlussStageReturn<FlussResult>>;
+export type FlussStageFinalizingAction = (flow : FlussFlow) => FlussStageReturn<FlussCommand> | Promise<FlussStageReturn<FlussCommand>>;
