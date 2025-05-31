@@ -58,14 +58,13 @@ class FlussStage {
 
             this.#mode = FlussStageMode.Completed;
 
-            if(command) {
-                switch(command) {
-                    case FlussCommand.Continue:
-                        await this.ref.flow.continueAsync();
-                        break;
-                    default:
-                        break;
-                }
+            switch(command) {
+                case FlussCommand.Continue:
+                    await this.ref.flow.continueAsync();
+                    break;
+                case FlussCommand.Abort:
+                    this.ref.flow.abort();
+                    break;
             }
         }
         catch (error) {
