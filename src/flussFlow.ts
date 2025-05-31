@@ -31,7 +31,9 @@ class FlussFlow<TState extends FlussFlowState = FlussFlowState> {
         return this.#stages;
     }
 
-    public get current() : FlussStage | null {
+    // ------------------------- // -  - // ------------------------- //
+
+    public currentStage() : FlussStage | null {
         return this.#stages[this.#index] || null;
     }
 }
