@@ -128,6 +128,11 @@ export default FlussStage;
 
 // ------------------------------ // -  - // ------------------------------ //
 
+export type FlussStageRef = {
+    flow : FlussFlow;
+    name : string;
+}
+
 export type FlussStageData = {
     onRunning?: FlussStageRunning;
     onCompleted?: FlussStageCompleted;
@@ -138,13 +143,6 @@ export enum FlussStageMode {
     Running = 1,
     Pending = 2,
     Completed = 4
-}
-
-// ------------------------------ // -  - // ------------------------------ //
-
-export type FlussStageRef = {
-    flow : FlussFlow;
-    name : string;
 }
 
 // ------------------------------ // -  - // ------------------------------ //
