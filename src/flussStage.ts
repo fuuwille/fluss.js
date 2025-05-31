@@ -31,8 +31,8 @@ class FlussStage {
 
     // ------------------------- // -  - // ------------------------- //
 
-    public async runAsync() : Promise<boolean> {
-        if(!this.doRun()) {
+    public async executeAsync() : Promise<boolean> {
+        if(this.#mode != FlussStageMode.Idle) {
             return false;
         }
 
@@ -45,37 +45,20 @@ class FlussStage {
                     : await Promise.resolve(this.runningAction);
             }
 
-            this.#mode = FlussStageMode.Pending;
+            this.#mode = FlussStageMode.Finalizing;
 
-            if(result) {
-                await this.finalizeAsync();
-            }
-            
-            return true;
-        }
-        catch (error) {
-            return false;
-        }
-    }
+            let command : FlussResult | void = undefined;
 
-    public async finalizeAsync() : Promise<boolean> {
-        if(!this.doFinalize()) {
-            return false;
-        }
-
-        try {
-            let result : FlussResult | void = undefined;
-
-            if(this.runningAction) {
-                result = typeof this.finalizingAction === "function" 
+            if(this.finalizingAction) {
+                command = typeof this.finalizingAction === "function" 
                     ? await Promise.resolve(this.finalizingAction(this.ref.flow))
                     : await Promise.resolve(this.finalizingAction);
             }
 
             this.#mode = FlussStageMode.Completed;
 
-            if(result) {
-                await Promise.resolve(this.ref.flow.nextStage()?.runAsync());
+            if(command) {
+                await this.ref.flow.nextStage()?.executeAsync();
             }
 
             return true;
@@ -96,24 +79,6 @@ class FlussStage {
     }
 
     // ------------------------- // -  - // ------------------------- //
-
-    protected doRun() : boolean {
-        if (this.#mode !== FlussStageMode.Idle) {
-            return false;
-        }
-
-        this.#mode = FlussStageMode.Executing;
-        return true;
-    }
-
-    protected doFinalize() : boolean {
-        if (this.#mode !== FlussStageMode.Pending) {
-            return false;
-        }
-
-        this.#mode = FlussStageMode.Finalizing;
-        return true;
-    }
 }
 
 export default FlussStage;
@@ -136,8 +101,7 @@ export type FlussStageData = {
 
 export enum FlussStageMode {
     Idle,
-    Executing,
-    Pending,
+    Running,
     Finalizing,
     Completed,
 }
