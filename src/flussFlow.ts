@@ -37,6 +37,24 @@ class FlussFlow<TKey extends FlussFlowKey = FlussFlowKey, TState extends FlussFl
 
     // ------------------------- // -  - // ------------------------- //
 
+    public continue() : FlussStage | null {
+        if(this.#index + 1 >= this.#stages.length) {
+            return null;
+        }
+
+        if(this.current?.mode !== FlussStageMode.Completed) {
+            return null;
+        }
+
+        this.#index++;
+
+        if(this.current) {
+            this.current.executeAsync();
+        }
+
+        return this.current;
+    }
+
     public async continueAsync() : Promise<FlussStage | null> {
         if(this.#index + 1 >= this.#stages.length) {
             return Promise.resolve(null);
