@@ -38,7 +38,7 @@ class FlussFlow<TKey extends FlussFlowKey = FlussFlowKey, TState extends FlussFl
     // ------------------------- // -  - // ------------------------- //
 
     public continue() : FlussStage | null {
-        if(this.#index + 1 >= this.#stages.length) {
+        if(this.#index < 0 || this.#index + 1 >= this.#stages.length) {
             return null;
         }
 
