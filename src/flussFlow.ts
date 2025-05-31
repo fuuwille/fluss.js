@@ -42,7 +42,11 @@ class FlussFlow<TKey extends FlussFlowKey = FlussFlowKey, TState extends FlussFl
             return null;
         }
 
-        if(this.current?.mode !== FlussStageMode.Completed) {
+        if(!this.current) {
+            return null;
+        }
+
+        if(this.current.mode !== FlussStageMode.Completed) {
             return null;
         }
 
