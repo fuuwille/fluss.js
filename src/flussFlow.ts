@@ -7,6 +7,7 @@ class FlussFlow<TState extends FlussFlowState = FlussFlowState> {
     // ---------- // -  - // ---------- //
 
     #stages : readonly FlussStage[];
+    #current : FlussStage | null;
 
     public constructor(state: TState, data: FlussFlowData) {
         this.#state = state;
@@ -17,6 +18,7 @@ class FlussFlow<TState extends FlussFlowState = FlussFlowState> {
         });
 
         this.#stages = Object.freeze(stages);
+        this.#current = stages.length > 0 ? stages[0] : null;
     }
 
     // ------------------------- // -  - // ------------------------- //
@@ -27,6 +29,10 @@ class FlussFlow<TState extends FlussFlowState = FlussFlowState> {
 
     public get stages() : readonly FlussStage[] {
         return this.#stages;
+    }
+
+    public get current() : FlussStage | null {
+        return this.#current;
     }
 }
 
