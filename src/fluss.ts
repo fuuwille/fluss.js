@@ -23,3 +23,5 @@ class fluss {
 export default fluss;
 
 // ------------------------------ // -  - // ------------------------------ //
+
+export type FlussResult = string & { __brand: "flussResult" };
