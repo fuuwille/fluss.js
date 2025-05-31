@@ -48,7 +48,7 @@ class FlussStage {
 
             if(result) {
                 if((result & FlussStageResult.Continue) === FlussStageResult.Continue) {
-                    this.finalizeAsync();
+                    await this.finalizeAsync();
                 }
             }
             
@@ -77,7 +77,7 @@ class FlussStage {
 
             if(result) {
                 if((result & FlussStageResult.Continue) === FlussStageResult.Continue) {
-                    this.ref.flow.nextStage()?.runAsync();
+                    await Promise.resolve(this.ref.flow.nextStage()?.runAsync());
                 }
             }
 
