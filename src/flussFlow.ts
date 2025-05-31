@@ -1,8 +1,16 @@
 import { FlussStageData } from "./flussStage";
 
-class FlussFlow {
-    public constructor() {
+class FlussFlow<TState extends FlussFlowState = FlussFlowState> {
+    #state: TState;
 
+    public constructor(state: TState) {
+        this.#state = state;
+    }
+
+    // ------------------------- // -  - // ------------------------- //
+
+    public get state() : TState {
+        return this.#state;
     }
 }
 
