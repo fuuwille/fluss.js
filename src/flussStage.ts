@@ -77,8 +77,17 @@ class FlussStage {
                 let result = typeof this.completedAction === "function" 
                     ? this.completedAction(this.ref.flow)
                     : this.completedAction;
+
+                if(result) {
+                    switch (result) {
+                        case FlussStageCommand.Continue:
+                            this.ref.flow.nextStage();
+                            break;
+                    }
+                }
             }
 
+            this.#mode = FlussStageMode.Pending;
             return true;
         }
         catch (error) {
@@ -96,8 +105,17 @@ class FlussStage {
                 let result = typeof this.completedAction === "function" 
                     ? await Promise.resolve(this.completedAction(this.ref.flow))
                     : await Promise.resolve(this.completedAction);
+
+                if(result) {
+                    switch (result) {
+                        case FlussStageCommand.Continue:
+                            this.ref.flow.nextStage();
+                            break;
+                    }
+                }
             }
 
+            this.#mode = FlussStageMode.Pending;
             return true;
         }
         catch (error) {
