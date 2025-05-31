@@ -1,3 +1,5 @@
+import { FlussStageData } from "./flussStage";
+
 class FlussFlow {
     public constructor() {
 
@@ -7,3 +9,7 @@ class FlussFlow {
 export default FlussFlow;
 
 // ------------------------------ // -  - // ------------------------------ //
+
+export type FlussFlowData = {
+    [key: string]: FlussStageData;
+}
