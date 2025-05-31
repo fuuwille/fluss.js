@@ -8,15 +8,15 @@ class FlussStage {
 
     // ---------- // -  - // ---------- //
 
-    #runningAction: FlussStageRunning | undefined;
-    #finalizingAction: FlussStageFinalizing | undefined;
+    #onRunning: FlussStageRunning | undefined;
+    #onFinalizing: FlussStageFinalizing | undefined;
 
     public constructor(ref : FlussStageRef, data : FlussStageData) {
         this.#data = data;
 
         this.#ref = Object.freeze(ref);
-        this.#runningAction = data.onRunning;
-        this.#finalizingAction = data.onFinalizing;
+        this.#onRunning = data.onRunning;
+        this.#onFinalizing = data.onFinalizing;
     }
 
     // ------------------------- // -  - // ------------------------- //
@@ -42,20 +42,20 @@ class FlussStage {
         try {
             this.#mode = FlussStageMode.Running;
 
-            if(this.runningAction) {
-                const promise = typeof this.runningAction === "function" 
-                    ? this.runningAction(this.ref.flow)
-                    : Promise.resolve(this.runningAction);
+            if(this.onRunning) {
+                const promise = typeof this.onRunning === "function" 
+                    ? this.onRunning(this.ref.flow)
+                    : Promise.resolve(this.onRunning);
 
                 result = await promise;
             }
 
             this.#mode = FlussStageMode.Finalizing;
 
-            if(this.finalizingAction) {
-                const promise = typeof this.finalizingAction === "function" 
-                    ? this.finalizingAction(this.ref.flow)
-                    : Promise.resolve(this.finalizingAction);
+            if(this.onFinalizing) {
+                const promise = typeof this.onFinalizing === "function" 
+                    ? this.onFinalizing(this.ref.flow)
+                    : Promise.resolve(this.onFinalizing);
 
                 command = await promise;
             }
@@ -80,12 +80,12 @@ class FlussStage {
 
     // ------------------------- // -  - // ------------------------- //
 
-    protected get runningAction() : FlussStageRunning | undefined {
-        return this.#runningAction;
+    protected get onRunning() : FlussStageRunning | undefined {
+        return this.#onRunning;
     }
 
-    protected get finalizingAction() : FlussStageFinalizing | undefined {
-        return this.#finalizingAction;
+    protected get onFinalizing() : FlussStageFinalizing | undefined {
+        return this.#onFinalizing;
     }
 
     // ------------------------- // -  - // ------------------------- //
