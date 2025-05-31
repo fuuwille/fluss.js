@@ -1,4 +1,4 @@
-import FlussStage, { FlussStageData } from "./flussStage";
+import FlussStage, { FlussStageData, FlussStageMode } from "./flussStage";
 
 class FlussFlow<TKey extends FlussFlowKey = FlussFlowKey, TState extends FlussFlowState = FlussFlowState> {
     #state: TState;
@@ -40,6 +40,21 @@ class FlussFlow<TKey extends FlussFlowKey = FlussFlowKey, TState extends FlussFl
     public currentName() : string | null {
         const stage = this.currentStage();
         return stage ? stage.ref.name : null;
+    }
+
+    // ------------------------- // -  - // ------------------------- //
+
+    public nextStage() : FlussStage | null {
+        if(this.#index + 1 >= this.#stages.length) {
+            return null;
+        }
+
+        if(this.currentStage()?.mode !== FlussStageMode.Completed) {
+            return null;
+        }
+
+        this.#index++;
+        return this.currentStage();
     }
 }
 
