@@ -33,7 +33,7 @@ class FlussStage {
 
     public async executeAsync() : Promise<boolean> {
         if(this.#mode != FlussStageMode.Idle) {
-            return false;
+            return Promise.resolve(false);
         }
 
         try {
@@ -60,12 +60,12 @@ class FlussStage {
             if(command) {
                 await this.ref.flow.nextStage()?.executeAsync();
             }
-
-            return true;
         }
         catch (error) {
-            return false;
+
         }
+
+        return true;
     }
 
     // ------------------------- // -  - // ------------------------- //
