@@ -36,10 +36,24 @@ class FlussStage {
         }
 
         try {
+            let result : FlussStageResult | void = undefined;
+
             if(this.runningAction) {
-                let result = typeof this.runningAction === "function" 
+                result = typeof this.runningAction === "function" 
                     ? await Promise.resolve(this.runningAction(this.ref.flow))
                     : await Promise.resolve(this.runningAction);
+            }
+
+            this.#mode = FlussStageMode.Pending;
+
+            if(result) {
+                switch (result) {
+                    case FlussStageResult.Success:
+                        await this.completeAsync();
+                        break;
+                    case FlussStageResult.Failure:
+                        return false;
+                }
             }
 
             return true;
@@ -136,8 +150,8 @@ export type FlussStageRef = {
 // ------------------------------ // -  - // ------------------------------ //
 
 export enum FlussStageResult {
-    Success = 0,
-    Failure = 1,
+    Success = 1,
+    Failure = 2,
 }
 
 export enum FlussStageCommand {
