@@ -105,7 +105,7 @@ class FlussStage {
             return false;
         }
 
-        this.#mode = FlussStageMode.Running;
+        this.#mode = FlussStageMode.Executing;
         return true;
     }
 
@@ -138,11 +138,11 @@ export type FlussStageData = {
 }
 
 export enum FlussStageMode {
-    Idle = 0,
-    Running = 1,
-    Pending = 2,
-    Finalizing = 4,
-    Completed = 8,
+    Idle,
+    Executing,
+    Pending,
+    Finalizing,
+    Completed,
 }
 
 // ------------------------------ // -  - // ------------------------------ //
