@@ -49,7 +49,7 @@ class FlussStage {
             if(result) {
                 switch (result) {
                     case FlussStageResult.Success:
-                        await this.completeAsync();
+                        await this.finalizeAsync();
                         break;
                     case FlussStageResult.Failure:
                         return false;
@@ -63,8 +63,8 @@ class FlussStage {
         }
     }
 
-    public async completeAsync() : Promise<boolean> {
-        if(!this.doComplete()) {
+    public async finalizeAsync() : Promise<boolean> {
+        if(!this.doFinalize()) {
             return false;
         }
 
@@ -114,12 +114,12 @@ class FlussStage {
         return true;
     }
 
-    protected doComplete() : boolean {
+    protected doFinalize() : boolean {
         if (this.#mode !== FlussStageMode.Pending) {
             return false;
         }
 
-        this.#mode = FlussStageMode.Completed;
+        this.#mode = FlussStageMode.Finalizing;
         return true;
     }
 }
@@ -142,7 +142,8 @@ export enum FlussStageMode {
     Idle = 0,
     Running = 1,
     Pending = 2,
-    Completed = 4
+    Finalizing = 4,
+    Completed = 8,
 }
 
 // ------------------------------ // -  - // ------------------------------ //
