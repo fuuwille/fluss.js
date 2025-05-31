@@ -1,6 +1,7 @@
 import FlussFlow from "./flussFlow";
 
 class FlussStage {
+    #ref: FlussStageRef;
     #data : FlussStageData;
     #mode: FlussStageMode = FlussStageMode.Pending;
 
@@ -9,14 +10,19 @@ class FlussStage {
     #runningAction: FlussStageRunning | undefined;
     #completedAction: FlussStageCompleted | undefined;
 
-    public constructor(data : FlussStageData) {
+    public constructor(ref : FlussStageRef, data : FlussStageData) {
         this.#data = data;
 
+        this.#ref = ref;
         this.#runningAction = data.onRunning;
         this.#completedAction = data.onCompleted;
     }
 
     // ------------------------- // -  - // ------------------------- //
+
+    public get ref() : FlussStageRef {
+        return this.#ref;
+    }
 
     public get mode() : FlussStageMode {
         return this.#mode;
