@@ -8,7 +8,7 @@ class FlussStage {
     // ---------- // -  - // ---------- //
 
     #runningAction: FlussStageRunning | undefined;
-    #finalizingAction: FlussStageCompleted | undefined;
+    #finalizingAction: FlussStageFinalizing | undefined;
 
     public constructor(ref : FlussStageRef, data : FlussStageData) {
         this.#data = data;
@@ -47,15 +47,11 @@ class FlussStage {
             this.#mode = FlussStageMode.Pending;
 
             if(result) {
-                switch (result) {
-                    case FlussStageResult.Success:
-                        await this.finalizeAsync();
-                        break;
-                    case FlussStageResult.Failure:
-                        return false;
+                if((result & FlussStageResult.Continue) === FlussStageResult.Continue) {
+                    this.finalizeAsync();
                 }
             }
-
+            
             return true;
         }
         catch (error) {
@@ -69,23 +65,22 @@ class FlussStage {
         }
 
         try {
-            if(this.finalizingAction) {
-                let result = typeof this.finalizingAction === "function" 
+            let result : FlussStageResult | void = undefined;
+
+            if(this.runningAction) {
+                result = typeof this.finalizingAction === "function" 
                     ? await Promise.resolve(this.finalizingAction(this.ref.flow))
                     : await Promise.resolve(this.finalizingAction);
-
-                const stage = this.ref.flow.nextStage();
-
-                if(result) {
-                    switch (result) {
-                        case FlussStageCommand.Continue:
-                            await stage?.runAsync();
-                            break;
-                    }
-                }
             }
 
             this.#mode = FlussStageMode.Completed;
+
+            if(result) {
+                if((result & FlussStageResult.Continue) === FlussStageResult.Continue) {
+                    this.ref.flow.nextStage()?.runAsync();
+                }
+            }
+
             return true;
         }
         catch (error) {
@@ -99,7 +94,7 @@ class FlussStage {
         return this.#runningAction;
     }
 
-    protected get finalizingAction() : FlussStageCompleted | undefined {
+    protected get finalizingAction() : FlussStageFinalizing | undefined {
         return this.#finalizingAction;
     }
 
@@ -139,7 +134,7 @@ export type FlussStageDef = {
 
 export type FlussStageData = {
     onRunning?: FlussStageRunning;
-    onFinalizing?: FlussStageCompleted;
+    onFinalizing?: FlussStageFinalizing;
 }
 
 export enum FlussStageMode {
@@ -155,25 +150,17 @@ export enum FlussStageMode {
 export enum FlussStageResult {
     Success = 1,
     Failure = 2,
+    Continue = 4
 }
 
-export enum FlussStageCommand {
-    None = 0,
-    Continue = 1,
-}
-
-export type FlussStageRunning = FlussStageRunningResult | FlussStageRunningAction;
-
-export type FlussStageRunningResult = FlussStageResult;
+export type FlussStageRunning = FlussStageResult | FlussStageRunningAction;
 
 export type FlussStageRunningAction = (flow : FlussFlow) => FlussStageRunningActionReturn | Promise<FlussStageRunningActionReturn>;
 
 export type FlussStageRunningActionReturn = FlussStageResult | void;
 
-export type FlussStageCompleted = FlussStageCompletedCommand | FlussStageCompletedAction;
+export type FlussStageFinalizing = FlussStageResult | FlussStageFinalizingAction;
 
-export type FlussStageCompletedCommand = FlussStageCommand;
+export type FlussStageFinalizingAction = (flow : FlussFlow) => FlussStageFinalizingActionReturn | Promise<FlussStageFinalizingActionReturn>;
 
-export type FlussStageCompletedAction = (flow : FlussFlow) => FlussStageCompletedActionReturn | Promise<FlussStageCompletedActionReturn>;
-
-export type FlussStageCompletedActionReturn = FlussStageCommand | void;
+export type FlussStageFinalizingActionReturn = FlussStageResult | void;
