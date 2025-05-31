@@ -109,6 +109,7 @@ export type FlussFlowFlexKey<T extends string = string> = T & { __brand: "flowFl
 
 export type FlussFlowState = {
     [key : string] : any;
+    error? : string;
 }
 
 export type FlussFlowDef<TKey extends FlussFlowKey> = {
