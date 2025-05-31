@@ -47,11 +47,11 @@ export default FlussFlow;
 
 // ------------------------------ // -  - // ------------------------------ //
 
-export type FlussFlowKey = FlussFlowFixedKey | FlussFlowFlexKey;
+export type FlussFlowKey<T extends string = string> = FlussFlowFixedKey<T> | FlussFlowFlexKey<T>;
 
 export type FlussFlowFixedKey<T extends string = string> = T & { __brand: "flowFixedKey" };
 
-export type FlussFlowFlexKey<T extends null = null> = T & { __brand: "flowFlexKey" };
+export type FlussFlowFlexKey<T extends string = string> = T & { __brand: "flowFlexKey" };
 
 // ------------------------------ // -  - // ------------------------------ //
 
