@@ -13,7 +13,7 @@ class FlussStage {
     public constructor(ref : FlussStageRef, data : FlussStageData) {
         this.#data = data;
 
-        this.#ref = ref;
+        this.#ref = Object.freeze(ref);
         this.#runningAction = data.onRunning;
         this.#completedAction = data.onCompleted;
     }
