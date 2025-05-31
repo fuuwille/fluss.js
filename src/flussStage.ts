@@ -1,3 +1,5 @@
+import FlussFlow from "./flussFlow";
+
 class FlussStage {
     #data : FlussStageData;
     #mode: FlussStageMode = FlussStageMode.Pending;
@@ -122,6 +124,13 @@ export enum FlussStageMode {
     Pending = 0,
     Running = 1,
     Completed = 2
+}
+
+// ------------------------------ // -  - // ------------------------------ //
+
+export type FlussStageRef = {
+    flow : FlussFlow;
+    name : string;
 }
 
 // ------------------------------ // -  - // ------------------------------ //
