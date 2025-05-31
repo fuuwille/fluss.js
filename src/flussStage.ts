@@ -50,6 +50,16 @@ export enum FlussStageMode {
 
 // ------------------------------ // -  - // ------------------------------ //
 
-export type FlussStageRunning = () => void;
+export type FlussStageRunning = () => FlussStageResult;
 
-export type FlussStageCompleted = () => void;
+export type FlussStageCompleted = () => FlussStageCommand;
+
+export enum FlussStageResult {
+    Success = 0,
+    Failure = 1,
+}
+
+export enum FlussStageCommand {
+    None = 0,
+    Continue = 1,
+}
