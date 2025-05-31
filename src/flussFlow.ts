@@ -1,19 +1,19 @@
 import FlussStage, { FlussStageData } from "./flussStage";
 
-class FlussFlow<TState extends FlussFlowState = FlussFlowState> {
+class FlussFlow<TKey extends FlussFlowKey = FlussFlowKey, TState extends FlussFlowState = FlussFlowState> {
     #state: TState;
-    #data: FlussFlowData;
+    #data: FlussFlowData<TKey>;
 
     // ---------- // -  - // ---------- //
 
     #stages : readonly FlussStage[];
     #index : number;
 
-    public constructor(state: TState, data: FlussFlowData) {
+    public constructor(state: TState, data: FlussFlowData<TKey>) {
         this.#state = state;
         this.#data = data;
 
-        const stages = Object.entries(data).map(([name, def]) => {
+        const stages = Object.entries<FlussStageData>(data).map(([name, def]) => {
             return new FlussStage({ flow: this, name }, def);
         });
 
@@ -47,11 +47,11 @@ export default FlussFlow;
 
 // ------------------------------ // -  - // ------------------------------ //
 
-export type FlussFlowData = {
-    [key: string]: FlussStageData;
-}
+export type FlussFlowData<TKey extends FlussFlowKey> = Record<TKey, FlussStageData>;
 
 // ------------------------------ // -  - // ------------------------------ //
+
+export type FlussFlowKey = string;
 
 export type FlussFlowState = {
     [key : string] : any;
@@ -59,6 +59,6 @@ export type FlussFlowState = {
 
 // ------------------------------ // -  - // ------------------------------ //
 
-export const createFlow = <TState extends FlussFlowState>(state : TState, data: FlussFlowData) : FlussFlow<TState> => {
-    return new FlussFlow<TState>(state, data);
+export const createFlow = <TKey extends FlussFlowKey, TState extends FlussFlowState>(state : TState, data: FlussFlowData<TKey>) : FlussFlow<TKey, TState> => {
+    return new FlussFlow<TKey, TState>(state, data);
 }
