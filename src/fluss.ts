@@ -32,7 +32,8 @@ export enum FlussResult {
 }
 
 export enum FlussCommand {
-    Continue = 'continue'
+    Continue = 'continue',
+    Abort = 'abort',
 }
 
 export type FlussReturn<T> = T | void;
