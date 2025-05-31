@@ -45,3 +45,7 @@ export default fluss;
 export type FlussResult = FlussResultFlag & { __brand: "flussResult" };
 
 export type FlussResultFlag = 'success' | 'failure' | 'skipped' | 'timedOut';
+
+export type FlussCommand = FlussCommandFlag & { __brand: "flussCommand" };
+
+export type FlussCommandFlag = 'continue';
