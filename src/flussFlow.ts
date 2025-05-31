@@ -56,9 +56,3 @@ export type FlussFlowKey = string;
 export type FlussFlowState = {
     [key : string] : any;
 }
-
-// ------------------------------ // -  - // ------------------------------ //
-
-export const createFlow = <TKey extends FlussFlowKey, TState extends FlussFlowState = FlussFlowState>(state : TState, data: FlussFlowData<TKey>) : FlussFlow<TKey, TState> => {
-    return new FlussFlow<TKey, TState>(state, data);
-}
