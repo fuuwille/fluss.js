@@ -38,8 +38,8 @@ export default FlussStage;
 // ------------------------------ // -  - // ------------------------------ //
 
 export type FlussStageData = {
-    onRunning?: () => void;
-    onCompleted?: () => void;
+    onRunning?: FlussStageRunning;
+    onCompleted?: FlussStageCompleted;
 }
 
 export enum FlussStageMode {
@@ -47,3 +47,9 @@ export enum FlussStageMode {
     Running = 1,
     Completed = 2
 }
+
+// ------------------------------ // -  - // ------------------------------ //
+
+export type FlussStageRunning = () => void;
+
+export type FlussStageCompleted = () => void;
