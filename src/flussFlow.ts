@@ -47,11 +47,11 @@ export default FlussFlow;
 
 // ------------------------------ // -  - // ------------------------------ //
 
-export type FlussFlowData<TKey extends FlussFlowKey> = Record<TKey, FlussStageData>;
+export type FlussFlowData<TKey extends FlussFlowKey> = Record<TKey extends null ? string : TKey, FlussStageData>;
 
 // ------------------------------ // -  - // ------------------------------ //
 
-export type FlussFlowKey = string;
+export type FlussFlowKey = string | null;
 
 export type FlussFlowState = {
     [key : string] : any;
