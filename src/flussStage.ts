@@ -150,17 +150,15 @@ export enum FlussStageMode {
 export enum FlussStageResult {
     Success = 1,
     Failure = 2,
-    Continue = 4
+    Continue = 4,
 }
+
+export type FlussStageReturn<T> = T | void;
 
 export type FlussStageRunning = FlussStageResult | FlussStageRunningAction;
 
-export type FlussStageRunningAction = (flow : FlussFlow) => FlussStageRunningActionReturn | Promise<FlussStageRunningActionReturn>;
-
-export type FlussStageRunningActionReturn = FlussStageResult | void;
+export type FlussStageRunningAction = (flow : FlussFlow) => FlussStageReturn<FlussStageResult> | Promise<FlussStageReturn<FlussStageResult>>;
 
 export type FlussStageFinalizing = FlussStageResult | FlussStageFinalizingAction;
 
-export type FlussStageFinalizingAction = (flow : FlussFlow) => FlussStageFinalizingActionReturn | Promise<FlussStageFinalizingActionReturn>;
-
-export type FlussStageFinalizingActionReturn = FlussStageResult | void;
+export type FlussStageFinalizingAction = (flow : FlussFlow) => FlussStageReturn<FlussStageResult> | Promise<FlussStageReturn<FlussStageResult>>;
