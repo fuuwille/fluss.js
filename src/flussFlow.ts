@@ -43,3 +43,9 @@ export type FlussFlowData = {
 export type FlussFlowState = {
     [key : string] : any;
 }
+
+// ------------------------------ // -  - // ------------------------------ //
+
+export const createFlow = <TState extends FlussFlowState>(state : TState, data: FlussFlowData) : FlussFlow<TState> => {
+    return new FlussFlow<TState>(state, data);
+}
