@@ -39,6 +39,16 @@ class FlussStage {
         this.#mode = FlussStageMode.Completed;
         return true;
     }
+
+    // ------------------------- // -  - // ------------------------- //
+
+    protected get runningAction() : FlussStageRunning | undefined {
+        return this.#runningAction;
+    }
+
+    protected get completedAction() : FlussStageCompleted | undefined {
+        return this.#completedAction;
+    }
 }
 
 export default FlussStage;
