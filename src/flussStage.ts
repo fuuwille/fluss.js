@@ -170,10 +170,14 @@ export enum FlussStageCommand {
     Continue = 1,
 }
 
-export type FlussStageRunning = (flow : FlussFlow) => FlussStageRunningReturn | Promise<FlussStageRunningReturn>;
+export type FlussStageRunning = FlussStageRunningAction;
 
-export type FlussStageRunningReturn = FlussStageResult | void;
+export type FlussStageRunningAction = (flow : FlussFlow) => FlussStageRunningActionReturn | Promise<FlussStageRunningActionReturn>;
 
-export type FlussStageCompleted = (flow : FlussFlow) => FlussStageCompletedReturn | Promise<FlussStageCompletedReturn>;
+export type FlussStageRunningActionReturn = FlussStageResult | void;
 
-export type FlussStageCompletedReturn = FlussStageCommand | void;
+export type FlussStageCompleted = FlussStageCompletedAction;
+
+export type FlussStageCompletedAction = (flow : FlussFlow) => FlussStageCompletedActionReturn | Promise<FlussStageCompletedActionReturn>;
+
+export type FlussStageCompletedActionReturn = FlussStageCommand | void;
