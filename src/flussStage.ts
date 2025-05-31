@@ -133,6 +133,10 @@ export type FlussStageRef = {
     name : string;
 }
 
+export type FlussStageDef = {
+    src : FlussStageData;
+};
+
 export type FlussStageData = {
     onRunning?: FlussStageRunning;
     onCompleted?: FlussStageCompleted;
