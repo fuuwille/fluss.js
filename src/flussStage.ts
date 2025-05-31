@@ -141,14 +141,6 @@ export type FlussStageRef = {
 
 // ------------------------------ // -  - // ------------------------------ //
 
-export type FlussStageRunning = (flow : FlussFlow) => FlussStageRunningReturn | Promise<FlussStageRunningReturn>;
-
-export type FlussStageRunningReturn = FlussStageResult | void;
-
-export type FlussStageCompleted = (flow : FlussFlow) => FlussStageCompletedReturn | Promise<FlussStageCompletedReturn>;
-
-export type FlussStageCompletedReturn = FlussStageCommand | void;
-
 export enum FlussStageResult {
     Success = 0,
     Failure = 1,
@@ -158,3 +150,11 @@ export enum FlussStageCommand {
     None = 0,
     Continue = 1,
 }
+
+export type FlussStageRunning = (flow : FlussFlow) => FlussStageRunningReturn | Promise<FlussStageRunningReturn>;
+
+export type FlussStageRunningReturn = FlussStageResult | void;
+
+export type FlussStageCompleted = (flow : FlussFlow) => FlussStageCompletedReturn | Promise<FlussStageCompletedReturn>;
+
+export type FlussStageCompletedReturn = FlussStageCommand | void;
