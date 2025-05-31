@@ -43,17 +43,21 @@ class FlussStage {
             this.#mode = FlussStageMode.Running;
 
             if(this.runningAction) {
-                result = typeof this.runningAction === "function" 
-                    ? await Promise.resolve(this.runningAction(this.ref.flow))
-                    : await Promise.resolve(this.runningAction);
+                const promise = typeof this.runningAction === "function" 
+                    ? this.runningAction(this.ref.flow)
+                    : Promise.resolve(this.runningAction);
+
+                result = await promise;
             }
 
             this.#mode = FlussStageMode.Finalizing;
 
             if(this.finalizingAction) {
-                command = typeof this.finalizingAction === "function" 
-                    ? await Promise.resolve(this.finalizingAction(this.ref.flow))
-                    : await Promise.resolve(this.finalizingAction);
+                const promise = typeof this.finalizingAction === "function" 
+                    ? this.finalizingAction(this.ref.flow)
+                    : Promise.resolve(this.finalizingAction);
+
+                command = await promise;
             }
 
             this.#mode = FlussStageMode.Completed;
