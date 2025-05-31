@@ -1,4 +1,4 @@
-import { FlussCommand, FlussResult } from "./fluss";
+import { FlussCommand, FlussResult, FlussReturn } from "./fluss";
 import FlussFlow from "./flussFlow";
 
 class FlussStage {
@@ -109,12 +109,10 @@ export enum FlussStageMode {
 
 // ------------------------------ // -  - // ------------------------------ //
 
-export type FlussStageReturn<T> = T | void;
-
 export type FlussStageRunning = FlussResult | FlussStageRunningAction;
 
-export type FlussStageRunningAction = (flow : FlussFlow) => FlussStageReturn<FlussResult> | Promise<FlussStageReturn<FlussResult>>;
+export type FlussStageRunningAction = (flow : FlussFlow) => FlussReturn<FlussResult> | Promise<FlussReturn<FlussResult>>;
 
 export type FlussStageFinalizing = FlussCommand | FlussStageFinalizingAction;
 
-export type FlussStageFinalizingAction = (flow : FlussFlow) => FlussStageReturn<FlussCommand> | Promise<FlussStageReturn<FlussCommand>>;
+export type FlussStageFinalizingAction = (flow : FlussFlow) => FlussReturn<FlussCommand> | Promise<FlussReturn<FlussCommand>>;

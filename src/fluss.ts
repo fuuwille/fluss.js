@@ -34,3 +34,5 @@ export enum FlussResult {
 export enum FlussCommand {
     Continue = 'continue'
 }
+
+export type FlussReturn<T> = T | void;
