@@ -36,6 +36,11 @@ class FlussFlow<TState extends FlussFlowState = FlussFlowState> {
     public currentStage() : FlussStage | null {
         return this.#stages[this.#index] || null;
     }
+
+    public currentName() : string | null {
+        const stage = this.currentStage();
+        return stage ? stage.ref.name : null;
+    }
 }
 
 export default FlussFlow;
