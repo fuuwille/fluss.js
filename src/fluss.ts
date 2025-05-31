@@ -42,4 +42,6 @@ export default fluss;
 
 // ------------------------------ // -  - // ------------------------------ //
 
-export type FlussResult = string & { __brand: "flussResult" };
+export type FlussResult = FlussResultFlag & { __brand: "flussResult" };
+
+export type FlussResultFlag = 'success' | 'failure' | 'skipped' | 'timedOut';
