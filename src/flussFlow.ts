@@ -79,3 +79,9 @@ export type FlussFlowDef<TKey extends FlussFlowKey> = {
 }
 
 export type FlussFlowData<TKey extends FlussFlowKey> = Record<TKey extends FlussFlowKey<infer T> ? T : never, FlussStageDef>;
+
+// ------------------------------ // -  - // ------------------------------ //
+
+export const createFlow = <TKey extends FlussFlowKey, TState extends FlussFlowState>(state: TState, def: FlussFlowDef<TKey>) : FlussFlow<TKey, TState> => {
+    return new FlussFlow<TKey, TState>(state, def.src);
+}
