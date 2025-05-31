@@ -31,30 +31,23 @@ class FlussFlow<TKey extends FlussFlowKey = FlussFlowKey, TState extends FlussFl
         return this.#stages;
     }
 
-    // ------------------------- // -  - // ------------------------- //
-
-    public currentStage() : FlussStage | null {
+    public get current() : FlussStage | null {
         return this.#stages[this.#index] || null;
     }
 
-    public currentName() : string | null {
-        const stage = this.currentStage();
-        return stage ? stage.ref.name : null;
-    }
-
     // ------------------------- // -  - // ------------------------- //
 
-    public nextStage() : FlussStage | null {
+    public next() : FlussStage | null {
         if(this.#index + 1 >= this.#stages.length) {
             return null;
         }
 
-        if(this.currentStage()?.mode !== FlussStageMode.Completed) {
+        if(this.current?.mode !== FlussStageMode.Completed) {
             return null;
         }
 
         this.#index++;
-        return this.currentStage();
+        return this.current;
     }
 }
 
