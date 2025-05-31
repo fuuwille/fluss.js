@@ -36,8 +36,11 @@ class FlussStage {
             return Promise.resolve(false);
         }
 
+        let result : FlussResult | void = undefined;
+        let command : FlussResult | void = undefined;
+
         try {
-            let result : FlussResult | void = undefined;
+            this.#mode = FlussStageMode.Running;
 
             if(this.runningAction) {
                 result = typeof this.runningAction === "function" 
@@ -46,8 +49,6 @@ class FlussStage {
             }
 
             this.#mode = FlussStageMode.Finalizing;
-
-            let command : FlussResult | void = undefined;
 
             if(this.finalizingAction) {
                 command = typeof this.finalizingAction === "function" 
