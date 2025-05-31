@@ -36,7 +36,7 @@ class FlussStage {
         }
 
         try {
-            this.runningAction?.();
+            this.runningAction?.(this.ref.flow);
             return true;
         }
         catch (error) {
@@ -50,7 +50,7 @@ class FlussStage {
         }
 
         try {
-            await Promise.resolve(this.runningAction?.());
+            await Promise.resolve(this.runningAction?.(this.ref.flow));
             return true;
         }
         catch (error) {
@@ -64,7 +64,7 @@ class FlussStage {
         }
 
         try {
-            this.completedAction?.();
+            this.completedAction?.(this.ref.flow);
             return true;
         }
         catch (error) {
@@ -78,7 +78,7 @@ class FlussStage {
         }
 
         try {
-            await Promise.resolve(this.completedAction?.());
+            await Promise.resolve(this.completedAction?.(this.ref.flow));
             return true;
         }
         catch (error) {
@@ -141,9 +141,9 @@ export type FlussStageRef = {
 
 // ------------------------------ // -  - // ------------------------------ //
 
-export type FlussStageRunning = () => FlussStageResult | Promise<FlussStageResult>;
+export type FlussStageRunning = (flow : FlussFlow) => FlussStageResult | Promise<FlussStageResult>;
 
-export type FlussStageCompleted = () => FlussStageCommand | Promise<FlussStageCommand>;
+export type FlussStageCompleted = (flow : FlussFlow) => FlussStageCommand | Promise<FlussStageCommand>;
 
 export enum FlussStageResult {
     Success = 0,
