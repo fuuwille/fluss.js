@@ -72,6 +72,19 @@ class FlussFlow<TKey extends FlussFlowKey = FlussFlowKey, TState extends FlussFl
 
         return Promise.resolve(this.current);
     }
+
+    public abort() : boolean {
+        if(this.#index < 0 || this.#index >= this.#stages.length) {
+            return false;
+        }
+
+        if(this.current?.mode === FlussStageMode.Completed) {
+            this.#index = -1;
+            return true;
+        }
+
+        return false;
+    }
 }
 
 export default FlussFlow;
