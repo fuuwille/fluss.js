@@ -18,40 +18,19 @@ class fluss {
     public static stage = (data : FlussStageData) : FlussStageDef => {
         return { src: data };
     }
-
-    // ------------------------- // -  - // ------------------------- //
-
-    public static get success() : FlussResult {
-        return 'success' as FlussResult;
-    }
-
-    public static get failure() : FlussResult {
-        return 'failure' as FlussResult;
-    }
-
-    public static get skipped() : FlussResult {
-        return 'skipped' as FlussResult;
-    }
-
-    public static get timedOut() : FlussResult {
-        return 'timedOut' as FlussResult;
-    }
-
-    // ------------------------- // -  - // ------------------------- //
-
-    public static get continue() : FlussCommand {
-        return 'continue' as FlussCommand;
-    }
 }
 
 export default fluss;
 
 // ------------------------------ // -  - // ------------------------------ //
 
-export type FlussResult = FlussResultFlag & { __brand: "flussResult" };
+export enum FlussResult {
+    Success = 'success',
+    Failure = 'failure',
+    Skipped = 'skipped',
+    TimedOut = 'timedOut'
+}
 
-export type FlussResultFlag = 'success' | 'failure' | 'skipped' | 'timedOut';
-
-export type FlussCommand = FlussCommandFlag & { __brand: "flussCommand" };
-
-export type FlussCommandFlag = 'continue';
+export enum FlussCommand {
+    Continue = 'continue'
+}
