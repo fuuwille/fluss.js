@@ -23,20 +23,20 @@ class FlussStage {
     // ------------------------- // -  - // ------------------------- //
 
     public run() : boolean {
-        if (this.#mode !== FlussStageMode.Pending) {
+        if(!this.doRun()) {
             return false;
         }
 
-        this.#mode = FlussStageMode.Running;
+        this.runningAction?.();
         return true;
     }
 
     public complete() : boolean {
-        if (this.#mode !== FlussStageMode.Running) {
+        if(!this.doComplete()) {
             return false;
         }
 
-        this.#mode = FlussStageMode.Completed;
+        this.completedAction?.();
         return true;
     }
 
@@ -48,6 +48,26 @@ class FlussStage {
 
     protected get completedAction() : FlussStageCompleted | undefined {
         return this.#completedAction;
+    }
+
+    // ------------------------- // -  - // ------------------------- //
+
+    protected doRun() : boolean {
+        if (this.#mode !== FlussStageMode.Pending) {
+            return false;
+        }
+
+        this.#mode = FlussStageMode.Running;
+        return true;
+    }
+
+    protected doComplete() : boolean {
+        if (this.#mode !== FlussStageMode.Running) {
+            return false;
+        }
+
+        this.#mode = FlussStageMode.Completed;
+        return true;
     }
 }
 
